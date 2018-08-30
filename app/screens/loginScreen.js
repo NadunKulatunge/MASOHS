@@ -6,7 +6,7 @@ import {
     Button
 } from "react-native";
 
-class loginScreen extends Component {
+class LoginScreen extends Component {
 
     static navigationOptions = {
         header: null
@@ -21,7 +21,7 @@ class loginScreen extends Component {
         );
     }
 }
-export default loginScreen;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
     container: {
