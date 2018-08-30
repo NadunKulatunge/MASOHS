@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation'
 
-import LoginScreen from './app/screens/loginScreen.js'
-import HomeScreen from './app/screens/homeScreen.js'
+import LoginScreen from './app/screens/LoginScreen.js'
+import HomeScreen from './app/screens/HomeScreen.js'
 
 export default class App extends React.Component {
   render() {
