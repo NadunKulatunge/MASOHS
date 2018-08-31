@@ -15,7 +15,7 @@ class HomeScreen extends Component {
         return (
             <ScrollView style={styles.scrollContainer}>
                 <View style={styles.container}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} >
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('IncidentReporting')} >
                         <View style={styles.box}>
                             <Text><Ionicons name='md-checkmark-circle' size={40}/></Text>
                             <Text>Incident Reporting</Text>
@@ -23,6 +23,7 @@ class HomeScreen extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} >
                         <View style={styles.box}>
+                            <Text><Ionicons name='md-list' size={40}/></Text>
                             <Text>Health Monitoring</Text>
                         </View>
                     </TouchableOpacity>

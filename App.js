@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation'
 
 import LoginScreen from './app/screens/LoginScreen.js'
 import HomeScreen from './app/screens/HomeScreen.js'
+import IncidentReporting from './app/screens/IncidentReporting/Index.js'
 
 export default class App extends React.Component {
   render() {
@@ -15,7 +16,8 @@ export default class App extends React.Component {
 
 const AppStackNavigator = createStackNavigator({
   Login: LoginScreen,
-  Home: HomeScreen
+  Home: HomeScreen,
+  IncidentReporting: IncidentReporting
 
 })
 
