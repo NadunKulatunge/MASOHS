@@ -40,7 +40,7 @@ class LoginScreen extends Component {
             if(user && user.emailVerified){ this.props.navigation.navigate('Home') };
 
         })
-        this.signUpUser = this.signUpUser.bind(this);
+        //this.signUpUser = this.signUpUser.bind(this);
         
     }
 

@@ -11,6 +11,23 @@ import {Ionicons} from '@expo/vector-icons';
 
 class HomeScreen extends Component {
 
+    constructor(props) {
+        super(props)
+
+        this.state = ({
+            //email: '',
+            //password: ''
+        })
+
+        firebase.auth().onAuthStateChanged(user => {
+            //user account available and verified user
+            if(!user || !user.emailVerified){ this.props.navigation.navigate('Login') };
+
+        })
+        //this.signUpUser = this.signUpUser.bind(this);
+        
+    }
+
     render() {
         return (
             <ScrollView style={styles.scrollContainer}>
