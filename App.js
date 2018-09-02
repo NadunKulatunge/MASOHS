@@ -1,25 +1,34 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { createStackNavigator } from 'react-navigation'
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
-import LoginScreen from './app/screens/LoginScreen.js'
-import HomeScreen from './app/screens/HomeScreen.js'
-import IncidentReporting from './app/screens/IncidentReporting/Index.js'
+import LoginScreen from './app/screens/Auth/LoginScreen.js';
+import HomeScreen from './app/screens/HomeScreen.js';
+import IncidentReporting from './app/screens/IncidentReporting/Index.js';
+import AuthLoadingScreen from './app/screens/Loading.js'
+
 
 export default class App extends React.Component {
   render() {
     return (
-      <AppStackNavigator />
+      <AppNavigator />
     );
   }
 }
 
-const AppStackNavigator = createStackNavigator({
-  Login: LoginScreen,
-  Home: HomeScreen,
-  IncidentReporting: IncidentReporting
+const AppStack = createStackNavigator({ Home: HomeScreen, IncidentReporting: IncidentReporting });
+const AuthStack = createStackNavigator({ Login: LoginScreen });
 
-})
+const AppNavigator = createSwitchNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    App: AppStack,
+    Auth: AuthStack,
+  },
+  {
+    initialRouteName: 'AuthLoading',
+  }
+);
 
 const styles = StyleSheet.create({
   container: {
