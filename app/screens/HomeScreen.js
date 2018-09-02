@@ -9,6 +9,9 @@ import {
 } from "react-native";
 import {Ionicons} from '@expo/vector-icons';
 
+//Initialize firebase
+import * as firebase from 'firebase';
+
 class HomeScreen extends Component {
 
     constructor(props) {
