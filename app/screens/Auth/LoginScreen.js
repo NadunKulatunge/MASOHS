@@ -57,6 +57,7 @@ class LoginScreen extends Component {
             var user = firebase.auth().currentUser;
             user.sendEmailVerification().then(function() {
                 alert("Email verification sent. Please verify your email address.");
+                firebase.auth().signOut()
             }).catch(function(error) { 
                 alert("Error sending email verification.");
             });

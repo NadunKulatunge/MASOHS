@@ -16,8 +16,8 @@ export default class App extends React.Component {
   }
 }
 
-const AppStack = createStackNavigator({ Home: HomeScreen, IncidentReporting: IncidentReporting });
-const AuthStack = createStackNavigator({ Login: LoginScreen });
+const AppStack = createStackNavigator({ Home: HomeScreen, IncidentReporting: IncidentReporting ,}); //After Authorization
+const AuthStack = createStackNavigator({ Login: LoginScreen }); //Before Authorization
 
 const AppNavigator = createSwitchNavigator(
   {
