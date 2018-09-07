@@ -10,6 +10,9 @@ import {
 import {Ionicons} from '@expo/vector-icons';
 import { Icon, Button, Badge } from 'native-base';
 
+//Custom Components
+import RightHeaderButtons from '../components/RightHeaderButtons.js';
+
 //Initialize firebase
 import * as firebase from 'firebase';
 
@@ -18,35 +21,19 @@ class HomeScreen extends Component {
     static navigationOptions = {
         title: 'MASSOHS',
         headerRight: (
-            <View style={{flexDirection: 'row'}}>
-            <Button transparent >
-                <Text style={{marginHorizontal:9}}><Icon name='md-alert' style={{fontSize: 15, color: 'red'}}/><Icon name='notifications'/></Text>
-            </Button>
-            <Button transparent >
-                <Text style={{marginHorizontal:9}}><Icon name='md-alert' style={{fontSize: 15, color: 'red'}}/><Icon name='person'/></Text>
-            </Button>
-            <Button transparent >
-                <Text style={{marginHorizontal:9, marginRight:12}}><Icon name='settings'/></Text>
-            </Button>
-            </View>
+            <RightHeaderButtons/> //From custom components
         ),
     }
 
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
+            if(!user || !user.emailVerified){ this.props.navigation.navigate('Login') };
+            console.log(user);
+        })
+    }
+        
     constructor(props) {
         super(props)
-
-        this.state = ({
-            //email: '',
-            //password: ''
-        })
-
-        firebase.auth().onAuthStateChanged(user => {
-            //user account available and verified user
-            if(!user || !user.emailVerified){ this.props.navigation.navigate('Login') };
-
-        })
-        //this.signUpUser = this.signUpUser.bind(this);
-        
     }
 
     render() {

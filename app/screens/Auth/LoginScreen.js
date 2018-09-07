@@ -3,12 +3,14 @@ import {
     View,
     Text,
     StyleSheet,
+    Image
 
 } from "react-native";
-import { Container, Content, Header, Form, Input, Item, Button, Label } from 'native-base';
+import { Container, Content, Header, Form, Input, Item, Button, Label, Icon, Spinner } from 'native-base';
 
 //Initialize firebase
 import * as firebase from 'firebase';
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBw7Nr1erf87fArWkv4k3kgRRzRBEkz3RE",
@@ -32,7 +34,8 @@ class LoginScreen extends Component {
 
         this.state = ({
             email: '',
-            password: ''
+            password: '',
+            signinLoading: false
         })
 
         firebase.auth().onAuthStateChanged(user => {
@@ -44,61 +47,40 @@ class LoginScreen extends Component {
         
     }
 
-    signUpUser = (email, password) => {
-       
-        //Validations
-        if(this.state.password.length < 6){
-            alert("Password should be at least 6 characters.");
-            return;
-        }
-        //Signup Firebase
-        firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user) {
-            //Sending email verifications
-            var user = firebase.auth().currentUser;
-            user.sendEmailVerification().then(function() {
-                alert("Email verification sent. Please verify your email address.");
-                firebase.auth().signOut()
-            }).catch(function(error) { 
-                alert("Error sending email verification.");
-            });
-            
-        }).catch(function(error) {
-            switch(error.code){
-
-                case "EMAIL_TAKEN":
-                alert("The new user account cannot be created because the email is already in use.");
-                break;
-    
-                case "INVALID_EMAIL":
-                alert("The specified email is not a valid email.");
-                break;
-    
-                default:
-                alert("Error creating user.");
-            }
-        });
-        
-    }
-
     loginUser = (email, password) => {
         //Login Firebase
+        this.setState({signinLoading: true});
         firebase.auth().signInWithEmailAndPassword(email, password).then(function(user) {
             //console.log(user)
             if(user && user.emailVerified){ 
                 this.props.navigation.navigate('Home');
-            }
-            else if(!user.emailVerified){ 
+            }else if(!firebase.auth().currentUser.emailVerified){ 
                 alert('Please verify your email account!');
             }
-            
-        }).catch(function(error) {
+            this.setState({signinLoading: false});
+        }.bind(this)).catch(function(error) {
             alert(error.message);
-        });
+            this.setState({signinLoading: false});
+        }.bind(this));
     }
 
     render() {
         return (
             <Container style={styles.container}>
+            <Image
+        style={{
+          backgroundColor: '#fff',
+          flex: 1,
+          position: 'absolute',
+          width: '110%',
+          height: '110%',
+          justifyContent: 'center',
+        }}
+
+        source={require('../../assets/LoginBackground.jpg')}
+      />
+ 
+            
                 <Form>
                     <Item floatingLabel>
                         <Label>Email</Label>
@@ -119,21 +101,37 @@ class LoginScreen extends Component {
                             value={this.state.password}
                         />
                     </Item>
-
-                    <Button style={{ marginTop:10 }}
-                        full
-                        rounded
-                        success
-                        onPress = { () => this.loginUser(this.state.email, this.state.password)}>
-                        <Text style={{ color:'white' }}>Login</Text>
-                    </Button>
+                    
+                    { this.state.signinLoading === true ? 
+                        <Button style={{ marginTop:40 }}
+                            full
+                            rounded
+                            success>
+                            <View><Spinner color='white' /></View>
+                            <Text style={{ color:'white' }}>Login</Text>
+                        </Button>
+                        :
+                        <Button style={{ marginTop:40 }}
+                            full
+                            rounded
+                            success
+                            onPress = { () => this.loginUser(this.state.email, this.state.password)}>
+                            <Text style={{ color:'white' }}>Login</Text>
+                        </Button>
+                    }
                     <Button style={{ marginTop:10 }}
                         full
                         rounded
                         primary
-                        onPress = { () => this.signUpUser(this.state.email, this.state.password)}>
+                        onPress = { () => this.props.navigation.navigate('SignUp')}>
                         <Text style={{ color:'white' }}>Sign Up</Text>
                     </Button>
+
+                    
+                    <Button transparent full primary>
+                        <Text>Forgot Password ?</Text>
+                    </Button>
+                    
                 </Form>
             </Container>
         );

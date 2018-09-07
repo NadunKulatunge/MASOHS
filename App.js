@@ -4,8 +4,10 @@ import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
 import LoginScreen from './app/screens/Auth/LoginScreen.js';
 import HomeScreen from './app/screens/HomeScreen.js';
+import SignUpScreen from './app/screens/Auth/SignUpScreen.js'
+
 import IncidentReporting from './app/screens/IncidentReporting/Index.js';
-import AuthLoadingScreen from './app/screens/Loading.js'
+import AuthLoadingScreen from './app/screens/Loading.js';
 
 
 export default class App extends React.Component {
@@ -17,7 +19,7 @@ export default class App extends React.Component {
 }
 
 const AppStack = createStackNavigator({ Home: HomeScreen, IncidentReporting: IncidentReporting ,}); //After Authorization
-const AuthStack = createStackNavigator({ Login: LoginScreen }); //Before Authorization
+const AuthStack = createStackNavigator({ Login: LoginScreen, SignUp: SignUpScreen }); //Before Authorization
 
 const AppNavigator = createSwitchNavigator(
   {
