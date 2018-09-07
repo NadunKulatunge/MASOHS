@@ -35,7 +35,8 @@ class LoginScreen extends Component {
         this.state = ({
             email: '',
             password: '',
-            signinLoading: false
+            signinLoading: false,
+            forgotpasswordLoading: false
         })
 
         firebase.auth().onAuthStateChanged(user => {
@@ -63,6 +64,25 @@ class LoginScreen extends Component {
             this.setState({signinLoading: false});
         }.bind(this));
     }
+
+    forgotPassword = (email) => {
+        if( this.state.email == '' ){
+            alert("Please enter your email address first.");
+            return;
+        }
+        this.setState({forgotpasswordLoading: true});
+        var auth = firebase.auth();
+        auth.sendPasswordResetEmail(email).then(function() {
+            alert("Password reset email sent");
+            this.setState({forgotpasswordLoading: false});
+        }.bind(this)).catch(function(error) {
+            alert(error.message);
+            this.setState({forgotpasswordLoading: false});
+        }.bind(this));
+    }
+    
+
+
 
     render() {
         return (
@@ -127,11 +147,17 @@ class LoginScreen extends Component {
                         <Text style={{ color:'white' }}>Sign Up</Text>
                     </Button>
 
-                    
-                    <Button transparent full primary>
-                        <Text>Forgot Password ?</Text>
-                    </Button>
-                    
+                    { this.state.forgotpasswordLoading === true ? 
+                        <Button transparent full primary>
+                            <View><Spinner color='black' /></View>
+                            <Text>Forgot Password ?</Text>
+                        </Button>
+                    :
+                        <Button transparent full primary 
+                            onPress = { () => this.forgotPassword(this.state.email)}>
+                            <Text>Forgot Password ?</Text>
+                        </Button>
+                    }
                 </Form>
             </Container>
         );
