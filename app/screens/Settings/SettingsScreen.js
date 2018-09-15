@@ -1,25 +1,25 @@
 import React, { Component } from "react";
 import { 
-    View,
-    Text,
-    StyleSheet
+  View,
+  Text,
+  StyleSheet
 } from "react-native";
 
-class SettingsScreen extends Component {
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text>SettingsScreen</Text>
-            </View>
-        );
-    }
+class Settings extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Settings</Text>
+      </View>
+    );
+  }
 }
-export default SettingsScreen;
+export default Settings;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
 });

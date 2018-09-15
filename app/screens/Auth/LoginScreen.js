@@ -102,7 +102,7 @@ class LoginScreen extends Component {
  
             
                 <Form>
-                    <Item floatingLabel>
+                    <Item >
                         <Label>Email</Label>
                         <Input
                             autoCorrect={false}
@@ -111,7 +111,7 @@ class LoginScreen extends Component {
                             value={this.state.email}
                         />
                     </Item>
-                    <Item floatingLabel>
+                    <Item >
                         <Label>Password</Label>
                         <Input
                             secureTextEntry={true}

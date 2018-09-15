@@ -18,17 +18,17 @@ import * as firebase from 'firebase';
 
 class HomeScreen extends Component {
 
-    static navigationOptions = {
-        title: 'MASSOHS',
+    static navigationOptions = ({navigation}) => ({
+        title: 'MASOHS',
         headerRight: (
-            <RightHeaderButtons/> //From custom components
+            <RightHeaderButtons navigation={navigation}/>
         ),
-    }
+    });
 
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
             if(!user || !user.emailVerified){ this.props.navigation.navigate('Login') };
-            console.log(user);
+            //console.log(user);
         })
     }
         
@@ -52,19 +52,19 @@ class HomeScreen extends Component {
                             <Text style={styles.boxText}>Health Monitoring</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} >
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')} >
                         <View style={[styles.box, {backgroundColor: '#90A4AE'}]}>
                             <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-watch' size={50}/></Text>
                             <Text style={styles.boxText}>Connect Device</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} >
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')} >
                         <View style={[styles.box, {backgroundColor: '#AED581'}]}>
                             <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-bicycle' size={50}/></Text>
                             <Text style={styles.boxText}>Competitions</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} >
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Chat')} >
                         <View style={[styles.box, {backgroundColor: '#9575CD'}]}>
                             <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='ios-text' size={50}/></Text>
                             <Text style={styles.boxText}>Notifications</Text>

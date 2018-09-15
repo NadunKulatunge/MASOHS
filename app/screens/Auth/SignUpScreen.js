@@ -48,7 +48,7 @@ class SignUp extends Component {
         }else if( this.state.email == '' ){
             alert("Please insert an email address.");
             return;
-        }else if ( this.state.email.split("@")[1]!="cse.mrt.ac.lk" ){
+        }else if ( this.state.email.split("@")[1]!="cse.mrt.ac.lk" && this.state.email.split("@")[1]!="gmail.com"){
             alert("Please provide your company email address.");
             return;
         }else if( this.state.password1.length < 6 || this.state.password2.length < 6 ){
@@ -121,7 +121,7 @@ class SignUp extends Component {
       />
                 <H1 style={{textAlign: 'center'}}>Sign Up</H1>
                 <Form>
-                    <Item floatingLabel>
+                    <Item >
                         <Label>Display Name</Label>
                         <Input
                             autoCorrect={false}
@@ -130,7 +130,7 @@ class SignUp extends Component {
                             value={this.state.displayName}
                         />
                     </Item>
-                    <Item floatingLabel>
+                    <Item >
                         <Label>Email</Label>
                         <Input
                             autoCorrect={false}
@@ -139,9 +139,9 @@ class SignUp extends Component {
                             value={this.state.email}
                         />
                     </Item>
-                    <Item floatingLabel>
-                        <Label>Password</Label>
+                    <Item >
                         <Input
+                            placeholder='Password'
                             secureTextEntry={true}
                             autoCorrect={false}
                             autoCapitalize="none"
@@ -149,7 +149,7 @@ class SignUp extends Component {
                             value={this.state.password1}
                         />
                     </Item>
-                    <Item floatingLabel>
+                    <Item >
                         <Label>Retype Password</Label>
                         <Input
                             secureTextEntry={true}

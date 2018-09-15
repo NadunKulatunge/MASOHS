@@ -15,10 +15,10 @@ class RightHeaderButton extends Component {
             <Button transparent >
                 <Text style={{marginHorizontal:9}}><Icon name='md-alert' style={{fontSize: 15, color: 'red'}}/><Icon name='notifications'/></Text>
             </Button>
-            <Button transparent >
+            <Button transparent onPress = { () => firebase.auth().signOut()}>
                 <Text style={{marginHorizontal:9}}><Icon name='md-alert' style={{fontSize: 15, color: 'red'}}/><Icon name='person'/></Text>
             </Button>
-            <Button transparent onPress = { () => firebase.auth().signOut()}>
+            <Button transparent onPress = { () => this.props.navigation.navigate('Settings')}>
                 <Text style={{marginHorizontal:9, marginRight:12}}><Icon name='settings'/></Text>
             </Button>
             </View>
