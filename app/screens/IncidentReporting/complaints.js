@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View, Alert,KeyboardAvoidingView } from 'react-native';
 import { ListItem,Label,Container, Content, Text, Icon, Card, CardItem, Item, Body, Right, Button, Input, Form, Textarea, Left, Root } from 'native-base';
 import { Font, AppLoading } from "expo";
+import Fire from '../Chat/Fire';
+import firebase from 'firebase';
+
 
 export default class Complain extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            username: null,
             reciever:null,
             msg:null,
             location:null,
@@ -24,15 +26,10 @@ export default class Complain extends Component{
         this.setState({ loading: false });
     }
 
-    postMsg = (username, reciever, location, msg, usernameClear, recieverClear,locationClear, msgClear) => {
-    if((this.state.msg!=null)&&(this.state.username!=null)&&(this.state.reciever!=null)){ 
-        const data=JSON.stringify({
-            "username": username,
-            "reciever": reciever,
-            "location":location,
-            "msg": msg,
-        })
-        
+    postMsg = ( reciever, location, msg) => {
+    username=Fire.shared.displayName
+    if((this.state.msg!=null)&&(this.state.reciever!=null)){ 
+        username=Fire.shared.displayName
         firebase.database().ref('complaints/').push({
             location,
             msg,
@@ -95,24 +92,18 @@ export default class Complain extends Component{
               </KeyboardAvoidingView>
               :
               <KeyboardAvoidingView behavior="padding">
-                  <CardItem>
-                      <Item floatingLabel>
-                          <Label>Username</Label>
-                          <Input onChangeText={(username) => this.setState({username})} ref={'usernameClear'}/>
-                      </Item>
-                  </CardItem>
 
                   <CardItem>
-                      <Item floatingLabel>
-                        <Label>Risk Location</Label>  
-                        <Input onChangeText={(location) => this.setState({location})} ref={'locationClear'}/>
-                      </Item>
-                  </CardItem>
-
-                  <CardItem>
-                      <Item floatingLabel>
+                      <Item stackedLabel>
                       <Label>Reciever</Label>
-                          <Input  onChangeText={(reciever) => this.setState({reciever})} ref={'recieverClear'} />
+                          <Input  onChangeText={(reciever) => this.setState({reciever})} />
+                      </Item>
+                  </CardItem>
+
+                  <CardItem>
+                      <Item stackedLabel>
+                        <Label>Risk Location</Label>  
+                        <Input onChangeText={(location) => this.setState({location})} />
                       </Item>
                   </CardItem>
 
@@ -121,14 +112,14 @@ export default class Complain extends Component{
                   </ListItem>
                 
                       <Form style = {{ marginLeft: 20, marginRight:20 }}>
-                          <Textarea rowSpan={5} bordered onChangeText={(msg) => this.setState({msg})} ref={'msgClear'}/>
+                          <Textarea rowSpan={5} bordered onChangeText={(msg) => this.setState({msg})}/>
                       </Form>
+
                   <CardItem>
-                      
                       <Left>
                       </Left>
                       <Body>
-                          <Button rounded success onPress={() => this.postMsg(this.state.username, this.state.reciever, this.state.location, this.state.msg, 'usernameClear', 'recieverClear', 'locationClear','msgClear')}>
+                          <Button rounded success onPress={() => this.postMsg( this.state.reciever, this.state.location, this.state.msg)}>
                           <Text>Submit</Text>
                           </Button>
                       </Body>
