@@ -29,16 +29,6 @@ class ChatScreen extends Component {
         headerRight: (
             <RightHeaderButtons navigation={navigation}/>
         ),
-        headerStyle: {
-            backgroundColor: '#8BC24A',
-            elevation: 0,
-            borderBottomWidth: 0,
-          
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
     });
 
     state = {
@@ -226,14 +216,18 @@ class ChatScreen extends Component {
         }
       };
 
-    _takePhoto = async () => {
+    askPermissions = async () => {
         await Expo.Permissions.askAsync(Permissions.CAMERA);
         await Expo.Permissions.askAsync(Permissions.CAMERA_ROLL)
+    }
+
+    _takePhoto = async () => {
+        this.askPermissions();
         //console.log(status1);
         //console.log(status2);
             let pickerResult = await ImagePicker.launchCameraAsync({ //Expo launch camera
                 allowsEditing: true,
-                quality : 0.1,
+                quality : 0.3,
             });
     
             this._handleImagePicked(pickerResult);
@@ -242,24 +236,26 @@ class ChatScreen extends Component {
     };
     
     _pickImage = async () => {
+        this.askPermissions();
         let pickerResult = await ImagePicker.launchImageLibraryAsync({ //Expo image picker library
           allowsEditing: true,
-          quality : 0.1, 
+          quality : 0.3, 
         });
         
         this._handleImagePicked(pickerResult);
     };
 
     _pickDocument = async () => {
+        this.askPermissions();
         let pickerValidationErrors = null; //Validations
-        let result = await DocumentPicker.getDocumentAsync({}); //Expo document picker library
+        let pickerResult = await DocumentPicker.getDocumentAsync({}); //Expo document picker library
         //Document selection 'success' or 'cancel'
-        const selected = result.type;
+        const selected = pickerResult.type;
 
         if( selected=='success' ){
-            const fileSize = result.size; //FileSize
+            const fileSize = pickerResult.size; //FileSize
             //FileType
-            const uriParts = result.name.split('.');
+            const uriParts = pickerResult.name.split('.');
             const fileType = uriParts[uriParts.length - 1];
             
 
@@ -269,9 +265,9 @@ class ChatScreen extends Component {
             }
             if(selected == 'success' && pickerValidationErrors == null){
                 if(['jpg', 'jpeg', 'bmp', 'gif', 'png'].includes(fileType)){
-                    this._handleImagePicked(result); //image upload 
+                    this._handleImagePicked(pickerResult); //image upload 
                 }else{
-                    this._handleDocumentPicked(result); //document upload
+                    this._handleDocumentPicked(pickerResult); //document upload
                 }
             }else if(pickerValidationErrors != null){
                 alert(pickerValidationErrors);
@@ -297,12 +293,12 @@ class ChatScreen extends Component {
         }
     };
 
-    _handleDocumentPicked = async result => {
+    _handleDocumentPicked = async pickerResult => {
         try {
           this.setState({ uploading: true });
     
-          if (!result.cancelled) {
-            uploadUrl = await uploadDocumentAsync(result.uri);
+          if (!pickerResult.cancelled) {
+            uploadUrl = await uploadDocumentAsync(pickerResult.uri);
           }
         } catch (e) {
           console.log(e);
