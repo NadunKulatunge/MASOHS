@@ -23,7 +23,26 @@ export default class App extends React.Component {
   }
 }
 
-const AppStack = createStackNavigator({ Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen}); //After Authorization
+const AppStack = createStackNavigator(
+  { 
+    Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen
+  },
+  {
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#009688',
+        elevation: 0,
+        borderBottomWidth: 0,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+          fontWeight: 'bold',
+      },
+    },
+  }
+  
+  
+  ); //After Authorization
 const AuthStack = createStackNavigator({ Login: LoginScreen, SignUp: SignUpScreen }); //Before Authorization
 
 const AppNavigator = createSwitchNavigator(
@@ -34,15 +53,7 @@ const AppNavigator = createSwitchNavigator(
   },
   {
     initialRouteName: 'AuthLoading',
-  }
-);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-});
+  
+);
 

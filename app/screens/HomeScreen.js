@@ -24,16 +24,6 @@ class HomeScreen extends Component {
         headerRight: (
             <RightHeaderButtons navigation={navigation}/>
         ),
-        headerStyle: {
-            backgroundColor: '#009688',
-            elevation: 0,
-            borderBottomWidth: 0,
-          
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
     });
 
     componentDidMount() {
@@ -110,7 +100,7 @@ const styles = StyleSheet.create({
     box: {
         margin: 2,
         height: Dimensions.get('window').height/3 - 27,
-        width : Dimensions.get('window').width/2 - 6,
+        width : responsiveWidth(50) - 7,
         justifyContent: 'center',
         alignItems: 'center',
         
