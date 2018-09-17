@@ -227,12 +227,18 @@ class ChatScreen extends Component {
       };
 
     _takePhoto = async () => {
-        let pickerResult = await ImagePicker.launchCameraAsync({ //Expo launch camera
-            allowsEditing: true,
-            quality : 0.1,
-        });
-
-        this._handleImagePicked(pickerResult);
+        await Expo.Permissions.askAsync(Permissions.CAMERA);
+        await Expo.Permissions.askAsync(Permissions.CAMERA_ROLL)
+        //console.log(status1);
+        //console.log(status2);
+            let pickerResult = await ImagePicker.launchCameraAsync({ //Expo launch camera
+                allowsEditing: true,
+                quality : 0.1,
+            });
+    
+            this._handleImagePicked(pickerResult);
+      
+        
     };
     
     _pickImage = async () => {
