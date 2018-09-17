@@ -14,6 +14,7 @@ import SettingsScreen from './app/screens/Settings/SettingsScreen.js'
 import IncidentReporting from './app/screens/IncidentReporting/Index.js';
 import AuthLoadingScreen from './app/screens/Loading.js';
 
+import * as appConst from './app/constants/Constants';
 
 export default class App extends React.Component {
   render() {
@@ -30,7 +31,7 @@ const AppStack = createStackNavigator(
   {
     navigationOptions: {
       headerStyle: {
-        backgroundColor: '#009688',
+        backgroundColor: appConst.THEME_COLOUR,
         elevation: 0,
         borderBottomWidth: 0,
       },

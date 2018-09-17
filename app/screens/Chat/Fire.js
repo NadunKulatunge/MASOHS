@@ -1,5 +1,8 @@
 import firebase from 'firebase'; 
 
+//Constants
+import * as appConst from '../../constants/Constants';
+
 class Fire {
   constructor() {
     this.state = {
@@ -46,14 +49,14 @@ class Fire {
   on = callback =>
     this.ref
       .orderByKey()
-      .limitToLast(10)
+      .limitToLast(appConst.CHAT_INITIAL_MESSAGE_COUNT)
       .on('child_added', snapshot => callback(this.parse(snapshot)));
 
   more = callback =>
     this.ref
       .orderByKey()
       .endAt(this.getLastMessageKey)
-      .limitToLast(6) //Getting one message more (Bcz the last displayed message key is the endKey)
+      .limitToLast(appConst.CHAT_LOAD_MORE_MESSAGE_COUNT + 1) //Getting one message more (Bcz the last displayed message key is the endKey)
       //.reverse()
       .on('child_added', snapshot => callback(this.parse(snapshot)));
 

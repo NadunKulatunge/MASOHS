@@ -20,6 +20,11 @@ import * as firebase from 'firebase';
 //Custom Components
 import RightHeaderButtons from '../../components/RightHeaderButtons.js';
 
+//Constants
+import * as appConst from '../../constants/Constants';
+import * as appErrorMsgs from '../../constants/ErrorMessages';
+
+
 console.disableYellowBox = true;
 
 class ChatScreen extends Component {
@@ -76,12 +81,12 @@ class ChatScreen extends Component {
         Fire.shared.more(message => {
 
             messageArray1.push(message);
-            if(count != 5){
+            if(count != appConst.CHAT_LOAD_MORE_MESSAGE_COUNT){
                 messageArray2.unshift(message);
             }
             count = count + 1;
 
-            if(count == 5 ){
+            if(count == appConst.CHAT_LOAD_MORE_MESSAGE_COUNT ){
                 for (let message of messageArray2) {
                     this.setState(previousState => ({
                         messages: GiftedChat.prepend(previousState.messages, message),
@@ -227,7 +232,7 @@ class ChatScreen extends Component {
         //console.log(status2);
             let pickerResult = await ImagePicker.launchCameraAsync({ //Expo launch camera
                 allowsEditing: true,
-                quality : 0.3,
+                quality : appConst.CHAT_IMAGE_QUALITY,
             });
     
             this._handleImagePicked(pickerResult);
@@ -239,7 +244,7 @@ class ChatScreen extends Component {
         this.askPermissions();
         let pickerResult = await ImagePicker.launchImageLibraryAsync({ //Expo image picker library
           allowsEditing: true,
-          quality : 0.3, 
+          quality : appConst.CHAT_IMAGE_QUALITY, 
         });
         
         this._handleImagePicked(pickerResult);
@@ -260,11 +265,11 @@ class ChatScreen extends Component {
             
 
             //Validations
-            if(fileSize > 5242880){ //File size validation in bytes
-                pickerValidationErrors = "File too large. Max file size 5MB."
+            if(fileSize > appConst.CHAT_MAX_FILE_SIZE){ //File size validation in bytes
+                pickerValidationErrors = appErrorMsgs.CHAT_MAX_FILE_SIZE_ERROR;
             }
             if(selected == 'success' && pickerValidationErrors == null){
-                if(['jpg', 'jpeg', 'bmp', 'gif', 'png'].includes(fileType)){
+                if(appConst.CHAT_IMAGE_FILE_TYPES.includes(fileType)){
                     this._handleImagePicked(pickerResult); //image upload 
                 }else{
                     this._handleDocumentPicked(pickerResult); //document upload
