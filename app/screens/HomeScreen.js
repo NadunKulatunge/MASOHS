@@ -23,6 +23,16 @@ class HomeScreen extends Component {
         headerRight: (
             <RightHeaderButtons navigation={navigation}/>
         ),
+        headerStyle: {
+            backgroundColor: '#009688',
+            elevation: 0,
+            borderBottomWidth: 0,
+          
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
     });
 
     componentDidMount() {
@@ -42,38 +52,38 @@ class HomeScreen extends Component {
                 <View style={styles.container}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('IncidentReporting')} >
                         <View style={[styles.box, {backgroundColor: '#4FC3F7'}]}>
-                            <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='ios-create' size={50}/></Text>
-                            <Text style={styles.boxText}>Incident Reporting</Text>
+                            <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='ios-create' size={60}/></Text>
+                            <Text style={styles.boxText}>Reporting</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} >
                         <View style={[styles.box, {backgroundColor: '#e57373'}]}>
-                            <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-pulse' size={50}/></Text>
-                            <Text style={styles.boxText}>Health Monitoring</Text>
+                            <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-pulse' size={60}/></Text>
+                            <Text style={styles.boxText}>Monitoring</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')} >
                         <View style={[styles.box, {backgroundColor: '#90A4AE'}]}>
-                            <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-watch' size={50}/></Text>
-                            <Text style={styles.boxText}>Connect Device</Text>
+                            <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-watch' size={60}/></Text>
+                            <Text style={styles.boxText}>Devices</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')} >
                         <View style={[styles.box, {backgroundColor: '#AED581'}]}>
-                            <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-bicycle' size={50}/></Text>
+                            <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-bicycle' size={60}/></Text>
                             <Text style={styles.boxText}>Competitions</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Chat')} >
                         <View style={[styles.box, {backgroundColor: '#9575CD'}]}>
-                            <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='ios-text' size={50}/></Text>
-                            <Text style={styles.boxText}>Notifications</Text>
+                            <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='ios-text' size={60}/></Text>
+                            <Text style={styles.boxText}>Chat</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} >
                         <View style={[styles.box, {backgroundColor: '#FFB74D'}]}>
-                            <Text style={{color: 'rgba(0,0,0,0.5)'}}><Icon name='md-alert' style={{fontSize: 20, color: 'red'}}/><Ionicons name='md-filing' size={50}/></Text>
-                            <Text style={styles.boxText}>My Tasks</Text>
+                            <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-filing' size={60}/></Text>
+                            <Text style={styles.boxText}>Tasks<Icon name='md-alert' style={{fontSize: 20, color: 'red'}}/></Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -94,6 +104,7 @@ const styles = StyleSheet.create({
     },
     scrollContainer: {
         flex: 1,
+
     },
     box: {
         margin: 2,
@@ -107,6 +118,8 @@ const styles = StyleSheet.create({
     boxText: {
         fontSize: 20,
         textAlign: 'center',
+        fontWeight: "600",
+        color: 'rgba(0,0,0,0.5)',
         
     }
 

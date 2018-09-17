@@ -29,6 +29,16 @@ class ChatScreen extends Component {
         headerRight: (
             <RightHeaderButtons navigation={navigation}/>
         ),
+        headerStyle: {
+            backgroundColor: '#8BC24A',
+            elevation: 0,
+            borderBottomWidth: 0,
+          
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
     });
 
     state = {

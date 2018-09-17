@@ -13,13 +13,13 @@ class RightHeaderButton extends Component {
         return (
             <View style={{flexDirection: 'row'}}>
             <Button transparent >
-                <Text style={{marginHorizontal:9}}><Icon name='md-alert' style={{fontSize: 15, color: 'red'}}/><Icon name='notifications'/></Text>
+                <Text style={{marginHorizontal:9}}><Icon name='md-alert' style={{fontSize: 15, color: 'red'}}/><Icon name='md-notifications' style={{color: 'white'}}/></Text>
             </Button>
             <Button transparent onPress = { () => firebase.auth().signOut()}>
-                <Text style={{marginHorizontal:9}}><Icon name='md-alert' style={{fontSize: 15, color: 'red'}}/><Icon name='person'/></Text>
+                <Text style={{marginHorizontal:9}}><Icon name='md-alert' style={{fontSize: 15, color: 'red'}}/><Icon name='md-person' style={{color: 'white'}}/></Text>
             </Button>
             <Button transparent onPress = { () => this.props.navigation.navigate('Settings')}>
-                <Text style={{marginHorizontal:9, marginRight:12}}><Icon name='settings'/></Text>
+                <Text style={{marginHorizontal:9, marginRight:12}}><Icon name='md-settings' style={{color: 'white'}}/></Text>
             </Button>
             </View>
         );

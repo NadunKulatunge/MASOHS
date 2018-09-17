@@ -12,8 +12,9 @@ export default class IncidentReporting extends Component{
         <RightHeaderButtons navigation={navigation}/>
     ),
     headerStyle: {
-      backgroundColor: '#AED581',
+      backgroundColor: '#8BC24A',
       elevation: 0,
+      borderBottomWidth: 0,
     
     },
     headerTintColor: '#fff',
@@ -24,11 +25,11 @@ export default class IncidentReporting extends Component{
   render(){
     return(
       <Container>
-        <Tabs>
-          <Tab heading="Risks" tabStyle={{backgroundColor: '#AED581', borderTop: 0}} textStyle={{color: 'black'}} activeTabStyle={{backgroundColor: '#AED581'}} activeTextStyle={{color: 'black', fontWeight: 'normal'}}>
+        <Tabs tabBarUnderlineStyle={{backgroundColor: 'white'}}>
+          <Tab heading="RISKS" tabStyle={{backgroundColor: '#8BC24A', }} textStyle={{color: 'white'}} activeTabStyle={{backgroundColor: '#8BC24A'}} activeTextStyle={{color: 'white', fontWeight: 'bold'}}>
             <Tab1/>
           </Tab>
-          <Tab heading="Accidents" tabStyle={{backgroundColor: '#AED581'}} textStyle={{color: 'black'}} activeTabStyle={{backgroundColor: '#AED581'}} activeTextStyle={{color: 'black', fontWeight: 'normal'}}>
+          <Tab heading="ACCIDENTS" tabStyle={{backgroundColor: '#8BC24A',}} textStyle={{color: 'white'}} activeTabStyle={{backgroundColor: '#8BC24A'}} activeTextStyle={{color: 'white', fontWeight: 'bold'}}>
             <Tab2/>
           </Tab>
         </Tabs>
