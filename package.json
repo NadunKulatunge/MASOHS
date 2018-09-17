@@ -29,6 +29,7 @@
     "react-native-easy-listview-gridview": "^1.0.3",
     "react-native-gifted-chat": "^0.4.3",
     "react-native-nav": "^2.0.2",
+    "react-native-responsive-dimensions": "^1.0.2",
     "react-navigation": "^2.12.1"
   }
 }
