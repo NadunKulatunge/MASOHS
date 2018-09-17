@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
-import { ListItem,Label,Container, Content, Text, Icon, Card, CardItem, Item, Body, Right, Button, Input, Form, Textarea, Left, Root } from 'native-base';
+import { Picker, ListItem,Label,Container, Content, Text, Icon, Card, CardItem, Item, Body, Right, Button, Input, Form, Textarea, Left, Root } from 'native-base';
 import { Font, AppLoading } from "expo";
 import firebase from 'firebase';
 import Fire from '../Chat/Fire'
@@ -16,6 +16,13 @@ export default class Complain extends Component{
             loading:true,
         };
     }
+
+    onValueChangeReciever(value) {
+        this.setState({
+          reciever: value
+        });
+    }
+    
 
     async componentWillMount() {
         await Font.loadAsync({
@@ -91,17 +98,29 @@ export default class Complain extends Component{
               :
               <KeyboardAvoidingView behavior="padding">
                   
+                    
                   <CardItem>
-                      <Item stackedLabel>
-                      <Label>Reciever</Label>
-                          <Input  onChangeText={(reciever) => this.setState({reciever})} ref={'recieverClear'} />
-                      </Item>
+                    <Item Picker>
+                    <Label>Reciever</Label>  
+                    <Picker
+                        mode="dropdown"
+                        iosIcon={<Icon name="ios-arrow-down-outline" />}
+                        selectedValue={this.state.reciever}
+                        onValueChange={this.onValueChangeReciever.bind(this)}
+                    >
+                        <Picker.Item label="Select reciever" value="null" />
+                        <Picker.Item label="Chamin" value="Chamin" />
+                        <Picker.Item label="Nadun" value="Nadun" />
+                    </Picker>
+                    </Item>
                   </CardItem>
+                  
+
 
                   <CardItem>
                       <Item stackedLabel>
                         <Label>Accident Location</Label>  
-                        <Input onChangeText={(location) => this.setState({location})} ref={'locationClear'}/>
+                        <Input onChangeText={(location) => this.setState({location})}/>
                       </Item>
                   </CardItem>
 
@@ -110,7 +129,7 @@ export default class Complain extends Component{
                   </ListItem>
                 
                       <Form style = {{ marginLeft: 20, marginRight:20 }}>
-                          <Textarea rowSpan={5} bordered onChangeText={(msg) => this.setState({msg})} ref={'msgClear'}/>
+                          <Textarea rowSpan={5} bordered onChangeText={(msg) => this.setState({msg})}/>
                       </Form>
                   <CardItem>
                       

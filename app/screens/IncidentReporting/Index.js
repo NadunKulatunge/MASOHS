@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Container,Header,Tabs,Tab} from 'native-base';
-import Tab1 from './complaints';
-import Tab2 from './accidents';
+import Tab1 from './Complaints';
+import Tab2 from './Accidents';
 import RightHeaderButtons from '../../components/RightHeaderButtons.js';
 
 

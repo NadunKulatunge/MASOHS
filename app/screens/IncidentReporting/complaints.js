@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, View, Alert,KeyboardAvoidingView } from 'react-native';
-import { ListItem,Label,Container, Content, Text, Icon, Card, CardItem, Item, Body, Right, Button, Input, Form, Textarea, Left, Root } from 'native-base';
+import { StyleSheet, TouchableOpacity, Alert,KeyboardAvoidingView } from 'react-native';
+import { Picker, ListItem,Label,Container, Content, Text, Icon, Card, CardItem, Item, Body, Right, Button, Input, Form, Textarea, Left, Root } from 'native-base';
 import { Font, AppLoading } from "expo";
 import Fire from '../Chat/Fire';
 import firebase from 'firebase';
@@ -52,6 +52,12 @@ export default class Complain extends Component{
         }
     
     };
+    
+    onValueChangeReciever(value) {
+        this.setState({
+          reciever: value
+        });
+    }
 
     _togglePostCard(){
         this.setState({isSubmited:false})
@@ -94,10 +100,19 @@ export default class Complain extends Component{
               <KeyboardAvoidingView behavior="padding">
 
                   <CardItem>
-                      <Item stackedLabel>
-                      <Label>Reciever</Label>
-                          <Input  onChangeText={(reciever) => this.setState({reciever})} />
-                      </Item>
+                    <Item Picker>
+                    <Label>Reciever</Label>  
+                    <Picker
+                        mode="dropdown"
+                        iosIcon={<Icon name="ios-arrow-down-outline" />}
+                        selectedValue={this.state.reciever}
+                        onValueChange={this.onValueChangeReciever.bind(this)}
+                    >
+                        <Picker.Item label="Select reciever" value="null" />
+                        <Picker.Item label="Chamin" value="Chamin" />
+                        <Picker.Item label="Nadun" value="Nadun" />
+                    </Picker>
+                    </Item>
                   </CardItem>
 
                   <CardItem>
