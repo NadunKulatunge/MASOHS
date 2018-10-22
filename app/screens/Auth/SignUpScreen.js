@@ -40,7 +40,8 @@ class SignUp extends Component {
 
     signUpUser = (email, password, displayName) => {
         
-
+        email = email.trim(); //remove unnecessary white spaces
+        
         //Validations
         if( this.state.displayName.length < 3 || this.state.displayName.length > 20 ) {
             alert("Display name should have 3-20 characters.");
@@ -71,6 +72,14 @@ class SignUp extends Component {
                 displayName: displayName,
             }).then(function() {
                 user.sendEmailVerification().then(function() {
+
+                    /*Create user with unique key of 'uid'*/
+                    var usersRef = firebase.database().ref("users");
+                    usersRef.child(user.uid).set({ 
+                        displayName: user.displayName,
+                        email: user.email,
+                    });
+                   
                     alert("Email verification sent. Please verify your email address.");
                     firebase.auth().signOut()
                 }).catch(function(error) { 
@@ -79,6 +88,10 @@ class SignUp extends Component {
             }).catch(function(error) {
                 alert("Display name error");
             });
+
+            
+
+            //Finish loading
             this.setState({signupLoading: false});
             
         }.bind(this)).catch(function(error) {
@@ -122,8 +135,8 @@ class SignUp extends Component {
                 <H1 style={{textAlign: 'center'}}>Sign Up</H1>
                 <Form>
                     <Item >
-                        <Label>Display Name</Label>
                         <Input
+                            placeholder="Display Name"
                             autoCorrect={false}
                             autoCapitalize="words"
                             onChangeText={ (displayName) => this.setState({displayName}) }
@@ -131,8 +144,8 @@ class SignUp extends Component {
                         />
                     </Item>
                     <Item >
-                        <Label>Email</Label>
                         <Input
+                            placeholder="Email"
                             autoCorrect={false}
                             autoCapitalize="none"
                             onChangeText={ (email) => this.setState({email}) }
@@ -141,7 +154,7 @@ class SignUp extends Component {
                     </Item>
                     <Item >
                         <Input
-                            placeholder='Password'
+                            placeholder="Password"
                             secureTextEntry={true}
                             autoCorrect={false}
                             autoCapitalize="none"
@@ -150,8 +163,8 @@ class SignUp extends Component {
                         />
                     </Item>
                     <Item >
-                        <Label>Retype Password</Label>
                         <Input
+                            placeholder="Retype Password"
                             secureTextEntry={true}
                             autoCorrect={false}
                             autoCapitalize="none"

@@ -9,6 +9,7 @@
     },
     "android": {
       "package": "com.nadunkulatunge.masohs",
+      "googleServicesFile": "./google-services.json",
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",

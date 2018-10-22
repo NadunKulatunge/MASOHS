@@ -7,6 +7,7 @@ import {
     Dimensions,
     TouchableOpacity,
 } from "react-native";
+import { Permissions, Notifications } from 'expo';
 import {Ionicons} from '@expo/vector-icons';
 import { Icon, Button, Badge } from 'native-base';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
@@ -16,6 +17,9 @@ import RightHeaderButtons from '../components/RightHeaderButtons.js';
 
 //Initialize firebase
 import * as firebase from 'firebase';
+
+//Functions
+import { funcSendPushNotificationToAllUsersExceptCurrentUser } from "../utils/FirebasePushNotifications";
 
 class HomeScreen extends Component {
 
@@ -28,9 +32,62 @@ class HomeScreen extends Component {
 
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
-            if(!user || !user.emailVerified){ this.props.navigation.navigate('Login') };
-            //console.log(user);
+            if(!user || !user.emailVerified){ 
+                this.props.navigation.navigate('Login') 
+            } else {
+                /*Create user with unique key of 'uid'*/
+                var usersRef = firebase.database().ref("users");
+                usersRef.child(user.uid).set({ 
+                    displayName: user.displayName,
+                    email: user.email,
+                });
+                this.registerForPushNotificationsAsync(user);
+                //console.log(user);
+            }
+
+            funcSendPushNotificationToAllUsersExceptCurrentUser(user, "Hey Everyone!!", "If you recieve this msg send me a Thumbs Up. Thank you. ~ Nadun")
+
+              
+
         })
+    }
+
+    registerForPushNotificationsAsync = async (user) => {
+        
+        const { status: existingStatus } = await Permissions.getAsync(
+            Permissions.NOTIFICATIONS
+            
+          );
+          
+          let finalStatus = existingStatus;
+        
+          // only ask if permissions have not already been determined, because
+          // iOS won't necessarily prompt the user a second time.
+          if (existingStatus !== 'granted') {
+            // Android remote notification permissions are granted during the app
+            // install, so this will only ask on iOS
+            const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            finalStatus = status;
+          }
+          
+          // Stop here if the user did not grant permissions
+          if (finalStatus !== 'granted') {
+            return;
+          }
+          
+          // Get the token that uniquely identifies this device
+          let token = await Notifications.getExpoPushTokenAsync();
+          console.log(token)
+
+          var updates = {}
+          updates['/expoToken'] = token
+          
+              console.log(updates)
+          
+          firebase.database().ref('users').child(user.uid).update(updates)
+          
+          
+
     }
         
     constructor(props) {
