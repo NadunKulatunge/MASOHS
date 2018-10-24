@@ -12,6 +12,7 @@ import ChatScreen from './app/screens/Chat/ChatScreen.js'
 import SettingsScreen from './app/screens/Settings/SettingsScreen.js'
 
 import IncidentReporting from './app/screens/IncidentReporting/Index.js';
+import TaskScreen from './app/screens/Tasks/TaskScreen.js';
 import AuthLoadingScreen from './app/screens/Loading.js';
 
 import * as appConst from './app/constants/Constants';
@@ -26,7 +27,7 @@ export default class App extends React.Component {
 
 const AppStack = createStackNavigator(
   { 
-    Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen
+    Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen, Tasks: TaskScreen
   },
   {
     navigationOptions: {
