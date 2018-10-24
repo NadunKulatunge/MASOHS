@@ -4,7 +4,7 @@ import { Font, AppLoading } from "expo";
 import Fire from '../Chat/Fire';
 import firebase from 'firebase';
 
-export default class PendingTaks extends Component{
+export default class FinishedTasks extends Component{
 
     constructor(props) {
         super(props);

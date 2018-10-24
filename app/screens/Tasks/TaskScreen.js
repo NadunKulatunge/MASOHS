@@ -26,9 +26,6 @@ export default class TasksScreen extends Component{
           <Tab heading="Completed" tabStyle={{backgroundColor: '#009688',}} textStyle={{color: 'white'}} activeTabStyle={{backgroundColor: '#009688'}} activeTextStyle={{color: 'white', fontWeight: 'bold'}}>
             <Tab2/>
           </Tab>
-          <Tab heading="Reassigened" tabStyle={{backgroundColor: '#009688',}} textStyle={{color: 'white'}} activeTabStyle={{backgroundColor: '#009688'}} activeTextStyle={{color: 'white', fontWeight: 'bold'}}>
-            <Tab3/>
-          </Tab>
           <Tab heading="Sent" tabStyle={{backgroundColor: '#009688',}} textStyle={{color: 'white'}} activeTabStyle={{backgroundColor: '#009688'}} activeTextStyle={{color: 'white', fontWeight: 'bold'}}>
             <Tab4/>
           </Tab>
