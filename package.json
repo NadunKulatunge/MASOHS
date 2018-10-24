@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-native-scripts": "1.14.0",
     "jest-expo": "~27.0.0",
+    "react-native-scripts": "1.14.0",
     "react-test-renderer": "16.3.1"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
@@ -20,7 +20,16 @@
   },
   "dependencies": {
     "expo": "^27.0.1",
+    "firebase": "^5.4.2",
+    "native-base": "^2.8.0",
+    "prop-types": "^15.6.2",
     "react": "16.3.1",
-    "react-native": "~0.55.2"
+    "react-native": "~0.55.2",
+    "react-native-camera-roll-picker": "^1.2.3",
+    "react-native-easy-listview-gridview": "^1.0.3",
+    "react-native-gifted-chat": "^0.4.3",
+    "react-native-nav": "^2.0.2",
+    "react-native-responsive-dimensions": "^1.0.2",
+    "react-navigation": "^2.12.1"
   }
 }
