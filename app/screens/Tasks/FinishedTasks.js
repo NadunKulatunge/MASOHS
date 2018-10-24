@@ -4,23 +4,53 @@ import { Font, AppLoading } from "expo";
 import Fire from '../Chat/Fire';
 import firebase from 'firebase';
 
-export default class FinishedTasks extends Component{
+export default class PendingTaks extends Component{
 
     constructor(props) {
         super(props);
         this.state = {
             loading:true,
+            fire1_loaded:false,
+            fire2_loaded:false
         };
     }
+
+    pending=[]
+    completed=[];
+    userid=Fire.shared.uid;
 
     async componentWillMount() {
         await Font.loadAsync({
           Roboto: require("native-base/Fonts/Roboto.ttf"),
           Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
         });
+
+        await firebase.database().ref('accidents/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+          snapshot.forEach((item)=>{
+            if(item.val().status=="pending"){
+              this.pending.push(item);
+             }else if(item.val().status=="completed"){
+               this.completed.push(item);
+             }
+          }) 
+          this.setState({fire1_loaded:true});
+          this.forceUpdate();
+        });
+
+        await firebase.database().ref('complaints/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+          snapshot.forEach((item)=>{
+            if(item.val().status=="pending"){
+              this.pending.push(item);
+             }else if(item.val().status=="completed"){
+               this.completed.push(item);
+             }
+          }) 
+          this.setState({fire2_loaded:true});
+          this.forceUpdate();
+        });
+
         this.setState({ loading: false });
     }
-    
     render() {
 
         if (this.state.loading) {
@@ -29,22 +59,20 @@ export default class FinishedTasks extends Component{
             );
           
         }
-
-        var items = [
-            {name:'Ushira Karunasena', date:'10/10/2018'},{name: 'Chamin Kahaandawaarachchi', date:'08/10/2018'}
-          ];
+        
         return (
           <Container>
+            {this.state.fire1_loaded && this.state.fire2_loaded?
             <Content>
-            <List dataArray={items}
+            <List dataArray={this.pending}
             renderRow={(item) =>
             <ListItem thumbnail>
               <Left>
-                <Thumbnail square source={require('../../assets/check.png')} />
+                <Thumbnail square source={require('../../assets/pending.png')} />
               </Left>
               <Body>
-                <Text>{item.date}</Text>
-                <Text note numberOfLines={1}>{item.name}</Text>
+                <Text>{item.val().date}</Text>
+                <Text note numberOfLines={1}>{item.val().username}</Text>
               </Body>
               <Right>
                 <Button transparent>
@@ -54,10 +82,32 @@ export default class FinishedTasks extends Component{
             </ListItem>
             }>
           </List>
-            </Content>
+          <List dataArray={this.completed}
+            renderRow={(item) =>
+            <ListItem thumbnail>
+              <Left>
+                <Thumbnail square source={require('../../assets/check.png')} />
+              </Left>
+              <Body>
+                <Text>{item.val().date}</Text>
+                <Text note numberOfLines={1}>{item.val().username}</Text>
+              </Body>
+              <Right>
+                <Button transparent>
+                  <Text>View</Text>
+                </Button>
+              </Right>
+            </ListItem>
+            }>
+          </List>
+          </Content>
+          :
+          <Content>
+          <Text>Loading information. If this is taking too long please check your internet connection</Text>
+          </Content>
+          }
           </Container>
         );
-    }    
-      
+  }  
 }
 
