@@ -1,6 +1,13 @@
 //Initialize firebase
 import * as firebase from 'firebase';
 
+/**
+ * Send Push Notifications
+ * How to use:
+ * import * as FirebasePushNotifications from "../utils/FirebasePushNotifications";
+ * //FirebasePushNotifications.funcSendPushNotification("ExponentPushToken[P2ENaNMqe10xjTSFTmgBtE]", 'Test', 'Test2')
+ * //FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUser(user, "Hey Everyone!!", "If you recieve this msg send me a Thumbs Up. Thank you. ~ Nadun")
+ */
 export function funcSendPushNotification(token , title , body ) {
     return fetch('https://exp.host/--/api/v2/push/send', {
       body: JSON.stringify({

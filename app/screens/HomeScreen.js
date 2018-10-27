@@ -19,7 +19,8 @@ import RightHeaderButtons from '../components/RightHeaderButtons.js';
 import * as firebase from 'firebase';
 
 //Functions
-import { funcSendPushNotificationToAllUsersExceptCurrentUser } from "../utils/FirebasePushNotifications";
+
+import * as FirebasePushNotifications from "../utils/FirebasePushNotifications";
 
 class HomeScreen extends Component {
 
@@ -44,9 +45,9 @@ class HomeScreen extends Component {
                 this.registerForPushNotificationsAsync(user);
                 //console.log(user);
             }
-
+            //FirebasePushNotifications.funcSendPushNotification("ExponentPushToken[P2ENaNMqe10xjTSFTmgBtE]", 'Test', 'Test2')
             //funcSendPushNotificationToAllUsersExceptCurrentUser(user, "Hey Everyone!!", "If you recieve this msg send me a Thumbs Up. Thank you. ~ Nadun")
-
+        
               
 
         })
