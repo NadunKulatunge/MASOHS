@@ -1,31 +1,32 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
+import {Card, Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
 import { Font, AppLoading } from "expo";
 import Fire from '../Chat/Fire';
 import firebase from 'firebase';
+import { withNavigation } from 'react-navigation';
 
-export default class PendingTaks extends Component{
+class PendingTaks extends Component{
 
     constructor(props) {
         super(props);
         this.state = {
+            isModalVisible:false,
             loading:true,
             fire1_loaded:false,
-            fire2_loaded:false
+            fire2_loaded:false,
         };
     }
-
     accidents=[]
     complaints=[];
     userid=Fire.shared.uid;
-
+    
     async componentWillMount() {
         await Font.loadAsync({
           Roboto: require("native-base/Fonts/Roboto.ttf"),
           Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
         });
 
-        await firebase.database().ref('accidents/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+         firebase.database().ref('accidents/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
           snapshot.forEach((item)=>{
             if(item.val().status=="raised"){
              this.accidents.push(item);
@@ -35,7 +36,7 @@ export default class PendingTaks extends Component{
           this.forceUpdate();
         });
 
-        await firebase.database().ref('complaints/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+         firebase.database().ref('complaints/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
           snapshot.forEach((item)=>{
             if(item.val().status=="raised"){
               this.complaints.push(item);
@@ -45,7 +46,8 @@ export default class PendingTaks extends Component{
           this.forceUpdate();
         });
         this.setState({ loading: false });
-    }
+    };
+
     render() {
 
         if (this.state.loading) {
@@ -54,12 +56,11 @@ export default class PendingTaks extends Component{
             );
           
         }
-        
         return (
           <Container>
             {this.state.fire1_loaded && this.state.fire2_loaded?
             <Content>
-            <List dataArray={this.accidents}
+            <List dataArray={this.accidents.reverse()}  
             renderRow={(item) =>
             <ListItem thumbnail>
               <Left>
@@ -70,14 +71,14 @@ export default class PendingTaks extends Component{
                 <Text note numberOfLines={1}>{item.val().username}</Text>
               </Body>
               <Right>
-                <Button transparent>
+                <Button transparent onPress={()=>this.props.navigation.navigate('CompleteTask',{item,type:'Accident'})}>
                   <Text>View</Text>
                 </Button>
               </Right>
             </ListItem>
             }>
           </List>
-          <List dataArray={this.complaints}
+          <List dataArray={this.complaints.reverse()}
             renderRow={(item) =>
             <ListItem thumbnail>
               <Left>
@@ -88,7 +89,7 @@ export default class PendingTaks extends Component{
                 <Text note numberOfLines={1}>{item.val().username}</Text>
               </Body>
               <Right>
-                <Button transparent>
+              <Button transparent onPress={()=>this.props.navigation.navigate('CompleteTask',{item,type:'Risk'})}>
                   <Text>View</Text>
                 </Button>
               </Right>
@@ -106,3 +107,4 @@ export default class PendingTaks extends Component{
   }  
 }
 
+export default withNavigation(PendingTaks);

@@ -3,8 +3,10 @@ import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body
 import { Font, AppLoading } from "expo";
 import Fire from '../Chat/Fire';
 import firebase from 'firebase';
+import { withNavigation } from 'react-navigation';
 
-export default class SentTasks extends Component{
+
+class SentTasks extends Component{
 
     constructor(props) {
         super(props);
@@ -26,7 +28,7 @@ export default class SentTasks extends Component{
           Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
         });
 
-        await firebase.database().ref('accidents/').orderByChild('userid').equalTo(this.userid).on('value', (snapshot) => {
+         firebase.database().ref('accidents/').orderByChild('userid').equalTo(this.userid).on('value', (snapshot) => {
           snapshot.forEach((item)=>{
             if(item.val().status=="pending"){
               this.pending.push(item);
@@ -40,7 +42,7 @@ export default class SentTasks extends Component{
           this.forceUpdate();
         });
 
-        await firebase.database().ref('complaints/').orderByChild('userid').equalTo(this.userid).on('value', (snapshot) => {
+         firebase.database().ref('complaints/').orderByChild('userid').equalTo(this.userid).on('value', (snapshot) => {
           snapshot.forEach((item)=>{
             if(item.val().status=="pending"){
               this.pending.push(item);
@@ -98,7 +100,7 @@ export default class SentTasks extends Component{
                 <Text note numberOfLines={1}>{item.val().msg}</Text>
               </Body>
               <Right>
-                <Button transparent>
+                <Button transparent onPress={()=>this.props.navigation.navigate('ViewTask',{item})}>
                   <Text>View</Text>
                 </Button>
               </Right>
@@ -116,7 +118,7 @@ export default class SentTasks extends Component{
                 <Text note numberOfLines={1}>{item.val().msg}</Text>
               </Body>
               <Right>
-                <Button transparent>
+                <Button transparent onPress={()=>this.props.navigation.navigate('ViewTask',{item})}>
                   <Text>View</Text>
                 </Button>
               </Right>
@@ -134,3 +136,4 @@ export default class SentTasks extends Component{
   }  
 }
 
+export default withNavigation(SentTasks);
