@@ -129,7 +129,7 @@ class HomeScreen extends Component {
                             <Text style={styles.boxText}>Chat</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')} >
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Tasks')} >
                         <View style={[styles.box, {backgroundColor: '#FFB74D'}]}>
                             <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-filing' size={responsiveFontSize(9)}/></Text>
                             <Text style={styles.boxText}>Tasks<Icon name='md-alert' style={{fontSize: 20, color: 'red'}}/></Text>
