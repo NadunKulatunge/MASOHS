@@ -15,6 +15,11 @@ import IncidentReporting from './app/screens/IncidentReporting/Index.js';
 import TaskScreen from './app/screens/Tasks/TaskScreen.js';
 import AuthLoadingScreen from './app/screens/Loading.js';
 
+//Task Expanded
+import CompleteTaskScreen from './app/screens/Tasks/Expand/CompleteTask.js';
+import ApprovalPendingScreen from './app/screens/Tasks/Expand/ApprovalPendingTask.js';
+import ViewTaskScreen from './app/screens/Tasks/Expand/ViewTask.js';
+
 import * as appConst from './app/constants/Constants';
 
 export default class App extends React.Component {
@@ -27,7 +32,8 @@ export default class App extends React.Component {
 
 const AppStack = createStackNavigator(
   { 
-    Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen, Tasks: TaskScreen
+    Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen, Tasks: TaskScreen, 
+    CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen,
   },
   {
     navigationOptions: {

@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {Container,Header,Tabs,Tab} from 'native-base';
+import {Container,Tabs,Tab} from 'native-base';
 import Tab1 from './PendingTasks';
 import Tab2 from './FinishedTasks';
-import Tab3 from './RedirectedTasks';
 import Tab4 from './SentTasks';
 
 import RightHeaderButtons from '../../components/RightHeaderButtons.js';

@@ -43,7 +43,8 @@ export default class Complain extends Component{
     username=Fire.shared.displayName;
     userid=Fire.shared.uid;
     date=new Date().getDate()+'/'+ new Date().getMonth()+'/'+new Date().getFullYear();
-    type="risk";
+    type="complaints";
+    status="raised";
     console.log(date);
     if((this.state.msg!=null)&&(this.state.reciever!=null)){ 
         username=Fire.shared.displayName
@@ -54,7 +55,8 @@ export default class Complain extends Component{
             username,
             userid,
             date,
-            type
+            type,
+            status
         }).then((data)=>{
             //success
             console.log('success')

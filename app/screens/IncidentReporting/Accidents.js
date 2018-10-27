@@ -42,7 +42,8 @@ export default class Accident extends Component{
     postMsg = ( reciever, location, msg) => {
     username=Fire.shared.displayName;
     userid=Fire.shared.uid;
-    type="accident";
+    type="accidents";
+    status='raised';
     date=new Date().toDateString();
     if((this.state.msg!=null)&&(this.state.reciever!=null)){ 
         firebase.database().ref('accidents/').push({
@@ -52,7 +53,8 @@ export default class Accident extends Component{
             username,
             userid,
             date,
-            type
+            type,
+            status
         }).then((data)=>{
             //success
             console.log('data',data)
