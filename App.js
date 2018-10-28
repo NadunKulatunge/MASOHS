@@ -40,14 +40,10 @@ export default class App extends React.Component {
 const AppStack = createStackNavigator(
   { 
     Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen, Tasks: TaskScreen, 
-<<<<<<< HEAD
-    CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, Announcements: AnnouncementScreen,
+    CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, ApproveTask:ApproveTaskScreen, Announcements: AnnouncementScreen,
     Notifications: NotificationsScreen
   },
-=======
-    CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, ApproveTask:ApproveTaskScreen
- },
->>>>>>> 306f7df460fa6e00b1b62e7df5767c845f8eec63
+
   {
     navigationOptions: {
       headerStyle: {
