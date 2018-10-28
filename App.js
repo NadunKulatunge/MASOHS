@@ -20,6 +20,12 @@ import CompleteTaskScreen from './app/screens/Tasks/Expand/CompleteTask.js';
 import ApprovalPendingScreen from './app/screens/Tasks/Expand/ApprovalPendingTask.js';
 import ViewTaskScreen from './app/screens/Tasks/Expand/ViewTask.js';
 
+//Announcements
+import AnnouncementScreen from './app/screens/Announcements/Index';
+
+//Notifications
+import NotificationsScreen from './app/screens/Notifications/Index';
+
 import * as appConst from './app/constants/Constants';
 
 export default class App extends React.Component {
@@ -33,7 +39,8 @@ export default class App extends React.Component {
 const AppStack = createStackNavigator(
   { 
     Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen, Tasks: TaskScreen, 
-    CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen,
+    CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, Announcements: AnnouncementScreen,
+    Notifications: NotificationsScreen
   },
   {
     navigationOptions: {

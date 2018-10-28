@@ -23,7 +23,36 @@ export function funcSendPushNotification(token , title , body ) {
     });
 }
 
-export function funcSendPushNotificationToAllUsersExceptCurrentUser(currentUser , title , body ) {
+
+export function funcSendPushNotificationToUserID(currentUser, recieverID, title , body, navigateTo="") {
+    /*Create user with unique key of 'uid'*/
+    var usersRef = firebase.database().ref("privateNotifications/"+ recieverID);
+    usersRef.push({ 
+        title: title,
+        body: body,
+        sender: currentUser.uid,
+        navigateTo: navigateTo
+    });
+
+    //find recievers token and if its available send him a push notification
+    var query = firebase.database().ref("users/"+ recieverID).orderByKey();
+    query.once("value")
+        .then(function(snapshot) {
+            console.log(snapshot)
+    });
+}
+
+//currentUser is the users JSON file
+export function funcSendPushNotificationToAllUsersExceptCurrentUser(currentUser , title , body, navigateTo="") {
+    /*Create user with unique key of 'uid'*/
+    var usersRef = firebase.database().ref("publicNotifications");
+    usersRef.push({ 
+        title: title,
+        body: body,
+        sender: currentUser.uid,
+        navigateTo: navigateTo
+    });
+
     var query = firebase.database().ref("users").orderByKey();
     query.once("value")
         .then(function(snapshot) {

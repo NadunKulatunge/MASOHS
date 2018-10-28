@@ -25,6 +25,9 @@ import * as appConst from '../../constants/Constants';
 import * as appErrorMsgs from '../../constants/ErrorMessages';
 
 
+//Offline Notice
+import OfflineNotice from '../../components/OfflineNotice'
+
 console.disableYellowBox = true;
 
 class ChatScreen extends Component {
@@ -181,6 +184,7 @@ class ChatScreen extends Component {
     render() {
         return (
             <View style={{flex:1}}>
+            <OfflineNotice />
             {this._maybeRenderUploadingOverlay()}
             <GiftedChat
                 messages={this.state.messages}
