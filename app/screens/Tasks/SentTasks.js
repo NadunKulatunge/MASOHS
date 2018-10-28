@@ -82,7 +82,7 @@ class SentTasks extends Component{
                 <Text note numberOfLines={1}>{item.val().msg}</Text>
               </Body>
               <Right>
-                <Button transparent>
+                <Button transparent onPress={()=>this.props.navigation.navigate('ApproveTask',{item})}>
                   <Text>View</Text>
                 </Button>
               </Right>
