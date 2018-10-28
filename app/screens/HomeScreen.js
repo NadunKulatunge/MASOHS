@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Permissions, Notifications } from 'expo';
 import {Ionicons} from '@expo/vector-icons';
-import { Icon, Button, Badge } from 'native-base';
+import { Icon, Button, Badge, Container } from 'native-base';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 //Custom Components
@@ -19,8 +19,10 @@ import RightHeaderButtons from '../components/RightHeaderButtons.js';
 import * as firebase from 'firebase';
 
 //Functions
-
 import * as FirebasePushNotifications from "../utils/FirebasePushNotifications";
+
+//Offline Notice
+import OfflineNotice from '../components/OfflineNotice'
 
 class HomeScreen extends Component {
 
@@ -46,8 +48,8 @@ class HomeScreen extends Component {
                 //console.log(user);
             }
             //FirebasePushNotifications.funcSendPushNotification("ExponentPushToken[P2ENaNMqe10xjTSFTmgBtE]", 'Test', 'Test2')
-            //funcSendPushNotificationToAllUsersExceptCurrentUser(user, "Hey Everyone!!", "If you recieve this msg send me a Thumbs Up. Thank you. ~ Nadun")
-        
+            //FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUser(user, "Hey Everyone!!", "If you recieve this msg send me a Thumbs Up. Thank you. ~ Nadun")
+            FirebasePushNotifications.funcSendPushNotificationToUserID(user,'I1RXGmEvE5eaHIMQvemaz2stML93','Test2','Test Body2');
               
 
         })
@@ -98,6 +100,7 @@ class HomeScreen extends Component {
     render() {
         return (
             <ScrollView style={styles.scrollContainer}>
+            <OfflineNotice />
                 <View style={styles.container}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('IncidentReporting')} >
                         <View style={[styles.box, {backgroundColor: '#4FC3F7'}]}>
@@ -111,7 +114,7 @@ class HomeScreen extends Component {
                             <Text style={styles.boxText}>Monitoring</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')} >
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Announcements')} >
                         <View style={[styles.box, {backgroundColor: '#90A4AE'}]}>
                             <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-megaphone' size={responsiveFontSize(9)}/></Text>
                             <Text style={styles.boxText}>Announcements</Text>
