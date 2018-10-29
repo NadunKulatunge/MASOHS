@@ -104,7 +104,7 @@ class HomeScreen extends Component {
                             <Text style={styles.boxText}>Reporting</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')} >
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Monitoring')} >
                         <View style={[styles.box, {backgroundColor: '#e57373'}]}>
                             <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-pulse' size={responsiveFontSize(9)}/></Text>
                             <Text style={styles.boxText}>Monitoring</Text>

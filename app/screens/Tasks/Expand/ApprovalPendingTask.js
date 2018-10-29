@@ -16,7 +16,7 @@ export default class ApprovalPendingTask extends Component {
   type='Pending Confirmation';
   doTask(){
     firebase.database().ref(this.item.val().type+'/'+this.item.key).update({"status":'raised'});
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('Tasks');
   };
   
   render() {

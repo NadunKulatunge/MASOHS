@@ -17,12 +17,12 @@ export default class ApproveTask extends Component {
   
   Confirm(){
     firebase.database().ref(this.item.val().type+'/'+this.item.key).update({"status":'completed'});
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('Tasks');
   }; 
   
   Cancel(){
     firebase.database().ref(this.item.val().type+'/'+this.item.key).update({"status":'raised'});
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('Tasks');
   };
   
   render() {

@@ -16,7 +16,7 @@ export default class CompleteTask extends Component {
   type=this.props.navigation.getParam('type','');
   doTask(){
     firebase.database().ref(this.item.val().type+'/'+this.item.key).update({"status":'pending'});
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('Tasks');
   };
   
   render() {
