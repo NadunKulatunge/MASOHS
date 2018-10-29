@@ -1,6 +1,13 @@
 //Initialize firebase
 import * as firebase from 'firebase';
 
+/**
+ * Send Push Notifications
+ * How to use:
+ * import * as FirebasePushNotifications from "../utils/FirebasePushNotifications";
+ * //FirebasePushNotifications.funcSendPushNotification("ExponentPushToken[P2ENaNMqe10xjTSFTmgBtE]", 'Test', 'Test2')
+ * //FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUser(user, "Hey Everyone!!", "If you recieve this msg send me a Thumbs Up. Thank you. ~ Nadun")
+ */
 export function funcSendPushNotification(token , title , body ) {
     return fetch('https://exp.host/--/api/v2/push/send', {
       body: JSON.stringify({
@@ -16,7 +23,36 @@ export function funcSendPushNotification(token , title , body ) {
     });
 }
 
-export function funcSendPushNotificationToAllUsersExceptCurrentUser(currentUser , title , body ) {
+
+export function funcSendPushNotificationToUserID(currentUser, recieverID, title , body, navigateTo="") {
+    /*Create user with unique key of 'uid'*/
+    var usersRef = firebase.database().ref("privateNotifications/"+ recieverID);
+    usersRef.push({ 
+        title: title,
+        body: body,
+        sender: currentUser.uid,
+        navigateTo: navigateTo
+    });
+
+    //find recievers token and if its available send him a push notification
+    var query = firebase.database().ref("users/"+ recieverID).orderByKey();
+    query.once("value")
+        .then(function(snapshot) {
+            console.log(snapshot)
+    });
+}
+
+//currentUser is the users JSON file
+export function funcSendPushNotificationToAllUsersExceptCurrentUser(currentUser , title , body, navigateTo="") {
+    /*Create user with unique key of 'uid'*/
+    var usersRef = firebase.database().ref("publicNotifications");
+    usersRef.push({ 
+        title: title,
+        body: body,
+        sender: currentUser.uid,
+        navigateTo: navigateTo
+    });
+
     var query = firebase.database().ref("users").orderByKey();
     query.once("value")
         .then(function(snapshot) {
