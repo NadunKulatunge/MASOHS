@@ -23,6 +23,12 @@ import ApprovalPendingScreen from './app/screens/Tasks/Expand/ApprovalPendingTas
 import ViewTaskScreen from './app/screens/Tasks/Expand/ViewTask.js';
 import ApproveTaskScreen from './app/screens/Tasks/Expand/ApproveTask.js';
 
+//Announcements
+import AnnouncementScreen from './app/screens/Announcements/Index';
+
+//Notifications
+import NotificationsScreen from './app/screens/Notifications/Index';
+
 import * as appConst from './app/constants/Constants';
 
 export default class App extends React.Component {
@@ -35,9 +41,11 @@ export default class App extends React.Component {
 
 const AppStack = createStackNavigator(
   { 
-    Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Monitoring:HealthScreen, AddHealth:AddHealthScreen ,Settings: SettingsScreen, Tasks: TaskScreen, 
-    CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, ApproveTask:ApproveTaskScreen
- },
+    Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Monitoring:HealthScreen, AddHealth:AddHealthScreen, Settings: SettingsScreen, Tasks: TaskScreen, 
+    CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, ApproveTask:ApproveTaskScreen, Announcements: AnnouncementScreen,
+    Notifications: NotificationsScreen
+  },
+
   {
     navigationOptions: {
       headerStyle: {

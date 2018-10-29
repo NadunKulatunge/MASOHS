@@ -1,4 +1,5 @@
 import firebase from 'firebase'; 
+import * as FirebasePushNotifications from "../../utils/FirebasePushNotifications";
 
 //Constants
 import * as appConst from '../../constants/Constants';
@@ -124,9 +125,11 @@ class Fire {
         image: this.imageURL,
       };
       this.append(message);
+      FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUser(firebase.auth().currentUser , message.user.name, 'Message: ' + message.text, 'Chat')
     }
     this.removeimage();
     this.removeDocumentURL();
+    
   };
 
   append = message => this.ref.push(message);
