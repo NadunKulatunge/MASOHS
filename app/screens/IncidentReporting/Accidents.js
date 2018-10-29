@@ -44,7 +44,7 @@ export default class Accident extends Component{
     userid=Fire.shared.uid;
     type="accidents";
     status='raised';
-    date=new Date().toDateString();
+    date=new Date().getDate()+'/'+ (new Date().getMonth()+1) +'/'+new Date().getFullYear();
     if((this.state.msg!=null)&&(this.state.reciever!=null)){ 
         firebase.database().ref('accidents/').push({
             location,

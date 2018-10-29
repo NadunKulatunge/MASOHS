@@ -27,6 +27,7 @@ class PendingTaks extends Component{
         });
 
          firebase.database().ref('accidents/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+           this.accidents=[];
           snapshot.forEach((item)=>{
             if(item.val().status=="raised"){
              this.accidents.push(item);
@@ -37,6 +38,7 @@ class PendingTaks extends Component{
         });
 
          firebase.database().ref('complaints/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+           this.complaints=[];
           snapshot.forEach((item)=>{
             if(item.val().status=="raised"){
               this.complaints.push(item);
