@@ -22,12 +22,15 @@ class HealthScreen extends Component{
         this.state = {
             loading:true,
             fire1_loaded:false,
+            fire2_loaded:false
         };
     }
 
     pressure_dates=[0];
     pressure_low=[0];
     pressure_high=[0];
+    weight_dates=[0];
+    weights=[0];
     userid=Fire.shared.uid;
 
     async componentWillMount() {
@@ -44,16 +47,25 @@ class HealthScreen extends Component{
             this.pressure_low.push(parseFloat(item.val().bPresLow));
             this.pressure_high.push(parseFloat(item.val().bPresHigh));
             this.pressure_dates.push(item.val().date);
-            console.log(this.pressure_high);
-            console.log(this.pressure_low);
-            console.log(this.pressure_dates);
           }) 
           this.setState({fire1_loaded:true});
           this.forceUpdate();
         });
+        firebase.database().ref('health/weight').orderByChild('userid').equalTo(this.userid).on('value', (snapshot) => {
+          this.weight_dates=[0];
+          this.weights=[0];
+         snapshot.forEach((item)=>{
+           this.weights.push(parseFloat(item.val().weight));
+           this.weight_dates.push(item.val().date);
+         }) 
+         this.setState({fire2_loaded:true});
+         this.forceUpdate();
+       });
         
         this.setState({ loading: false });
+
     }
+
     render() {
 
         if (this.state.loading) {
@@ -65,7 +77,7 @@ class HealthScreen extends Component{
         
         return (
           <Container>
-          {this.state.fire1_loaded?
+          {this.state.fire1_loaded&&this.state.fire2_loaded?
           <Content>
           <Card>
             <CardItem>
@@ -76,7 +88,7 @@ class HealthScreen extends Component{
               <LineChart
                 data={{
                   labels: this.pressure_dates,
-                  datasets: [{data: this.pressure_low},{data: this.pressure_high},]
+                  datasets: [{data: this.pressure_low},{data:this.pressure_high}]
                 }}
                   width={Dimensions.get('window').width} // from react-native
                   height={220}
@@ -90,7 +102,47 @@ class HealthScreen extends Component{
                       borderRadius: 16
                     }
                 }}
-                bezier style={{
+                bezier
+                 style={{
+                  marginVertical: 8,
+                  borderRadius: 16
+                }}
+              />
+            </View>
+            </CardItem>
+            <CardItem>
+              <Right>
+              <Button transparent onPress={()=>this.props.navigation.navigate('AddHealth')}>
+                  <Text>Add</Text>
+                </Button>
+              </Right>
+              </CardItem>
+            </Card>
+            <Card>
+            <CardItem>
+            <View>
+              <Text>
+                Weight (kg)
+              </Text>
+              <LineChart
+                data={{
+                  labels: this.weight_dates,
+                  datasets: [{data: this.weights}]
+                }}
+                  width={Dimensions.get('window').width} // from react-native
+                  height={220}
+                  chartConfig={{
+                    backgroundColor: '#aed581',
+                    backgroundGradientFrom: '#e1ffb8',
+                    backgroundGradientTo: '#e1ffb8',
+                    decimalPlaces: 2, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(0,0,0, ${opacity})`,
+                    style: {
+                      borderRadius: 16
+                    }
+                }}
+                bezier
+                 style={{
                   marginVertical: 8,
                   borderRadius: 16
                 }}
