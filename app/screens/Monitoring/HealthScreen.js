@@ -110,13 +110,6 @@ class HealthScreen extends Component{
               />
             </View>
             </CardItem>
-            <CardItem>
-              <Right>
-              <Button transparent onPress={()=>this.props.navigation.navigate('AddHealth')}>
-                  <Text>Add</Text>
-                </Button>
-              </Right>
-              </CardItem>
             </Card>
             <Card>
             <CardItem>
@@ -149,14 +142,10 @@ class HealthScreen extends Component{
               />
             </View>
             </CardItem>
-            <CardItem>
-              <Right>
-              <Button transparent onPress={()=>this.props.navigation.navigate('AddHealth')}>
-                  <Text>Add</Text>
-                </Button>
-              </Right>
-              </CardItem>
             </Card>
+              <Button block info onPress={()=>this.props.navigation.navigate('AddHealth')}>
+                  <Text>Add New Data</Text>
+              </Button>
           </Content>
           :
           <Content>
