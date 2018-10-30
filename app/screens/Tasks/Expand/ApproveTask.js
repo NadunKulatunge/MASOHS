@@ -40,20 +40,17 @@ export default class ApproveTask extends Component {
             </CardItem>
             <CardItem>
               <Left>
-              <Body>
-                <Text>
-                  {this.item.val().msg}
-                </Text>
-              </Body>
-              </Left>
-            </CardItem>
-            <CardItem>
-              <Left>
                 <Button transparent textStyle={{color: '#87838B'}}>
                   <Icon name="person" />
                   <Text>{this.item.val().username}</Text>
                   <Icon name="calendar" />
                   <Text>{this.item.val().date}</Text>
+                </Button>
+              </Left>
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Button transparent textStyle={{color: '#87838B'}}>
                   <Icon name="pin" />
                   <Text>{this.item.val().location}</Text>
                 </Button>
