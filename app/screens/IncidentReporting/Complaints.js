@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Alert,KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, TouchableOpacity, Alert,KeyboardAvoidingView } from 'react-native';
 import { Picker, ListItem,Label,Container, Content, Text, Icon, Card, CardItem, Item, Body, Right, Button, Input, Form, Textarea, Left, Root } from 'native-base';
 import { Font, AppLoading } from "expo";
 import Fire from '../Chat/Fire';
 import firebase from 'firebase';
-import {FormStyle} from '../../styles/styles.js';
 
 
 export default class Complain extends Component{
@@ -15,51 +14,30 @@ export default class Complain extends Component{
             msg:null,
             location:null,
             isSubmited: false, 
-            date:null,
             loading:true,
-            fire_loaded:false
         };
     }
-
-    fire_items=[];
 
     async componentWillMount() {
         await Font.loadAsync({
           Roboto: require("native-base/Fonts/Roboto.ttf"),
           Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
         });
-        
-        await firebase.database().ref('admin/').on('value', (snapshot) => {
-            snapshot.forEach((item)=>{
-                this.fire_items.push(item);
-              }) 
-              this.setState({fire_loaded:true});
-              this.forceUpdate();
-            });
         this.setState({ loading: false });
     }
 
     postMsg = ( reciever, location, msg) => {
-    username=Fire.shared.displayName;
-    userid=Fire.shared.uid;
-    date=new Date().getDate()+'/'+ (new Date().getMonth()+1) +'/'+new Date().getFullYear();
-    type="complaints";
-    status="raised";
-    console.log(date);
+    username=Fire.shared.displayName
     if((this.state.msg!=null)&&(this.state.reciever!=null)){ 
         username=Fire.shared.displayName
         firebase.database().ref('complaints/').push({
             location,
             msg,
             reciever,
-            username,
-            userid,
-            date,
-            type,
-            status
+            username
         }).then((data)=>{
             //success
-            console.log('success')
+            console.log('data',data)
             this.setState({isSubmited:true})
         }).catch((error)=>{
             //error
@@ -69,7 +47,7 @@ export default class Complain extends Component{
     }
     else{
         Alert.alert(
-            'Please press SUBMIT button after entering your Message and selecting a reciever.',
+            'Please press SUBMIT button after entering your Message.',
         )        
         }
     
@@ -85,7 +63,6 @@ export default class Complain extends Component{
         this.setState({isSubmited:false})
     }
 
-
     render() {
         if (this.state.loading) {
             return (
@@ -95,16 +72,11 @@ export default class Complain extends Component{
             );
           
         }
-        
-        const pickerOptions = this.fire_items.map((item, index) => (
-            <Picker.Item label={item.val().username} value={item.val().userid} key={index} />
-            ));        
-        
 
         return (
           <Container>
             <Content>
-              <Card style={FormStyle.postCard}>
+              <Card style={styles.postCard}>
               {this.state.isSubmited ?
               <KeyboardAvoidingView behavior="padding">
                   <CardItem>
@@ -131,13 +103,14 @@ export default class Complain extends Component{
                     <Item Picker>
                     <Label>Reciever</Label>  
                     <Picker
-                        mode="dialog"
+                        mode="dropdown"
                         iosIcon={<Icon name="ios-arrow-down-outline" />}
                         selectedValue={this.state.reciever}
                         onValueChange={this.onValueChangeReciever.bind(this)}
                     >
-                        <Picker.Item label="Select a reciever" value="null" />
-                        {pickerOptions}
+                        <Picker.Item label="Select reciever" value="null" />
+                        <Picker.Item label="Chamin" value="Chamin" />
+                        <Picker.Item label="Nadun" value="Nadun" />
                     </Picker>
                     </Item>
                   </CardItem>
@@ -161,7 +134,7 @@ export default class Complain extends Component{
                       <Left>
                       </Left>
                       <Body>
-                          <Button full rounded success onPress={() => this.postMsg( this.state.reciever, this.state.location, this.state.msg)}>
+                          <Button rounded success onPress={() => this.postMsg( this.state.reciever, this.state.location, this.state.msg)}>
                           <Text>Submit</Text>
                           </Button>
                       </Body>
@@ -178,3 +151,38 @@ export default class Complain extends Component{
       
 }
 
+const styles = StyleSheet.create({
+    loading:{
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    alertBox: {
+      backgroundColor: '#1C97F7',
+    },
+    alertText: {
+      fontSize:12,
+      color: '#ffffff',
+    },
+    conCard: {
+      marginLeft: 25,
+      marginRight: 25,
+      marginTop: 20,
+    },
+    conCardItem: {
+      marginLeft: 5,
+      marginTop:5,
+    },
+    conDetails: {
+      fontSize: 15,
+      color: 'black',
+      marginLeft: 5,
+    },
+    postCard: {
+      marginLeft: 25,
+      marginRight: 25,
+      marginTop: 20,
+      marginBottom: 20,     
+    }
+  });

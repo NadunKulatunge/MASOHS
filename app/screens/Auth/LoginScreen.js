@@ -49,7 +49,6 @@ class LoginScreen extends Component {
     }
 
     loginUser = (email, password) => {
-        email = email.trim(); //remove unnecessary white spaces
         //Login Firebase
         this.setState({signinLoading: true});
         firebase.auth().signInWithEmailAndPassword(email, password).then(function(user) {
@@ -67,7 +66,6 @@ class LoginScreen extends Component {
     }
 
     forgotPassword = (email) => {
-        email = email.trim(); //remove unnecessary white spaces
         if( this.state.email == '' ){
             alert("Please enter your email address first.");
             return;
@@ -105,8 +103,8 @@ class LoginScreen extends Component {
             
                 <Form>
                     <Item >
+                        <Label>Email</Label>
                         <Input
-                            placeholder="Email"
                             autoCorrect={false}
                             autoCapitalize="none"
                             onChangeText={ (email) => this.setState({email}) }
@@ -114,8 +112,8 @@ class LoginScreen extends Component {
                         />
                     </Item>
                     <Item >
+                        <Label>Password</Label>
                         <Input
-                            placeholder="Password"
                             secureTextEntry={true}
                             autoCorrect={false}
                             autoCapitalize="none"
