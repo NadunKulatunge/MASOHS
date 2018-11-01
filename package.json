@@ -30,8 +30,10 @@
     "react-native-communications": "^2.2.1",
     "react-native-easy-listview-gridview": "^1.0.3",
     "react-native-gifted-chat": "^0.4.3",
+    "react-native-leaderboard": "^1.0.5",
     "react-native-modal": "^6.5.0",
     "react-native-nav": "^2.0.2",
+    "react-native-really-awesome-button": "^0.8.3",
     "react-native-responsive-dimensions": "^1.0.2",
     "react-navigation": "^2.12.1"
   }
