@@ -49,7 +49,7 @@ class HomeScreen extends Component {
             }
             //FirebasePushNotifications.funcSendPushNotification("ExponentPushToken[P2ENaNMqe10xjTSFTmgBtE]", 'Test', 'Test2')
             //FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUser(user, "Hey Everyone!!", "If you recieve this msg send me a Thumbs Up. Thank you. ~ Nadun")
-            FirebasePushNotifications.funcSendPushNotificationToUserID(user,'I1RXGmEvE5eaHIMQvemaz2stML93','Test2','Test Body2');
+            //FirebasePushNotifications.funcSendPushNotificationToUserID(user,'E0pjWjaFSYScOFMcIUoDVyvu6fb2','A person has died','A person has been killed inside our department');
               
 
         })
@@ -114,10 +114,10 @@ class HomeScreen extends Component {
                             <Text style={styles.boxText}>Monitoring</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Announcements')} >
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Information')} >
                         <View style={[styles.box, {backgroundColor: '#90A4AE'}]}>
                             <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-megaphone' size={responsiveFontSize(9)}/></Text>
-                            <Text style={styles.boxText}>Announcements</Text>
+                            <Text style={styles.boxText}>Information</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')} >

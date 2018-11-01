@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Alert,KeyboardAvoidingView } from 'react-native';
+import { TouchableOpacity,Alert,KeyboardAvoidingView } from 'react-native';
 import { Picker, ListItem,Label,Container, Content, Text, Icon, Card, CardItem, Item, Body, Right, Button, Input, Form, Textarea, Left, Root } from 'native-base';
 import { Font, AppLoading } from "expo";
 import Fire from '../Chat/Fire';
@@ -64,13 +64,11 @@ export default class Complain extends Component{
         }).catch((error)=>{
             //error
             console.log('error',error)
-            Alert.alert('Connection failed. Please check your internet and try again.',)
+            Alert.alert('Error','Connection failed. Please check your internet and try again.')
         })
     }
     else{
-        Alert.alert(
-            'Please press SUBMIT button after entering your Message and selecting a reciever.',
-        )        
+        Alert.alert('Error','Please press SUBMIT button after entering your Message and selecting a reciever.')        
         }
     
     };

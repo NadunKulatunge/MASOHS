@@ -9,7 +9,9 @@ import SignUpScreen from './app/screens/Auth/SignUpScreen.js';
 import ChatScreen from './app/screens/Chat/ChatScreen.js'
 
 //Settings
-import SettingsScreen from './app/screens/Settings/SettingsScreen.js'
+import SettingsScreen from './app/screens/Settings/SettingsScreen.js';
+import ChangePassword from './app/screens/Settings/ChangePassword';
+import MyProfile from './app/screens/Settings/MyProfile';
 
 import IncidentReporting from './app/screens/IncidentReporting/Index.js';
 import TaskScreen from './app/screens/Tasks/TaskScreen.js';
@@ -23,8 +25,8 @@ import ApprovalPendingScreen from './app/screens/Tasks/Expand/ApprovalPendingTas
 import ViewTaskScreen from './app/screens/Tasks/Expand/ViewTask.js';
 import ApproveTaskScreen from './app/screens/Tasks/Expand/ApproveTask.js';
 
-//Announcements
-import AnnouncementScreen from './app/screens/Announcements/Index';
+//Information
+import InformationScreen from './app/screens/Information/Index';
 
 //Notifications
 import NotificationsScreen from './app/screens/Notifications/Index';
@@ -42,9 +44,12 @@ export default class App extends React.Component {
 
 const AppStack = createStackNavigator(
   { 
-    Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Monitoring:HealthScreen, AddHealth:AddHealthScreen, Settings: SettingsScreen, Tasks: TaskScreen, 
-    CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, ApproveTask:ApproveTaskScreen, Announcements: AnnouncementScreen,
-    Notifications: NotificationsScreen, Competitions: Competitions, ProWalker: ProWalker
+
+    Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen, Tasks: TaskScreen, AddHealth:AddHealthScreen, Monitoring:HealthScreen,
+    CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, ApproveTask:ApproveTaskScreen, Information: InformationScreen,
+    ChangePassword: ChangePassword, MyProfile: MyProfile, Competitions: Competitions, ProWalker: ProWalker,
+    Notifications: NotificationsScreen
+
   },
 
   {
