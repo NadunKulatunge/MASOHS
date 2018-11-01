@@ -33,12 +33,12 @@ class Settings extends Component {
       <Container>
         <Content>
 
-          <ListItem thumbnail button onPress={() => this.props.navigation.navigate('ChangePassword')}>
+          <ListItem thumbnail button onPress={() => this.props.navigation.navigate('MyProfile')}>
             <Left>
               <Ionicons style={{color: 'rgba(0,0,0,0.5)'}} name='ios-person' size={responsiveFontSize(4)}/>
             </Left>
             <Body>
-              <Text>Profile</Text>
+              <Text>My Profile</Text>
               <Text note numberOfLines={1}>View your profile information.</Text>
             </Body>
             <Right>
@@ -91,7 +91,7 @@ class Settings extends Component {
             </Left>
             <Body>
               <Text>Terms of Use</Text>
-              <Text note numberOfLines={1}>Rules and regulations realted to our app.</Text>
+              <Text note numberOfLines={1}>Rules and regulations related to our app.</Text>
             </Body>
             <Right>
               <Icon active name="arrow-forward" />

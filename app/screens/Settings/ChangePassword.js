@@ -6,7 +6,7 @@ import RightHeaderButtons from '../../components/RightHeaderButtons.js';
 //Initialize firebase
 import * as firebase from 'firebase';
 
-export default class Announcements extends Component{
+export default class changePassword extends Component{
   static navigationOptions = ({navigation}) => ({
     title: 'Change Password',
     headerRight: (
@@ -70,7 +70,14 @@ export default class Announcements extends Component{
             <CardItem>
               <Body>
                 <Item>
-                    <Label>Username</Label>
+                    <Input 
+                        placeholder="Current Password" 
+                        secureTextEntry={true}
+                        autoCorrect={false}
+                        autoCapitalize="none"
+                        onChangeText={ (currentPassword) => this.setState({currentPassword}) }
+                        value={this.state.currentPassword}
+                    />
                 </Item>
                 <Item>
                     <Input 
