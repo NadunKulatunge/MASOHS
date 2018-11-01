@@ -9,7 +9,8 @@ import SignUpScreen from './app/screens/Auth/SignUpScreen.js';
 import ChatScreen from './app/screens/Chat/ChatScreen.js'
 
 //Settings
-import SettingsScreen from './app/screens/Settings/SettingsScreen.js'
+import SettingsScreen from './app/screens/Settings/SettingsScreen.js';
+import ChangePassword from './app/screens/Settings/ChangePassword';
 
 import IncidentReporting from './app/screens/IncidentReporting/Index.js';
 import TaskScreen from './app/screens/Tasks/TaskScreen.js';
@@ -44,7 +45,7 @@ const AppStack = createStackNavigator(
 
     Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen, Tasks: TaskScreen, AddHealth:AddHealthScreen, Monitoring:HealthScreen,
     CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, ApproveTask:ApproveTaskScreen, Information: InformationScreen,
-
+    ChangePassword: ChangePassword,
     Notifications: NotificationsScreen
   },
 
