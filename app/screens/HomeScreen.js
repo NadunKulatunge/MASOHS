@@ -114,10 +114,10 @@ class HomeScreen extends Component {
                             <Text style={styles.boxText}>Monitoring</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Announcements')} >
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Information')} >
                         <View style={[styles.box, {backgroundColor: '#90A4AE'}]}>
                             <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-megaphone' size={responsiveFontSize(9)}/></Text>
-                            <Text style={styles.boxText}>Announcements</Text>
+                            <Text style={styles.boxText}>Information</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')} >

@@ -21,8 +21,8 @@ import ApprovalPendingScreen from './app/screens/Tasks/Expand/ApprovalPendingTas
 import ViewTaskScreen from './app/screens/Tasks/Expand/ViewTask.js';
 import ApproveTaskScreen from './app/screens/Tasks/Expand/ApproveTask.js';
 
-//Announcements
-import AnnouncementScreen from './app/screens/Announcements/Index';
+//Information
+import InformationScreen from './app/screens/Information/Index';
 
 //Notifications
 import NotificationsScreen from './app/screens/Notifications/Index';
@@ -40,7 +40,7 @@ export default class App extends React.Component {
 const AppStack = createStackNavigator(
   { 
     Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen, Tasks: TaskScreen, 
-    CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, ApproveTask:ApproveTaskScreen, Announcements: AnnouncementScreen,
+    CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, ApproveTask:ApproveTaskScreen, Information: InformationScreen,
     Notifications: NotificationsScreen
   },
 
