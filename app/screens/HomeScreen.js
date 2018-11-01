@@ -38,12 +38,12 @@ class HomeScreen extends Component {
             if(!user || !user.emailVerified){ 
                 this.props.navigation.navigate('Login') 
             } else {
-                /*Create user with unique key of 'uid'*/
+                /*Create user with unique key of 'uid'
                 var usersRef = firebase.database().ref("users");
                 usersRef.child(user.uid).set({ 
                     displayName: user.displayName,
                     email: user.email,
-                });
+                });*/
                 this.registerForPushNotificationsAsync(user);
                 //console.log(user);
             }

@@ -39,7 +39,9 @@ export function funcSendPushNotificationToUserID(currentUser, recieverID, title 
     var query = firebase.database().ref("users/"+ recieverID).orderByKey();
     query.once("value")
         .then(function(snapshot) {
-            funcSendPushNotification(snapshot.val().expoToken, title, body)
+            if(snapshot.val().muteNotifications!="True"){
+                funcSendPushNotification(snapshot.val().expoToken, title, body)
+            }
     });
 
 }
@@ -67,7 +69,7 @@ export function funcSendPushNotificationToAllUsersExceptCurrentUser(currentUser 
             var token = childSnapshot.val().expoToken;
 
             //If the current user dont send notification
-            if(currentUser.uid != uID){
+            if(currentUser.uid != uID && snapshot.val().muteNotifications!="True"){
                 funcSendPushNotification(token, title, body);
             }
 

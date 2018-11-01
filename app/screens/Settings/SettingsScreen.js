@@ -21,10 +21,49 @@ class Settings extends Component {
     ),
   });
 
+  constructor(props) {
+    super(props)
+
+    this.state = ({
+        Notifications: true, //Notifications are muted by the user 
+    })
+    this.isNotificationsMute()
+  }
+
+  isNotificationsMute() {
+    var user = firebase.database().ref("users/"+ firebase.auth().currentUser.uid).orderByKey();
+    user.once("value")
+        .then(function(snapshot) {
+            if(snapshot.val().muteNotifications!="True"){
+                this.setState({Notifications: true});
+                console.log(snapshot.val().muteNotifications)
+            }else{
+                this.setState({Notifications: false});
+                console.log(snapshot.val().muteNotifications)
+            }
+    }.bind(this));
+  }
+
+  muteNotifications = () => {}
+
   signOutUser = () => {
     //Remove users push token from database
     firebase.database().ref( 'users/'+ firebase.auth().currentUser.uid ).child('expoToken').remove()
     firebase.auth().signOut() //sign out user from firebase
+  }
+
+  toggleNotifications = () => {
+    var mute = {}
+    mute['/muteNotifications'] = 'True'  
+    if(this.state.Notifications){    
+      firebase.database().ref('users').child(firebase.auth().currentUser.uid).update(mute)
+      this.setState({Notifications: false});
+      console.log("muted")
+    }else{
+      firebase.database().ref('users/'+firebase.auth().currentUser.uid).child('muteNotifications').remove()
+      this.setState({Notifications: true});
+      console.log("Unmuted")
+    }
   }
 
 
@@ -81,7 +120,7 @@ class Settings extends Component {
               <Text note numberOfLines={1}>Enable and disable push notifications.</Text>
             </Body>
             <Right>
-              <Switch value={false} />
+              <Switch value={this.state.Notifications} onValueChange={() => this.toggleNotifications()}/>
             </Right>
           </ListItem>
 
