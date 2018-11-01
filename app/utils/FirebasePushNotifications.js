@@ -14,6 +14,7 @@ export function funcSendPushNotification(token , title , body ) {
         to: token,
         title: title,
         body: body,
+        ttl: 2419200, //Time to Live of message 28 Days
         data: { message: `${title} - ${body}` },
       }),
       headers: {
@@ -38,8 +39,9 @@ export function funcSendPushNotificationToUserID(currentUser, recieverID, title 
     var query = firebase.database().ref("users/"+ recieverID).orderByKey();
     query.once("value")
         .then(function(snapshot) {
-            console.log(snapshot)
+            funcSendPushNotification(snapshot.val().expoToken, title, body)
     });
+
 }
 
 //currentUser is the users JSON file
