@@ -50,7 +50,7 @@ class PublicNotifications extends Component {
               <ListItem thumbnail>
                 <Left>
                   {item.val().navigateTo =='Chat'? (
-                  <Ionicons style={{color: 'rgba(0,0,0,0.5)'}} name='ios-chatbubbles' size={responsiveFontSize(5)}/>
+                  <Ionicons style={{color: 'rgba(0,0,0,0.5)'}} name='ios-chatbubbles' size={responsiveFontSize(4)}/>
                   ) : (
                     <View></View>
                   )}

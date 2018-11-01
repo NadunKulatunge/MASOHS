@@ -62,13 +62,11 @@ export default class Accident extends Component{
         }).catch((error)=>{
             //error
             console.log('error',error)
-            Alert.alert('Connection failed. Please check your internet and try again.',)
+            Alert.alert('Error', 'Connection failed. Please check your internet and try again.')
         })
     }
     else{
-        Alert.alert(
-            'Please press SUBMIT button after entering your Message and selecting a reciever.',
-        )        
+        Alert.alert('Error','Please press SUBMIT button after entering your Message and selecting a reciever.')        
         }
     
     };
