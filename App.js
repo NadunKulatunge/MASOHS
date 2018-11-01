@@ -28,7 +28,8 @@ import AnnouncementScreen from './app/screens/Announcements/Index';
 
 //Notifications
 import NotificationsScreen from './app/screens/Notifications/Index';
-
+import Competitions from './app/screens/Competitions/Competitions';
+import ProWalker from './app/screens/Competitions/ProWalker'
 import * as appConst from './app/constants/Constants';
 
 export default class App extends React.Component {
@@ -43,7 +44,7 @@ const AppStack = createStackNavigator(
   { 
     Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Monitoring:HealthScreen, AddHealth:AddHealthScreen, Settings: SettingsScreen, Tasks: TaskScreen, 
     CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, ApproveTask:ApproveTaskScreen, Announcements: AnnouncementScreen,
-    Notifications: NotificationsScreen
+    Notifications: NotificationsScreen, Competitions: Competitions, ProWalker: ProWalker
   },
 
   {
