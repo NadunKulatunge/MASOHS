@@ -42,7 +42,7 @@ export default class Complain extends Component{
     postMsg = ( reciever, location, msg) => {
     username=Fire.shared.displayName;
     userid=Fire.shared.uid;
-    date=new Date().getDate()+'/'+ new Date().getMonth()+'/'+new Date().getFullYear();
+    date=new Date().getDate()+'/'+ (new Date().getMonth()+1) +'/'+new Date().getFullYear();
     type="complaints";
     status="raised";
     console.log(date);

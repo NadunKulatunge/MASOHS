@@ -28,6 +28,8 @@ class FinishedTasks extends Component{
         });
 
          firebase.database().ref('accidents/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+           this.pending=[];
+           this.completed=[];
           snapshot.forEach((item)=>{
             if(item.val().status=="pending"){
               this.pending.push(item);
@@ -40,6 +42,8 @@ class FinishedTasks extends Component{
         });
 
          firebase.database().ref('complaints/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+           this.pending=[];
+           this.completed=[];
           snapshot.forEach((item)=>{
             if(item.val().status=="pending"){
               this.pending.push(item);

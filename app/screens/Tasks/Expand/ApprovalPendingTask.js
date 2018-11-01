@@ -16,7 +16,7 @@ export default class ApprovalPendingTask extends Component {
   type='Pending Confirmation';
   doTask(){
     firebase.database().ref(this.item.val().type+'/'+this.item.key).update({"status":'raised'});
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('Tasks');
   };
   
   render() {
@@ -48,6 +48,12 @@ export default class ApprovalPendingTask extends Component {
                   <Text>{this.item.val().username}</Text>
                   <Icon name="calendar" />
                   <Text>{this.item.val().date}</Text>
+                </Button>
+              </Left>
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Button transparent textStyle={{color: '#87838B'}}>
                   <Icon name="pin" />
                   <Text>{this.item.val().location}</Text>
                 </Button>
