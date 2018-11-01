@@ -41,13 +41,10 @@ export default class App extends React.Component {
 
 const AppStack = createStackNavigator(
   { 
-<<<<<<< HEAD
-    Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen, Tasks: TaskScreen, 
+
+    Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen, Tasks: TaskScreen, AddHealth:AddHealthScreen, Monitoring:HealthScreen,
     CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, ApproveTask:ApproveTaskScreen, Information: InformationScreen,
-=======
-    Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Monitoring:HealthScreen, AddHealth:AddHealthScreen, Settings: SettingsScreen, Tasks: TaskScreen, 
-    CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, ApproveTask:ApproveTaskScreen, Announcements: AnnouncementScreen,
->>>>>>> 5f268db2e209e9d85d702d3ad7853d66d244e3b0
+
     Notifications: NotificationsScreen
   },
 
