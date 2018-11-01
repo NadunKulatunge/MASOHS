@@ -32,7 +32,7 @@ export default class Contacts extends Component {
           <List>
             <ListItem thumbnail>
               <Left>
-                <Thumbnail square source={{ uri: 'Image URL' }} />
+                <Thumbnail square source={{ uri: 'https://png.icons8.com/ios/40/000000/policeman-male.png' }} />
               </Left>
               <Body>
                 <Text>Police</Text>

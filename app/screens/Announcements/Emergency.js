@@ -32,7 +32,7 @@ export default class Articles extends Component {
           <List>
             <ListItem thumbnail>
               <Left>
-                <Thumbnail square source={{ uri: 'Image URL' }} />
+                <Thumbnail square source={{ uri: 'https://png.icons8.com/metro/50/000000/fire-element.png' }} />
               </Left>
               <Body>
                 <Text>Fire</Text>
