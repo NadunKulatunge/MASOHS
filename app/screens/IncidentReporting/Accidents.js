@@ -142,13 +142,13 @@ export default class Accident extends Component{
 
                   <CardItem>
                       <Item stackedLabel>
-                        <Label>Risk Location</Label>  
+                        <Label>Accident Location</Label>  
                         <Input onChangeText={(location) => this.setState({location})} />
                       </Item>
                   </CardItem>
 
                   <ListItem itemHeader first>
-                    <Text>Please describe the risk</Text>
+                    <Text>Please describe the accident</Text>
                   </ListItem>
                 
                       <Form style = {{ marginLeft: 20, marginRight:20 }}>
