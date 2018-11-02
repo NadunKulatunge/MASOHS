@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Alert,KeyboardAvoidingView } from 'react-native';
+import { TouchableOpacity, Alert,KeyboardAvoidingView, View, StyleSheet, ActivityIndicator, } from 'react-native';
 import { Picker, ListItem,Label,Container, Content, Text, Icon, Card, CardItem, Item, Body, Right, Button, Input, Form, Textarea, Left, Root } from 'native-base';
-import { Font, AppLoading } from "expo";
+import { Font, AppLoading, ImagePicker, Permissions } from "expo";
 import Fire from '../Chat/Fire';
 import firebase from 'firebase';
 import {FormStyle} from '../../styles/styles.js';
+//Constants
+import * as appConst from '../../constants/Constants';
+import uuid from 'uuid';
 
+//Functions
+import * as FirebasePushNotifications from "../../utils/FirebasePushNotifications";
 
 export default class Accident extends Component{
     constructor(props) {
@@ -17,7 +22,9 @@ export default class Accident extends Component{
             isSubmited: false, 
             date:null,
             loading:true,
-            fire_loaded:false
+            fire_loaded:false,
+            uploading: false,
+
         };
     }
 
@@ -39,11 +46,12 @@ export default class Accident extends Component{
         this.setState({ loading: false });
     }
 
-    postMsg = ( reciever, location, msg) => {
+    postMsg = ( reciever, location, msg ) => {
     username=Fire.shared.displayName;
     userid=Fire.shared.uid;
     type="accidents";
     status='raised';
+    imageURL = Fire.shared.imageURL;
     date=new Date().getDate()+'/'+ (new Date().getMonth()+1) +'/'+new Date().getFullYear();
     if((this.state.msg!=null)&&(this.state.reciever!=null)){ 
         firebase.database().ref('accidents/').push({
@@ -54,10 +62,12 @@ export default class Accident extends Component{
             userid,
             date,
             type,
-            status
+            status,
+            imageURL
         }).then((data)=>{
             //success
             console.log('data',data)
+            FirebasePushNotifications.funcSendPushNotificationToUserID(firebase.auth().currentUser,reciever,'Accident',username + ': ' + msg);
             this.setState({isSubmited:true})
         }).catch((error)=>{
             //error
@@ -81,6 +91,77 @@ export default class Accident extends Component{
         this.setState({isSubmited:false})
     }
 
+    askPermissions = async () => {
+        await Expo.Permissions.askAsync(Permissions.CAMERA);
+        await Expo.Permissions.askAsync(Permissions.CAMERA_ROLL)
+    }
+
+    _takePhoto = async () => {
+        this.askPermissions();
+        //console.log(status1);
+        //console.log(status2);
+            let pickerResult = await ImagePicker.launchCameraAsync({ //Expo launch camera
+                allowsEditing: true,
+                quality : appConst.IMAGE_UPLOAD_QUALITY,
+            });
+    
+            this._handleImagePicked(pickerResult);
+      
+        
+    };
+    
+    _pickImage = async () => {
+        this.askPermissions();
+        let pickerResult = await ImagePicker.launchImageLibraryAsync({ //Expo image picker library
+          allowsEditing: true,
+          quality : appConst.IMAGE_UPLOAD_QUALITY, 
+        });
+        
+        this._handleImagePicked(pickerResult);
+    };
+
+    _handleImagePicked = async pickerResult => {
+        try {
+          this.setState({ uploading: true });
+    
+          if (!pickerResult.cancelled) {
+            uploadUrl = await uploadImageAsync(pickerResult.uri);
+            //this.setState({ imageURL: uploadUrl });    
+            //console.log(uploadURL)
+          }
+        } catch (e) {
+          console.log(e);
+          if(!pickerResult.cancelled) {
+            alert('Upload failed.');
+          }
+          
+        } finally {
+          this.setState({ uploading: false });               
+        }
+    };
+
+    /**
+     * File Upload Loader Overlay
+     */
+    _maybeRenderUploadingOverlay = () => {
+        if (this.state.uploading) {
+          return (
+            <View
+              style={[
+                StyleSheet.absoluteFill,
+                {
+                  backgroundColor: 'rgba(0,0,0,0.4)',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  zIndex:1
+                },
+              ]}>
+              <ActivityIndicator color="#fff" animating size="large" />
+            </View>
+          );
+        }
+      };
+
 
     render() {
         if (this.state.loading) {
@@ -99,6 +180,7 @@ export default class Accident extends Component{
 
         return (
           <Container>
+            {this._maybeRenderUploadingOverlay()}
             <Content>
               <Card style={FormStyle.postCard}>
               {this.state.isSubmited ?
@@ -124,6 +206,16 @@ export default class Accident extends Component{
               <KeyboardAvoidingView behavior="padding">
 
                   <CardItem>
+                      <Item > 
+                        <Label>Sender</Label>
+                        <Input 
+                            value={firebase.auth().currentUser.displayName}
+                            disabled
+                        />
+                      </Item>
+                  </CardItem>
+
+                  <CardItem>
                     <Item Picker>
                     <Label>Reciever</Label>  
                     <Picker
@@ -139,30 +231,39 @@ export default class Accident extends Component{
                   </CardItem>
 
                   <CardItem>
-                      <Item stackedLabel>
-                        <Label>Accident Location</Label>  
-                        <Input onChangeText={(location) => this.setState({location})} />
+                      <Item > 
+                        <Input placeholder="Accident Location" onChangeText={(location) => this.setState({location})} />
                       </Item>
                   </CardItem>
 
-                  <ListItem itemHeader first>
-                    <Text>Please describe the accident</Text>
-                  </ListItem>
+                  
+
+                  <CardItem>
+                        <Label>Please describe the accident</Label>  
+                  </CardItem>
                 
                       <Form style = {{ marginLeft: 20, marginRight:20 }}>
                           <Textarea rowSpan={5} bordered onChangeText={(msg) => this.setState({msg})}/>
                       </Form>
 
-                  <CardItem>
-                      <Left>
-                      </Left>
+                    <CardItem></CardItem>
+                    <Button iconLeft primary full onPress={this._takePhoto}>
+                        <Icon name='camera' />
+                        <Text>Take Photo</Text>
+                    </Button>
+                    <CardItem></CardItem>
+                    <Button iconLeft dark full onPress={this._pickImage}>
+                        <Icon name='image' />
+                        <Text>Upload Image</Text>
+                    </Button>
+                    <CardItem></CardItem>
+                    
+                  <CardItem> 
                       <Body>
-                          <Button full rounded success onPress={() => this.postMsg( this.state.reciever, this.state.location, this.state.msg)}>
+                          <Button full rounded success onPress={() => this.postMsg( this.state.reciever, this.state.location, this.state.msg )}>
                           <Text>Submit</Text>
                           </Button>
                       </Body>
-                      <Right>
-                      </Right>
                   </CardItem>
               </KeyboardAvoidingView>
               }
@@ -174,3 +275,19 @@ export default class Accident extends Component{
       
 }
 
+//Handle Firebase image upload
+async function uploadImageAsync(uri) {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    const ref = firebase
+    .storage()
+    .ref()
+    .child('AccidentImages/' + uuid.v4());
+
+    const snapshot = await ref.put(blob);
+    snapshot.ref.getDownloadURL().then(function(downloadURL) {
+        console.log(downloadURL);
+        Fire.shared.setImageURL(downloadURL);
+    });
+
+}
