@@ -6,7 +6,12 @@ import {
     ScrollView,
     Dimensions,
     TouchableOpacity,
+<<<<<<< HEAD
+    Image,
+    Linking
+=======
     Image
+>>>>>>> 2ef0f00c60019678869828308fec08d6581f7eab
 } from "react-native";
 //import {Ionicons} from '@expo/vector-icons';
 //import { Icon, Button, Badge } from 'native-base';
@@ -58,8 +63,13 @@ class Competitions extends Component {
                 />    
                 
                 <AwesomeButtonCartman style={{ marginTop:280 }} type="primary" size="large" onPress = { () => this.props.navigation.navigate('ProWalker')}>Walking Pro</AwesomeButtonCartman>
+<<<<<<< HEAD
+                <AwesomeButtonCartman style={{ marginTop:40 }} type="secondary" size="large" onPress={ ()=> Linking.openURL("http://www.masholdings.com/") } >Upcoming Competitions</AwesomeButtonCartman>
+                
+=======
                 <AwesomeButtonCartman style={{ marginTop:40 }} type="secondary" size="large">Rick's Primary Button</AwesomeButtonCartman>
                 <AwesomeButtonCartman style={{ marginTop:40 }} type="primary" size="large">Rick's Primary Button</AwesomeButtonCartman>
+>>>>>>> 2ef0f00c60019678869828308fec08d6581f7eab
                 
             </Container> 
         );
