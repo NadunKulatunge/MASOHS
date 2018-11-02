@@ -43,8 +43,65 @@ export default class FirstAid extends Component {
               </Right>
             </ListItem>
           </List>
+          <List>
+            <ListItem thumbnail>
+              <Left>
+              <Thumbnail square source={{ uri: 'https://png.icons8.com/ios/50/000000/lightning-bolt.png' }} />
+              </Left>
+              <Body>
+                <Text>Electric Shock</Text>
+                <Text note numberOfLines={1}>Even a small amount of electricity can be fatal</Text>
+              </Body>
+              <Right>
+                <Anchor href="https://www.mayoclinic.org/first-aid/first-aid-electrical-shock/basics/art-20056695"><Ionicons name='md-globe' size={responsiveFontSize(3)}/></Anchor>
+              </Right>
+            </ListItem>
+          </List>
+          <List>
+            <ListItem thumbnail>
+              <Left>
+                <Thumbnail square source={{ uri: 'https://png.icons8.com/metro/50/000000/fire-element.png' }} />
+              </Left>
+              <Body>
+                <Text>Electric Burns</Text>
+                <Text note numberOfLines={1}>Minor electrical burns</Text>
+              </Body>
+              <Right>
+                <Anchor href="https://www.mayoclinic.org/first-aid/first-aid-electrical-burns/basics/art-20056687"><Ionicons name='md-globe' size={responsiveFontSize(3)}/></Anchor>
+              </Right>
+            </ListItem>
+          </List>
+          <List>
+            <ListItem thumbnail>
+              <Left>
+                <Thumbnail square source={{ uri: 'https://png.icons8.com/android/50/000000/infantry-knife.png' }} />
+              </Left>
+              <Body>
+                <Text>Cuts and Scrapes</Text>
+                <Text note numberOfLines={1}>Accidental cuts</Text>
+              </Body>
+              <Right>
+                <Anchor href="https://www.mayoclinic.org/first-aid/first-aid-cuts/basics/art-20056711"><Ionicons name='md-globe' size={responsiveFontSize(3)}/></Anchor>
+              </Right>
+            </ListItem>
+          </List>
+          <List>
+            <ListItem thumbnail>
+              <Left>
+                <Thumbnail square source={{ uri: 'https://png.icons8.com/metro/50/000000/being-sick.png' }} />
+              </Left>
+              <Body>
+                <Text>Dislocations</Text>
+                <Text note numberOfLines={1}>Accidental dislocations</Text>
+              </Body>
+              <Right>
+                <Anchor href="https://www.mayoclinic.org/first-aid/first-aid-dislocation/basics/art-20056693"><Ionicons name='md-globe' size={responsiveFontSize(3)}/></Anchor>
+              </Right>
+            </ListItem>
+          </List>
         </Content>
       </Container>
+      
     );
   }
 }
