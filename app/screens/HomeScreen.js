@@ -135,7 +135,7 @@ class HomeScreen extends Component {
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Tasks')} >
                         <View style={[styles.box, {backgroundColor: '#FFB74D'}]}>
                             <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-filing' size={responsiveFontSize(9)}/></Text>
-                            <Text style={styles.boxText}>Tasks<Icon name='md-alert' style={{fontSize: 20, color: 'red'}}/></Text>
+                            <Text style={styles.boxText}>Tasks</Text>
                         </View>
                     </TouchableOpacity>
                 </View>

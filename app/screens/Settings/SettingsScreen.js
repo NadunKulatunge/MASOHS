@@ -36,10 +36,10 @@ class Settings extends Component {
         .then(function(snapshot) {
             if(snapshot.val().muteNotifications!="True"){
                 this.setState({Notifications: true});
-                console.log(snapshot.val().muteNotifications)
+                //console.log(snapshot.val().muteNotifications)
             }else{
                 this.setState({Notifications: false});
-                console.log(snapshot.val().muteNotifications)
+                //console.log(snapshot.val().muteNotifications)
             }
     }.bind(this));
   }
@@ -121,6 +121,19 @@ class Settings extends Component {
             </Body>
             <Right>
               <Switch value={this.state.Notifications} onValueChange={() => this.toggleNotifications()}/>
+            </Right>
+          </ListItem>
+
+          <ListItem thumbnail button onPress={() => this.props.navigation.navigate('StepCount')}>
+            <Left>
+              <Ionicons style={{color: 'rgba(0,0,0,0.5)'}} name='md-walk' size={responsiveFontSize(4)}/>
+            </Left>
+            <Body>
+              <Text>Get My StepCount</Text>
+              <Text note numberOfLines={1}>Get your step count from device.</Text>
+            </Body>
+            <Right>
+              <Icon active name="arrow-forward" />
             </Right>
           </ListItem>
 

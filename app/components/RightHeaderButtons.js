@@ -30,7 +30,7 @@ class RightHeaderButton extends Component {
         return (
             <View style={{flexDirection: 'row'}}>
             <Button transparent onPress = { () => this.props.navigation.navigate('Notifications')}>
-                <Text style={{marginHorizontal:10}}><Icon name='md-alert' style={{fontSize: 15, color: 'red'}}/><Icon name='md-notifications' style={{color: 'white'}}/></Text>
+                <Text style={{marginHorizontal:10}}><Icon name='md-notifications' style={{color: 'white'}}/></Text>
             </Button>
             <Button transparent onPress = { () => this.props.navigation.navigate('Settings')}>
                 <Text style={{marginHorizontal:10, marginRight:15}}><Icon name='md-settings' style={{color: 'white'}}/></Text>
