@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {Container,Header,Tabs,Tab} from 'native-base';
+import {Container,Tabs,Tab} from 'native-base';
 import Tab1 from './PendingTasks';
 import Tab2 from './FinishedTasks';
-import Tab3 from './RedirectedTasks';
 import Tab4 from './SentTasks';
 
 import RightHeaderButtons from '../../components/RightHeaderButtons.js';
@@ -25,9 +24,6 @@ export default class TasksScreen extends Component{
           </Tab>
           <Tab heading="Completed" tabStyle={{backgroundColor: '#009688',}} textStyle={{color: 'white'}} activeTabStyle={{backgroundColor: '#009688'}} activeTextStyle={{color: 'white', fontWeight: 'bold'}}>
             <Tab2/>
-          </Tab>
-          <Tab heading="Reassigened" tabStyle={{backgroundColor: '#009688',}} textStyle={{color: 'white'}} activeTabStyle={{backgroundColor: '#009688'}} activeTextStyle={{color: 'white', fontWeight: 'bold'}}>
-            <Tab3/>
           </Tab>
           <Tab heading="Sent" tabStyle={{backgroundColor: '#009688',}} textStyle={{color: 'white'}} activeTabStyle={{backgroundColor: '#009688'}} activeTextStyle={{color: 'white', fontWeight: 'bold'}}>
             <Tab4/>

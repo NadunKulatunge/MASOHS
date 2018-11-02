@@ -9,6 +9,11 @@ export const CHAT_MAX_FILE_SIZE = 5000000; //bytes
 export const CHAT_IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'bmp', 'gif', 'png'];
 export const CHAT_IMAGE_QUALITY = 0.3; // 0.1 - MIN , 1- MAX
 
+/**
+ * Image Upload Quality
+ */
+export const IMAGE_UPLOAD_QUALITY = 0.9;
+
 /*
 HOW TO USE
 

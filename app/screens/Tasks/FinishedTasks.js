@@ -3,8 +3,10 @@ import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body
 import { Font, AppLoading } from "expo";
 import Fire from '../Chat/Fire';
 import firebase from 'firebase';
+import { withNavigation } from 'react-navigation';
 
-export default class PendingTaks extends Component{
+
+class FinishedTasks extends Component{
 
     constructor(props) {
         super(props);
@@ -25,7 +27,9 @@ export default class PendingTaks extends Component{
           Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
         });
 
-        await firebase.database().ref('accidents/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+         firebase.database().ref('accidents/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+           this.pending=[];
+           this.completed=[];
           snapshot.forEach((item)=>{
             if(item.val().status=="pending"){
               this.pending.push(item);
@@ -37,7 +41,9 @@ export default class PendingTaks extends Component{
           this.forceUpdate();
         });
 
-        await firebase.database().ref('complaints/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+         firebase.database().ref('complaints/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+           this.pending=[];
+           this.completed=[];
           snapshot.forEach((item)=>{
             if(item.val().status=="pending"){
               this.pending.push(item);
@@ -64,7 +70,7 @@ export default class PendingTaks extends Component{
           <Container>
             {this.state.fire1_loaded && this.state.fire2_loaded?
             <Content>
-            <List dataArray={this.pending}
+            <List dataArray={this.pending.reverse()}
             renderRow={(item) =>
             <ListItem thumbnail>
               <Left>
@@ -75,14 +81,14 @@ export default class PendingTaks extends Component{
                 <Text note numberOfLines={1}>{item.val().username}</Text>
               </Body>
               <Right>
-                <Button transparent>
+                <Button transparent onPress={()=>this.props.navigation.navigate('ApprovalPending',{item})}>
                   <Text>View</Text>
                 </Button>
               </Right>
             </ListItem>
             }>
           </List>
-          <List dataArray={this.completed}
+          <List dataArray={this.completed.reverse()}
             renderRow={(item) =>
             <ListItem thumbnail>
               <Left>
@@ -93,7 +99,7 @@ export default class PendingTaks extends Component{
                 <Text note numberOfLines={1}>{item.val().username}</Text>
               </Body>
               <Right>
-                <Button transparent>
+                <Button transparent onPress={()=>this.props.navigation.navigate('ViewTask',{item})}>
                   <Text>View</Text>
                 </Button>
               </Right>
@@ -111,3 +117,4 @@ export default class PendingTaks extends Component{
   }  
 }
 
+export default withNavigation(FinishedTasks);

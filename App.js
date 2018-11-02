@@ -9,12 +9,29 @@ import SignUpScreen from './app/screens/Auth/SignUpScreen.js';
 import ChatScreen from './app/screens/Chat/ChatScreen.js'
 
 //Settings
-import SettingsScreen from './app/screens/Settings/SettingsScreen.js'
+import SettingsScreen from './app/screens/Settings/SettingsScreen.js';
+import ChangePassword from './app/screens/Settings/ChangePassword';
+import MyProfile from './app/screens/Settings/MyProfile';
 
 import IncidentReporting from './app/screens/IncidentReporting/Index.js';
 import TaskScreen from './app/screens/Tasks/TaskScreen.js';
+import HealthScreen from './app/screens/Monitoring/HealthScreen.js';
+import AddHealthScreen from './app/screens/Monitoring/AddHealthScreen.js';
 import AuthLoadingScreen from './app/screens/Loading.js';
 
+//Task Expanded
+import CompleteTaskScreen from './app/screens/Tasks/Expand/CompleteTask.js';
+import ApprovalPendingScreen from './app/screens/Tasks/Expand/ApprovalPendingTask.js';
+import ViewTaskScreen from './app/screens/Tasks/Expand/ViewTask.js';
+import ApproveTaskScreen from './app/screens/Tasks/Expand/ApproveTask.js';
+
+//Information
+import InformationScreen from './app/screens/Information/Index';
+
+//Notifications
+import NotificationsScreen from './app/screens/Notifications/Index';
+import Competitions from './app/screens/Competitions/Competitions';
+import ProWalker from './app/screens/Competitions/ProWalker'
 import * as appConst from './app/constants/Constants';
 
 export default class App extends React.Component {
@@ -27,8 +44,14 @@ export default class App extends React.Component {
 
 const AppStack = createStackNavigator(
   { 
-    Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen, Tasks: TaskScreen
+
+    Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen, Tasks: TaskScreen, AddHealth:AddHealthScreen, Monitoring:HealthScreen,
+    CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, ApproveTask:ApproveTaskScreen, Information: InformationScreen,
+    ChangePassword: ChangePassword, MyProfile: MyProfile, Competitions: Competitions, ProWalker: ProWalker,
+    Notifications: NotificationsScreen
+
   },
+
   {
     navigationOptions: {
       headerStyle: {
