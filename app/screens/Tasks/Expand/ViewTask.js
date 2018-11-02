@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Content, Card, CardItem, Text, Button, Icon, Left, Right, Body } from 'native-base';
+import { Container, Content, Card, CardItem, Text, Button, Icon, Left, Right, Body,View } from 'native-base';
 import RightHeaderButtons from '../../../components/RightHeaderButtons.js';
+import { Image } from 'react-native';
+
 
 
 export default class ViewTask extends Component {
@@ -20,13 +22,22 @@ export default class ViewTask extends Component {
       <Container>
         <Content>
           <Card style={{flex: 0}}>
-            <CardItem>
+            <CardItem header bordered>
               <Left>
                 <Body>
                   <Text note style={{color: 'red'}}>{this.item.val().date}</Text>
                 </Body>
               </Left>
             </CardItem>
+            {this.item.val().hasOwnProperty('imageURL')?
+              <CardItem>
+                <Body >
+                    <Image source={{uri:this.item.val().imageURL}} style={{width: '100%', height: 200, flex: 1}}/>
+                </Body>
+                </CardItem>
+             :
+             <View></View>
+            }
             <CardItem>
               <Left>
               <Body>
@@ -41,6 +52,12 @@ export default class ViewTask extends Component {
                 <Button transparent textStyle={{color: '#87838B'}}>
                   <Icon name="person" />
                   <Text>{this.item.val().username}</Text>
+                </Button>
+              </Left>
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Button transparent textStyle={{color: '#87838B'}}>
                   <Icon name="pin" />
                   <Text>{this.item.val().location}</Text>
                 </Button>
