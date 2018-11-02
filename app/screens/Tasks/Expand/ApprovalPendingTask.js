@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Content, Card, CardItem, Text, Button, Icon, Left, Right, Body } from 'native-base';
+import { Container, Content, Card, CardItem, Text, Button, Icon, Left, Right, Body, View } from 'native-base';
 import RightHeaderButtons from '../../../components/RightHeaderButtons.js';
 import firebase from 'firebase';
+import { Image } from 'react-native';
+
 
 
 export default class ApprovalPendingTask extends Component {
@@ -32,6 +34,15 @@ export default class ApprovalPendingTask extends Component {
                 </Body>
               </Left>
             </CardItem>
+            {this.item.val().hasOwnProperty('imageURL')?
+              <CardItem>
+                <Body >
+                    <Image source={{uri:this.item.val().imageURL}} style={{width: '100%', height: 200, flex: 1}}/>
+                </Body>
+                </CardItem>
+             :
+             <View></View>
+            }
             <CardItem>
               <Left>
               <Body>
@@ -46,6 +57,12 @@ export default class ApprovalPendingTask extends Component {
                 <Button transparent textStyle={{color: '#87838B'}}>
                   <Icon name="person" />
                   <Text>{this.item.val().username}</Text>
+                </Button>
+              </Left>
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Button transparent textStyle={{color: '#87838B'}}>
                   <Icon name="calendar" />
                   <Text>{this.item.val().date}</Text>
                 </Button>
