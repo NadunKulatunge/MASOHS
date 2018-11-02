@@ -5,11 +5,19 @@ import { StyleSheet, Text, View } from "react-native";
 import {Ionicons} from '@expo/vector-icons';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import { Container, Content, List, ListItem, Icon, Left, Body, Right, Switch, Button, Label, Thumbnail, Item, Input, Card, CardItem, Form } from 'native-base';
-
+import RightHeaderButtons from '../../components/RightHeaderButtons.js';
 //Initialize firebase
 import * as firebase from 'firebase';
 
 export default class PedometerSensor extends React.Component {
+
+    static navigationOptions = ({navigation}) => ({
+        title: 'My Profile',
+        headerRight: (
+            <RightHeaderButtons navigation={navigation}/>
+        ),
+    });
+
   state = {
     isPedometerAvailable: "checking",
     pastStepCount: 0,
@@ -129,25 +137,23 @@ export default class PedometerSensor extends React.Component {
                             </Item>
                         </Body>
                     </CardItem>
-                    <CardItem>
                     { this.state.uploadingToFirebase === true ? 
-                        <Button style={{ marginTop:40 }}
+                        <Button full rounded style={{ marginTop:40 }}
                             full
                             rounded
                             success>
                             <View><Spinner color='white' /></View>
-                            <Text style={{ color:'white' }}>Submit</Text>
+                            <Text style={{ color:'white' }}>Submit to ProWalker</Text>
                         </Button>
                         :
-                        <Button style={{ marginTop:40 }}
+                        <Button full rounded style={{ marginTop:40 }}
                             full
                             rounded
                             success
                             onPress = { () => this.uploadStepsToFirebase(this.state.pastStepCount)}>
-                            <Text style={{ color:'white' }}>Submit</Text>
+                            <Text style={{ color:'white' }}>Submit to ProWalker</Text>
                         </Button>
                     }
-                    </CardItem>
                     }
                 </Card>
             </Content>

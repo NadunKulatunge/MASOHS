@@ -66,7 +66,7 @@ export default class Contacts extends Component {
           <List>
             <ListItem thumbnail>
             <Left>
-                <Thumbnail square source={require('../../assets/103361.png')} />
+                <Thumbnail square source={{ uri: 'https://png.icons8.com/ios/50/000000/lightning-bolt.png'}} />
               </Left>
               <Body>
                 <Text>Accident Service General Hospital</Text>
