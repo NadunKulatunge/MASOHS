@@ -18,7 +18,7 @@ export default class Announcements extends Component{
   render(){
     return(
       <Container>
-        <Tabs tabBarUnderlineStyle={{backgroundColor: 'white'}} renderTabBar={()=> <ScrollableTab />}>
+        <Tabs tabBarUnderlineStyle={{backgroundColor: 'white'}} renderTabBar={()=> <ScrollableTab tabsContainerStyle={{ backgroundColor: '#009688' }}/> }>
           <Tab heading="First Aid" tabStyle={{backgroundColor: '#009688',}} textStyle={{color: 'white'}} activeTabStyle={{backgroundColor: '#009688'}} activeTextStyle={{color: 'white', fontWeight: 'bold'}}>
             <Tab1/>
           </Tab>
