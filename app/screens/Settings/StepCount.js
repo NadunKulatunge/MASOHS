@@ -2,27 +2,12 @@ import Expo from "expo";
 import React from "react";
 import { Pedometer } from "expo";
 import { StyleSheet, Text, View } from "react-native";
-import {Ionicons} from '@expo/vector-icons';
-import { responsiveFontSize } from 'react-native-responsive-dimensions';
-import { Container, Content, List, ListItem, Icon, Left, Body, Right, Switch, Button, Label, Thumbnail, Item, Input, Card, CardItem, Form } from 'native-base';
-import RightHeaderButtons from '../../components/RightHeaderButtons.js';
-//Initialize firebase
-import * as firebase from 'firebase';
 
 export default class PedometerSensor extends React.Component {
-
-    static navigationOptions = ({navigation}) => ({
-        title: 'My Profile',
-        headerRight: (
-            <RightHeaderButtons navigation={navigation}/>
-        ),
-    });
-
   state = {
     isPedometerAvailable: "checking",
     pastStepCount: 0,
-    currentStepCount: 0,
-    uploadingToFirebase: false
+    currentStepCount: 0
   };
 
   componentDidMount() {
@@ -31,10 +16,6 @@ export default class PedometerSensor extends React.Component {
 
   componentWillUnmount() {
     this._unsubscribe();
-  }
-
-  uploadStepsToFirebase = (stepCount) => {
-        
   }
 
   _subscribe = () => {
@@ -79,85 +60,15 @@ export default class PedometerSensor extends React.Component {
 
   render() {
     return (
-        <Container>
-            <Content>
-                <View style={{flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    }}>
-                    <Ionicons style={{color: 'rgba(0,0,0,0.5)'}} name='md-walk' size={responsiveFontSize(30)}/>
-                </View>
-                <Card transparent>
-                    <CardItem>
-                        <Body>
-                            <Item >
-                                <Label>Name</Label>
-                                <Input 
-                                    value={firebase.auth().currentUser.displayName}
-                                    disabled
-                                />
-                            </Item>
-                        </Body>
-                    </CardItem>
-                    {this.state.isPedometerAvailable==true? (
-                        <CardItem>
-                            <Body>
-                                <Item >
-                                    <Label>Pedometer Available</Label>
-                                    <Ionicons style={{color: 'rgba(0,0,0,0.5)'}} name='md-checkbox-outline' size={30}/>
-                                    <Input 
-                                        disabled
-                                    />
-                                    
-                                </Item>
-                            </Body>
-                        </CardItem>
-                    ) : (
-                        <CardItem>
-                            <Body>
-                                <Item >
-                                    <Label>Pedometer Available</Label>
-                                    <Ionicons style={{color: 'rgba(0,0,0,0.5)'}} name='md-close-circle' size={30}/>
-                                    <Input 
-                                        disabled
-                                    />
-                                    
-                                </Item>
-                            </Body>
-                        </CardItem>
-                    )}
-                    <CardItem>
-                        <Body>
-                            <Item >
-                                <Label>Today's Steps</Label>
-                                <Input 
-                                    value={this.state.pastStepCount.toString()}
-                                    disabled
-                                />
-                            </Item>
-                        </Body>
-                    </CardItem>
-                    { this.state.uploadingToFirebase === true ? 
-                        <Button full rounded style={{ marginTop:40 }}
-                            full
-                            rounded
-                            success>
-                            <View><Spinner color='white' /></View>
-                            <Text style={{ color:'white' }}>Submit to ProWalker</Text>
-                        </Button>
-                        :
-                        <Button full rounded style={{ marginTop:40 }}
-                            full
-                            rounded
-                            success
-                            onPress = { () => this.uploadStepsToFirebase(this.state.pastStepCount)}>
-                            <Text style={{ color:'white' }}>Submit to ProWalker</Text>
-                        </Button>
-                    }
-                    }
-                </Card>
-            </Content>
-        </Container>
+      <View style={styles.container}>
+        <Text>
+          Pedometer.isAvailableAsync(): {this.state.isPedometerAvailable}
+        </Text>
+        <Text>
+          Steps taken in the last 24 hours: {this.state.pastStepCount}
+        </Text>
+        <Text>Walk! And watch this go up: {this.state.currentStepCount}</Text>
+      </View>
     );
   }
 }
