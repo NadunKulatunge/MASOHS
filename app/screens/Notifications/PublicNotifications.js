@@ -13,7 +13,10 @@ class PublicNotifications extends Component {
     this.state = { loading: true, fire_loaded: false };
   }
 
-  publicNotifications=[]
+  publicNotifications=[];
+  userRole = "";
+  department = "";
+
 
   async componentWillMount() {
     await Font.loadAsync({
@@ -21,9 +24,21 @@ class PublicNotifications extends Component {
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
     });
 
+    await firebase.database().ref('users/'+firebase.auth().currentUser.uid).once('value', (snapshot) => {
+        this.userRole = snapshot.val().role;
+        this.department = snapshot.val().department;
+        //console.log(snapshot);
+    });
+
     firebase.database().ref('publicNotifications/').orderByKey().once('value', (snapshot) => {
       snapshot.forEach((item)=>{
-         this.publicNotifications.push(item);
+        console.log(item)
+        if(this.userRole == "superadmin"){
+          this.publicNotifications.push(item);
+        }else if(this.userRole != "superadmin" && this.department == item.val().department){
+          this.publicNotifications.push(item);
+        }
+         
         
       }) 
       //console.log(this.publicNotifications)
@@ -49,7 +64,7 @@ class PublicNotifications extends Component {
               renderRow={(item) =>
               <ListItem thumbnail>
                 <Left>
-                  {item.val().navigateTo =='Chat'? (
+                  {item.val().displayIcon=='Chat'? (
                   <Ionicons style={{color: 'rgba(0,0,0,0.5)'}} name='ios-chatbubbles' size={responsiveFontSize(4)}/>
                   ) : (
                     <View></View>

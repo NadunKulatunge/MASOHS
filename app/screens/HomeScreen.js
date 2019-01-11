@@ -7,9 +7,9 @@ import {
     Dimensions,
     TouchableOpacity,
 } from "react-native";
-import { Permissions, Notifications } from 'expo';
+import { Permissions, Notifications, AppLoading, Font } from 'expo';
 import {Ionicons} from '@expo/vector-icons';
-import { Icon, Button, Badge, Container } from 'native-base';
+import { Icon, Button, Badge, Container, Root } from 'native-base';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 //Custom Components
@@ -32,6 +32,43 @@ class HomeScreen extends Component {
             <RightHeaderButtons navigation={navigation}/>
         ),
     });
+
+    userRole = "";
+    department = "";
+    chatNavigate = "";
+
+    async componentWillMount() {
+        await Font.loadAsync({
+          Roboto: require("native-base/Fonts/Roboto.ttf"),
+          Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
+        });
+        
+        await firebase.database().ref('users/'+firebase.auth().currentUser.uid).once('value', (snapshot) => {
+            this.userRole = snapshot.val().role;
+            this.department = snapshot.val().department;
+             
+              this.setState({fire_loaded:true});
+              this.forceUpdate();
+              //console.log(snapshot);
+            });
+        this.setState({ loading: false });
+        console.log(this.department);
+        if(this.userRole == "superadmin"){
+            this.chatNavigate = "ChatMenu";
+        }else if(this.department == "Noyon Lanka (Pvt) Ltd"){
+            this.chatNavigate = "ChatNoyonLanka";
+        }else if(this.department == "Textprint Lanka (Pvt) Ltd"){
+            this.chatNavigate = "ChatTextprintLanka";
+        }else if(this.department == "MAS Fabrics (Pvt) Ltd"){
+            this.chatNavigate = "ChatMASFabrics";
+        }else if(this.department == "MAS Fabrics - MATRIX"){
+            this.chatNavigate = "ChatMASmatrix";
+        }else if(this.department == "Trischel Fabric (Pvt) Ltd"){
+            this.chatNavigate = "ChatTrischelFabric";
+        }
+
+
+    }
 
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
@@ -94,10 +131,35 @@ class HomeScreen extends Component {
     }
         
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {         
+            loading:true,
+            fire_loaded:false,
+        };
     }
 
     render() {
+
+        if (this.state.loading) {
+            return (
+              <Root>
+                <AppLoading />
+              </Root>
+            );
+          
+        }
+
+
+
+        const chatButton =  (
+            <TouchableOpacity onPress={() => this.props.navigation.navigate(this.chatNavigate)} >
+                <View style={[styles.box, {backgroundColor: '#9575CD'}]}>
+                    <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='ios-chatbubbles' size={responsiveFontSize(9)}/></Text>
+                    <Text style={styles.boxText}>Chat</Text>
+                </View>
+            </TouchableOpacity>
+            );   
+
         return (
             <ScrollView style={styles.scrollContainer}>
             <OfflineNotice />
@@ -126,12 +188,9 @@ class HomeScreen extends Component {
                             <Text style={styles.boxText}>Competitions</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Chat')} >
-                        <View style={[styles.box, {backgroundColor: '#9575CD'}]}>
-                            <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='ios-chatbubbles' size={responsiveFontSize(9)}/></Text>
-                            <Text style={styles.boxText}>Chat</Text>
-                        </View>
-                    </TouchableOpacity>
+
+                    {chatButton}
+
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Tasks')} >
                         <View style={[styles.box, {backgroundColor: '#FFB74D'}]}>
                             <Text style={{color: 'rgba(0,0,0,0.5)'}}><Ionicons name='md-filing' size={responsiveFontSize(9)}/></Text>

@@ -54,7 +54,8 @@ export function funcSendPushNotificationToAllUsersExceptCurrentUser(currentUser 
         title: title,
         body: body,
         sender: currentUser.uid,
-        navigateTo: navigateTo
+        navigateTo: navigateTo,
+        department: ""
     });
 
     var query = firebase.database().ref("users").orderByKey();
@@ -69,8 +70,46 @@ export function funcSendPushNotificationToAllUsersExceptCurrentUser(currentUser 
             var token = childSnapshot.val().expoToken;
 
             //If the current user dont send notification
-            if(currentUser.uid != uID && snapshot.val().muteNotifications!="True"){
+            if(currentUser.uid != uID && childSnapshot.val().muteNotifications!="True"){
                 funcSendPushNotification(token, title, body);
+            }
+
+        });
+    });
+}
+
+
+//currentUser is the users JSON file
+export function funcSendPushNotificationToAllUsersExceptCurrentUserWithDepartment(currentUser , title , body, navigateTo="", department, displayIcon) {
+    /*Create user with unique key of 'uid'*/
+    var usersRef = firebase.database().ref("publicNotifications");
+    usersRef.push({ 
+        title: title,
+        body: body,
+        sender: currentUser.uid,
+        navigateTo: navigateTo,
+        department: department,
+        displayIcon: displayIcon
+    });
+
+    var query = firebase.database().ref("users").orderByKey();
+    query.once("value")
+        .then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+
+            // Get each users ID from the database
+            var uID = childSnapshot.key;
+
+            // Get each users token from the database
+            var token = childSnapshot.val().expoToken;
+
+            //If the current user dont send notification
+            if(currentUser.uid != uID && childSnapshot.val().muteNotifications!="True"){
+                if(childSnapshot.val().role == "superadmin"){ //If superadmin then send notification
+                    funcSendPushNotification(token, title, body);
+                }else if(childSnapshot.val().role != "superadmin" && childSnapshot.val().department == department){ //if not super admin send notif if user is in that department
+                    funcSendPushNotification(token, title, body);
+                }  
             }
 
         });

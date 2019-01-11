@@ -6,7 +6,13 @@ import LoginScreen from './app/screens/Auth/LoginScreen.js';
 import HomeScreen from './app/screens/HomeScreen.js';
 import SignUpScreen from './app/screens/Auth/SignUpScreen.js';
 
-import ChatScreen from './app/screens/Chat/ChatScreen.js'
+import ChatScreen from './app/screens/Chat/ChatScreen.js';
+import ChatMenu from './app/screens/Chat/ChatMenu.js';
+import ChatScreenMASFabrics from './app/screens/Chat/MASFabrics/ChatScreen.js';
+import ChatScreenMASmatrix from './app/screens/Chat/MASmatrix/ChatScreen.js';
+import ChatScreenNoyonLanka from './app/screens/Chat/NoyonLanka/ChatScreen.js';
+import ChatScreenTextprintLanka from './app/screens/Chat/TextprintLanka/ChatScreen.js';
+import ChatScreenTrischelFabric from './app/screens/Chat/TrischelFabric/ChatScreen.js';
 
 //Settings
 import SettingsScreen from './app/screens/Settings/SettingsScreen.js';
@@ -49,7 +55,8 @@ const AppStack = createStackNavigator(
     Home: HomeScreen, IncidentReporting: IncidentReporting, Chat: ChatScreen, Settings: SettingsScreen, Tasks: TaskScreen, AddHealth:AddHealthScreen, Monitoring:HealthScreen,
     CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, ApproveTask:ApproveTaskScreen, Information: InformationScreen,
     ChangePassword: ChangePassword, MyProfile: MyProfile, Competitions: Competitions, ProWalker: ProWalker,
-    Notifications: NotificationsScreen, StepCount: StepCount
+    Notifications: NotificationsScreen, StepCount: StepCount, ChatMenu: ChatMenu, ChatMASFabrics: ChatScreenMASFabrics, ChatMASmatrix: ChatScreenMASmatrix,
+    ChatNoyonLanka: ChatScreenNoyonLanka, ChatTextprintLanka: ChatScreenTextprintLanka, ChatTrischelFabric: ChatScreenTrischelFabric
 
   },
 
