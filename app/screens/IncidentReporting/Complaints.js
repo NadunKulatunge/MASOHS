@@ -35,7 +35,7 @@ export default class Complain extends Component{
           Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
         });
         
-        await firebase.database().ref('admin/').on('value', (snapshot) => {
+        await firebase.database().ref('users').orderByChild('role').equalTo('admin').once('value', (snapshot) => {
             snapshot.forEach((item)=>{
                 this.fire_items.push(item);
               }) 
@@ -174,7 +174,7 @@ export default class Complain extends Component{
         }
         
         const pickerOptions = this.fire_items.map((item, index) => (
-            <Picker.Item label={item.val().username} value={item.val().userid} key={index} />
+            <Picker.Item label={item.val().displayName} value={item.key} key={index} />
             ));        
         
 
@@ -219,12 +219,14 @@ export default class Complain extends Component{
                     <Item Picker>
                     <Label>Reciever</Label>  
                     <Picker
+                        iosHeader = "Select a Reciever"
+                        placeholder = "Select a Reciever"
                         mode="dialog"
                         iosIcon={<Icon name="ios-arrow-down-outline" />}
                         selectedValue={this.state.reciever}
                         onValueChange={this.onValueChangeReciever.bind(this)}
                     >
-                        <Picker.Item label="Select a reciever" value="null" />
+                        <Picker.Item label="Select a Reciever" value="null" />
                         {pickerOptions}
                     </Picker>
                     </Item>

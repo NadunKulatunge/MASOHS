@@ -103,7 +103,7 @@ export default class changePassword extends Component{
                         <Button style={{ marginTop:40 }}
                             full
                             rounded
-                            success>
+                            primary>
                             <View><Spinner color='white' /></View>
                             <Text style={{ color:'white' }}>Submit</Text>
                         </Button>
@@ -111,7 +111,7 @@ export default class changePassword extends Component{
                         <Button style={{ marginTop:40 }}
                             full
                             rounded
-                            success
+                            primary
                             onPress = { () => this.changePassword(this.state.currentPassword, this.state.newPassword, this.state.reTypePassword)}>
                             <Text style={{ color:'white' }}>Submit</Text>
                         </Button>

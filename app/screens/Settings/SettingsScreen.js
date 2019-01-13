@@ -30,6 +30,22 @@ class Settings extends Component {
     this.isNotificationsMute()
   }
 
+  userRole = "";
+  department = "";
+
+  async componentWillMount() {
+    await firebase.database().ref('users/'+firebase.auth().currentUser.uid).once('value', (snapshot) => {
+        this.userRole = snapshot.val().role;
+        this.department = snapshot.val().department;
+         
+          this.setState({fire_loaded:true});
+          this.forceUpdate();
+          //console.log(snapshot);
+        });
+    this.setState({ loading: false });
+    console.log(this.department);
+  }
+
   isNotificationsMute() {
     var user = firebase.database().ref("users/"+ firebase.auth().currentUser.uid).orderByKey();
     user.once("value")
@@ -84,6 +100,25 @@ class Settings extends Component {
               <Icon active name="arrow-forward" />
             </Right>
           </ListItem>
+
+        {this.userRole=="superadmin" ? (
+          <ListItem thumbnail button onPress={() => this.props.navigation.navigate('UserList')}>
+          <Left>
+            <Ionicons style={{color: 'rgba(0,0,0,0.5)'}} name='ios-contacts' size={responsiveFontSize(4)}/>
+          </Left>
+          <Body>
+            <Text>User Profiles</Text>
+            <Text note numberOfLines={1}>View/Update Users profile information.</Text>
+          </Body>
+          <Right>
+            <Icon active name="arrow-forward" />
+          </Right>
+        </ListItem>
+        ) : (
+          <View></View>
+        )}
+
+          
 
           <ListItem thumbnail button onPress={() => this.props.navigation.navigate('ChangePassword')}>
             <Left>
