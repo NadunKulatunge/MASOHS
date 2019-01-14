@@ -6,6 +6,7 @@ import {Ionicons} from '@expo/vector-icons';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import RightHeaderButtons from '../../components/RightHeaderButtons.js';
 import Fire from './Fire';
+import * as firebase from 'firebase';
 
 export default class ChatMenu extends Component {
     static navigationOptions = ({navigation}) => ({
@@ -20,12 +21,33 @@ export default class ChatMenu extends Component {
         this.state = { loading: true };
     }
 
+
+    userRole = "";
+    department = "";
+    chatNavigate = "";
+
     async componentWillMount() {
         await Font.loadAsync({
-        Roboto: require("native-base/Fonts/Roboto.ttf"),
-        Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
+          Roboto: require("native-base/Fonts/Roboto.ttf"),
+          Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
         });
+        
+        /*Handle Security Issue which arrise when userRole has been changed*/
+        await firebase.database().ref('users/'+firebase.auth().currentUser.uid).once('value', (snapshot) => {
+            this.userRole = snapshot.val().role;
+            this.department = snapshot.val().department;
+             
+              this.setState({fire_loaded:true});
+              this.forceUpdate();
+              //console.log(snapshot);
+            });
         this.setState({ loading: false });
+        console.log(this.department);
+        if(this.userRole != "superadmin"){ 
+            this.props.navigation.navigate('Login');
+        }
+
+
     }
 
     render() {

@@ -51,7 +51,8 @@ class HomeScreen extends Component {
               this.forceUpdate();
               //console.log(snapshot);
             });
-        
+        this.setState({ loading: false });
+        console.log(this.department);
         if(this.userRole == "superadmin"){
             this.chatNavigate = "ChatMenu";
         }else if(this.department == "Noyon Lanka (Pvt) Ltd"){
@@ -65,8 +66,6 @@ class HomeScreen extends Component {
         }else if(this.department == "Trischel Fabric (Pvt) Ltd"){
             this.chatNavigate = "ChatTrischelFabric";
         }
-        this.setState({ loading: false });
-        console.log(this.department);
 
 
     }

@@ -13,6 +13,8 @@ class UserList extends Component {
         ),
     });
 
+  
+
   constructor(props) {
     super(props);
 
@@ -23,11 +25,13 @@ class UserList extends Component {
     };
 
     this.arrayholder = [];
+    
   }
 
   componentDidMount() {
     this.makeRemoteRequest();
   }
+
 
   fire_items=[];
 

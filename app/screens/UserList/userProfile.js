@@ -14,6 +14,8 @@ import { responsiveFontSize, responsiveWidth } from 'react-native-responsive-dim
 import { Container, Content, List, ListItem, Text, Icon, Left, Body, Right, Switch, Button, Label, Thumbnail, Item, Input, Card, CardItem, Form, Picker } from 'native-base';
 import RightHeaderButtons from '../../components/RightHeaderButtons.js';
 
+import * as FirebasePushNotifications from "../../utils/FirebasePushNotifications";
+
 
 class MyProfile extends Component {
   static navigationOptions = ({navigation}) => ({
@@ -56,6 +58,7 @@ class MyProfile extends Component {
                     snapshot.forEach(function(child) {
                        console.log(child.key)
                         child.ref.update({role: this.state.roleSelected});
+                        FirebasePushNotifications.funcSendPushNotificationToUserID(firebase.auth().currentUser , child.key , 'Administration' , 'Your Account has been updated. Please Re-Login to use the new features', navigateTo="Settings");
                     }.bind(this));
                 }.bind(this));
             }
@@ -63,10 +66,12 @@ class MyProfile extends Component {
                 firebase.database().ref('users').orderByChild('email').equalTo(this.item.email).once('value', function (snapshot) {
                     snapshot.forEach(function(child) {
                         child.ref.update({department: this.state.departmentSelected});
+                        FirebasePushNotifications.funcSendPushNotificationToUserID(firebase.auth().currentUser , child.key , 'Administration' , 'Your Account has been updated. Please Re-Login to use the new features', navigateTo="Settings");
                     }.bind(this));
                 }.bind(this));
             }
-            Alert.alert("Success", "User Updated")
+            Alert.alert("Success", "User Updated");
+            this.props.navigation.navigate('Settings');
 
 
         }
@@ -79,7 +84,7 @@ class MyProfile extends Component {
         }.bind(this));
     }.bind(this));
     Alert.alert("Success", "User Deleted");
-    this.props.navigation.navigate('Settings')
+    this.props.navigation.navigate('Settings');
   }
 
   DeleteConfirm(){
