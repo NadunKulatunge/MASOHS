@@ -125,7 +125,13 @@ class Fire {
         image: this.imageURL,
       };
       this.append(message);
-      FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUserWithDepartment(firebase.auth().currentUser , message.user.name, 'Message: ' + message.text, 'ChatTextprintLanka', "Textprint Lanka (Pvt) Ltd", "Chat")
+      if(message.text!=""){
+        console.log(message.text)
+        FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUserWithDepartment(firebase.auth().currentUser , message.user.name, 'Message: ' + message.text, 'ChatMASFabrics', "Textprint Lanka (Pvt) Ltd", "Chat")
+      }else{
+        FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUserWithDepartment(firebase.auth().currentUser , message.user.name, 'Message: Attachment', 'ChatMASFabrics', "Textprint Lanka (Pvt) Ltd", "Chat")
+      }
+
     }
     this.removeimage();
     this.removeDocumentURL();

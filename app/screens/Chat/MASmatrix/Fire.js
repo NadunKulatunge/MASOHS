@@ -125,7 +125,13 @@ class Fire {
         image: this.imageURL,
       };
       this.append(message);
-      FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUserWithDepartment(firebase.auth().currentUser , message.user.name, 'Message: ' + message.text, 'ChatMASmatrix', "MAS Fabrics - MATRIX", "Chat")
+      if(message.text!=""){
+        console.log(message.text)
+        FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUserWithDepartment(firebase.auth().currentUser , message.user.name, 'Message: ' + message.text, 'ChatMASFabrics', "MAS Fabrics - MATRIX", "Chat")
+      }else{
+        FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUserWithDepartment(firebase.auth().currentUser , message.user.name, 'Message: Attachment', 'ChatMASFabrics', "MAS Fabrics - MATRIX", "Chat")
+      }
+
     }
     this.removeimage();
     this.removeDocumentURL();
