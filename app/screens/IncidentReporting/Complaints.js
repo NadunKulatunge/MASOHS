@@ -68,7 +68,7 @@ export default class Complain extends Component{
         }).then((data)=>{
             //success
             console.log('success')
-            FirebasePushNotifications.funcSendPushNotificationToUserID(firebase.auth().currentUser,reciever,'Complaint',username + ': ' + msg);
+            FirebasePushNotifications.funcSendPushNotificationToUserID(firebase.auth().currentUser,reciever,'Complaint',username + ': ' + msg,  'Tasks');
             this.setState({isSubmited:true})
         }).catch((error)=>{
             //error

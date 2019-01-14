@@ -67,7 +67,7 @@ export default class Accident extends Component{
         }).then((data)=>{
             //success
             console.log('data',data)
-            FirebasePushNotifications.funcSendPushNotificationToUserID(firebase.auth().currentUser,reciever,'Accident',username + ': ' + msg);
+            FirebasePushNotifications.funcSendPushNotificationToUserID(firebase.auth().currentUser,reciever,'Accident',username + ': ' + msg, 'Tasks');
             this.setState({isSubmited:true})
         }).catch((error)=>{
             //error
