@@ -18,11 +18,11 @@ export default class Notifications extends Component{
     return(
       <Container>
         <Tabs tabBarUnderlineStyle={{backgroundColor: 'white'}}>
-          <Tab heading="Public" tabStyle={{backgroundColor: '#009688',}} textStyle={{color: 'white'}} activeTabStyle={{backgroundColor: '#009688'}} activeTextStyle={{color: 'white', fontWeight: 'bold'}}>
-            <Tab1/>
-          </Tab>
           <Tab heading="Private" tabStyle={{backgroundColor: '#009688', }} textStyle={{color: 'white'}} activeTabStyle={{backgroundColor: '#009688'}} activeTextStyle={{color: 'white', fontWeight: 'bold'}}>
             <Tab2/>
+          </Tab>
+          <Tab heading="Public" tabStyle={{backgroundColor: '#009688',}} textStyle={{color: 'white'}} activeTabStyle={{backgroundColor: '#009688'}} activeTextStyle={{color: 'white', fontWeight: 'bold'}}>
+            <Tab1/>
           </Tab>
         </Tabs>
       </Container>

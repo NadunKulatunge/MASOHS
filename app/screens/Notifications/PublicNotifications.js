@@ -30,7 +30,7 @@ class PublicNotifications extends Component {
         //console.log(snapshot);
     });
 
-    firebase.database().ref('publicNotifications/').orderByKey().once('value', (snapshot) => {
+    firebase.database().ref('publicNotifications/').orderByKey().limitToLast(20).once('value', (snapshot) => {
       snapshot.forEach((item)=>{
         console.log(item)
         if(this.userRole == "superadmin"){

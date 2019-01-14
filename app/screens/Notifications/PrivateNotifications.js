@@ -21,7 +21,7 @@ class PrivateNotifications extends Component {
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
     });
 
-    firebase.database().ref('privateNotifications/'+firebase.auth().currentUser.uid).orderByKey().once('value', (snapshot) => {
+    firebase.database().ref('privateNotifications/'+firebase.auth().currentUser.uid).orderByKey().limitToLast(20).once('value', (snapshot) => {
       snapshot.forEach((item)=>{
          this.privateNotifications.push(item);
         
