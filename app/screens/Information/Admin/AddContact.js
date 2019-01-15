@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import { 
-    View,
+    
     StyleSheet,
-    Image
+
 } from "react-native";
 
-import { Container,Fab, Header,Footer, Title, Content, Card, CardItem, Form, Input, Item,  Thumbnail, Text, Button, Icon, Left, Body ,H1} from 'native-base';
+import { Container, Form, Input, Item, Text, Button,H1} from 'native-base';
 import { Font, AppLoading } from "expo";
-import ListItem from '../../../components/ListItem'
-import {FormStyle} from '../../../styles/styles'
-import {Ionicons} from '@expo/vector-icons';
-import { responsiveFontSize } from 'react-native-responsive-dimensions';
+
 import RightHeaderButtons from '../../../components/RightHeaderButtons';
 import firebase from 'firebase';
 
@@ -110,11 +107,11 @@ class AddContact extends Component {
     }
     _addData() {
         if(this.state.fetchedDataName == '' ){
-            alert("Contact name field cannot be empty!");
+            alert("Contact Name field cannot be empty!");
             return;
         }
-        else if(this.state.contactNum == '' ){
-            alert("Contact number field cannot be empty!");
+        else if(this.state.fetchedDataNum == '' ){
+            alert("Contact Number field cannot be empty!");
             return;
         }
         this.fetchedDatasRef.push({ contactName: this.state.fetchedDataName, contactNum: this.state.fetchedDataNum});
