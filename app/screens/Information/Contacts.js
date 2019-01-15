@@ -66,7 +66,7 @@ class Contacts extends Component {
       <Container>
         {this.state.fire_loaded1 && this.state.fire_loaded2 ?
         <Content>
-          {console.log(this.fetchedDatas)} 
+          {/* {console.log(this.fetchedDatas)}  */}
       
           <List dataArray={this.fetchedDatas}
             renderRow={(fetchedData) => this._renderItem(fetchedData)} >
