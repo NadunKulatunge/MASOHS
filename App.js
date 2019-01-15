@@ -42,7 +42,10 @@ import ProWalker from './app/screens/Competitions/ProWalker'
 import * as appConst from './app/constants/Constants';
 
 import UserList from './app/screens/UserList/index';
-import UserProfile from './app/screens/UserList/userProfile'
+import UserProfile from './app/screens/UserList/userProfile';
+
+import UserApprovals from './app/screens/UserApprovals/index';
+import UserAcceptProfile from './app/screens/UserApprovals/userAcceptProfile';
 
 export default class App extends React.Component {
   render() {
@@ -59,7 +62,8 @@ const AppStack = createStackNavigator(
     CompleteTask:CompleteTaskScreen, ApprovalPending:ApprovalPendingScreen, ViewTask:ViewTaskScreen, ApproveTask:ApproveTaskScreen, Information: InformationScreen,
     ChangePassword: ChangePassword, MyProfile: MyProfile, Competitions: Competitions, ProWalker: ProWalker,
     Notifications: NotificationsScreen, StepCount: StepCount, ChatMenu: ChatMenu, ChatMASFabrics: ChatScreenMASFabrics, ChatMASmatrix: ChatScreenMASmatrix,
-    ChatNoyonLanka: ChatScreenNoyonLanka, ChatTextprintLanka: ChatScreenTextprintLanka, ChatTrischelFabric: ChatScreenTrischelFabric, UserList:UserList, UserProfile:UserProfile
+    ChatNoyonLanka: ChatScreenNoyonLanka, ChatTextprintLanka: ChatScreenTextprintLanka, ChatTrischelFabric: ChatScreenTrischelFabric, UserList:UserList, UserProfile:UserProfile,
+    UserApprovals: UserApprovals, UserAcceptProfile: UserAcceptProfile
 
   },
 

@@ -6,8 +6,9 @@ import {
     Image
 } from "react-native";
 
-import { Container, Content, Header, Form, Input, Item, Button, Label, CheckBox, Body, Spinner, H1 } from 'native-base';
+import { Container, Content, Header, Form, Input, Item, Button, Label, CheckBox, Body, Spinner, H1, Picker } from 'native-base';
 import { BlurView } from 'expo';
+import { responsiveFontSize, responsiveWidth } from 'react-native-responsive-dimensions';
 
 //Initialize firebase
 import * as firebase from 'firebase';
@@ -27,7 +28,8 @@ class SignUp extends Component {
             password1: '',
             password2: '',
             iAccept: false,
-            signupLoading: false
+            signupLoading: false,
+            departmentSelected: ''
         })
 
         firebase.auth().onAuthStateChanged(user => {
@@ -36,6 +38,12 @@ class SignUp extends Component {
 
         })
         
+    }
+
+    onDepartmentValueChange(value){
+        this.setState({
+            departmentSelected: value
+        });
     }
 
     signUpUser = (email, password, displayName) => {
@@ -63,6 +71,10 @@ class SignUp extends Component {
             alert("Please accept our privacy policy.");
             return;
         }
+        else if( this.state.departmentSelected === '' ){
+            alert("Please select your department.");
+            return;
+        }
         //Signup Firebase
         this.setState({signupLoading: true});
         firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user) {
@@ -72,22 +84,26 @@ class SignUp extends Component {
                 displayName: displayName,
             }).then(function() {
                 user.sendEmailVerification().then(function() {
-
+                    department = this.state.departmentSelected;
+                    firebase.auth().signInAnonymously();
                     /*Create user with unique key of 'uid'*/
                     var usersRef = firebase.database().ref("users");
                     usersRef.child(user.uid).set({ 
                         displayName: user.displayName,
                         email: user.email,
+                        department: department,
+                        notApproved: 'True',
+                        role: 'user'
                     });
                    
                     alert("Email verification sent. Please verify your email address.");
                     firebase.auth().signOut()
-                }).catch(function(error) { 
+                }.bind(this)).catch(function(error) { 
                     alert("Error sending email verification.");
-                });
-            }).catch(function(error) {
+                }.bind(this));
+            }.bind(this)).catch(function(error) {
                 alert("Display name error");
-            });
+            }.bind(this));
 
             
 
@@ -151,6 +167,26 @@ class SignUp extends Component {
                             onChangeText={ (email) => this.setState({email}) }
                             value={this.state.email}
                         />
+                    </Item>
+                    <Item >
+                        <Label>Department</Label>
+                        <Picker
+                            iosHeader = "Select a Department"
+                            placeholder = "Select a Department"
+                            note
+                            mode="dropdown"
+                            style={{ width: responsiveWidth(65) }}
+                            selectedValue={this.state.departmentSelected}
+                            onValueChange={this.onDepartmentValueChange.bind(this)}
+                            >
+                            <Picker.Item label="Noyon Lanka (Pvt) Ltd" value="Noyon Lanka (Pvt) Ltd" />
+                            <Picker.Item label="MAS Fabrics - MATRIX" value="MAS Fabrics - MATRIX" />
+                            <Picker.Item label="Trischel Fabric (Pvt) Ltd" value="Trischel Fabric (Pvt) Ltd" />
+                            <Picker.Item label="Textprint Lanka (Pvt) Ltd" value="Textprint Lanka (Pvt) Ltd" />
+                            <Picker.Item label="MAS Fabrics (Pvt) Ltd" value="MAS Fabrics (Pvt) Ltd" />
+                            
+                        </Picker>
+                            
                     </Item>
                     <Item >
                         <Input

@@ -101,7 +101,24 @@ class Settings extends Component {
             </Right>
           </ListItem>
 
-        {this.userRole=="superadmin" ? (
+      {this.userRole=="superadmin" || this.userRole=="admin" ? (
+          <ListItem thumbnail button onPress={() => this.props.navigation.navigate('UserApprovals')}>
+          <Left>
+            <Ionicons style={{color: 'rgba(0,0,0,0.5)'}} name='ios-person-add' size={responsiveFontSize(4)}/>
+          </Left>
+          <Body>
+            <Text>Approval Requests</Text>
+            <Text note numberOfLines={1}>View new profile approval requests.</Text>
+          </Body>
+          <Right>
+            <Icon active name="arrow-forward" />
+          </Right>
+        </ListItem>
+        ) : (
+          <View></View>
+        )}
+
+        {this.userRole=="superadmin" || this.userRole=="admin" ? (
           <ListItem thumbnail button onPress={() => this.props.navigation.navigate('UserList')}>
           <Left>
             <Ionicons style={{color: 'rgba(0,0,0,0.5)'}} name='ios-contacts' size={responsiveFontSize(4)}/>

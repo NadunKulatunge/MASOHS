@@ -35,19 +35,6 @@ class MyProfile extends Component {
     };
   }
 
-  userRole = "";
-  department = "";
-
-  
-  componentDidMount() {
-    firebase.database().ref('users/'+firebase.auth().currentUser.uid).once('value', (snapshot) => {
-      this.userRole = snapshot.val().role;
-      this.department = snapshot.val().department;
-    });
-
-
-  };
-
   onRoleValueChange(value) {
     this.setState({
       roleSelected: value
@@ -59,41 +46,15 @@ class MyProfile extends Component {
       });
   }
 
-  UpdateUser(){
-
-    if(this.userRole=='superadmin'){
-      //If role has been changed update database
-        if(this.state.roleSelected=="" || this.state.roleSelected==undefined){
-            Alert.alert('Error','Please select a Role')
-        }else if(this.state.departmentSelected=="" || this.state.departmentSelected==undefined){
-            Alert.alert('Error','Please select a Department')
-        }else if(this.item.role != this.state.roleSelected || this.item.department != this.state.departmentSelected){
-            if(this.item.role != this.state.roleSelected) {
-                firebase.database().ref('users').orderByChild('email').equalTo(this.item.email).once('value', function (snapshot) {
-                    snapshot.forEach(function(child) {
-                       console.log(child.key)
-                        child.ref.update({role: this.state.roleSelected});
-                        FirebasePushNotifications.funcSendPushNotificationToUserID(firebase.auth().currentUser , child.key , 'Administration' , 'Your Account has been updated. Please Re-Login to use the new features', navigateTo="Settings");
-                    }.bind(this));
-                }.bind(this));
-            }
-            if(this.item.department != this.state.departmentSelected) {
-                firebase.database().ref('users').orderByChild('email').equalTo(this.item.email).once('value', function (snapshot) {
-                    snapshot.forEach(function(child) {
-                        child.ref.update({department: this.state.departmentSelected});
-                        FirebasePushNotifications.funcSendPushNotificationToUserID(firebase.auth().currentUser , child.key , 'Administration' , 'Your Account has been updated. Please Re-Login to use the new features', navigateTo="Settings");
-                    }.bind(this));
-                }.bind(this));
-            }
-            Alert.alert("Success", "User Updated!");
-            this.props.navigation.navigate('Settings');
-
-
-        }
-    } else {
-        //If not a super admin dont allow user data changes
-        Alert.alert("Error", "Sorry! You don't have permission to change user data. Ask SuperAdmin for assistance");
-    }
+  ApproveUser(){
+    firebase.database().ref('users').orderByChild('email').equalTo(this.item.email).once('value', function (snapshot) {
+        snapshot.forEach(function(child) {
+            child.ref.update({notApproved: null});
+            FirebasePushNotifications.funcSendPushNotificationToUserID(firebase.auth().currentUser , child.key , 'Administration' , 'Your Account has been Approved. You can now Login to use the App', navigateTo="Settings");
+        }.bind(this));
+    }.bind(this));
+    Alert.alert("Success", "User Approved");
+    this.props.navigation.navigate('Settings');
 
   }; 
   Delete(){
@@ -199,8 +160,8 @@ class MyProfile extends Component {
                 
                 <Button full
                         rounded style={{ marginTop:10 }}
-                        primary  onPress={()=>this.UpdateUser()}>
-                    <Text>Update</Text>
+                        primary  onPress={()=>this.ApproveUser()}>
+                    <Text>Approve</Text>
                 </Button>
                 <Button full
                         rounded style={{ marginTop:10 }}

@@ -38,15 +38,19 @@ class HomeScreen extends Component {
     chatNavigate = "";
 
     async componentWillMount() {
-        await Font.loadAsync({
+        /*await Font.loadAsync({
           Roboto: require("native-base/Fonts/Roboto.ttf"),
           Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
-        });
+        });*/
         
         await firebase.database().ref('users/'+firebase.auth().currentUser.uid).once('value', (snapshot) => {
             this.userRole = snapshot.val().role;
             this.department = snapshot.val().department;
-             
+            if(snapshot.val().notApproved == "True"){
+                firebase.database().ref( 'users/'+ firebase.auth().currentUser.uid ).child('expoToken').remove()
+                firebase.auth().signOut()
+                alert('You have not yet been assigned to a Department! Ask the Admin to Approve your Account.');
+            }
               this.setState({fire_loaded:true});
               this.forceUpdate();
               //console.log(snapshot);

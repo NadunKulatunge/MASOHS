@@ -7,7 +7,7 @@ import { Container, Content} from 'native-base';
 
 class UserList extends Component {
     static navigationOptions = ({navigation}) => ({
-        title: 'USERS',
+        title: 'Users',
         headerRight: (
             <RightHeaderButtons navigation={navigation}/>
         ),
@@ -29,14 +29,23 @@ class UserList extends Component {
   }
 
   componentDidMount() {
-    this.makeRemoteRequest();
-  }
+    firebase.database().ref('users/'+firebase.auth().currentUser.uid).once('value', (snapshot) => {
+      this.userRole = snapshot.val().role;
+      this.department = snapshot.val().department;
+      if(this.userRole == "superadmin"){ //If super admin show all the users
+        this.makeRemoteRequest();
+      }else if(this.userRole == "admin"){ //If admin Show only the department users
+        this.makeRemoteRequestWithDepartment(this.department);
+      }
+    });
+
+
+  };
 
 
   fire_items=[];
 
   makeRemoteRequest = () => {
-        
        firebase.database().ref('users/').on('value', (snapshot) => {
             snapshot.forEach((item)=>{
                 this.fire_items.push(item.val());
@@ -50,9 +59,24 @@ class UserList extends Component {
               this.forceUpdate();
             });
         this.setState({ loading: false });
-        
-    
+  };
 
+  makeRemoteRequestWithDepartment = (department) => {
+    firebase.database().ref('users/').on('value', (snapshot) => {
+      snapshot.forEach((item)=>{
+          if(item.val().department == department){
+            this.fire_items.push(item.val());
+          }
+      }) 
+        //console.log(this.fire_items)
+        this.setState({
+          data: this.fire_items,
+        });
+        this.arrayholder = this.fire_items;
+        this.setState({fire_loaded:true});
+        this.forceUpdate();
+      });
+    this.setState({ loading: false });
   };
 
   renderSeparator = () => {
@@ -108,7 +132,7 @@ class UserList extends Component {
     return (
       <Container>
         <Content>
-          <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0, backgroundColor: 'white' }}>
+          <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0, backgroundColor: 'white', marginTop: -1 }}>
             <FlatList
               data={this.state.data}
               renderItem={({ item }) => (
