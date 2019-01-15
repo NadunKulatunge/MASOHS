@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Container,  Content, List,  Text, Button } from 'native-base';
 import { Font, AppLoading } from "expo";
 import ListContact from '../../components/ListContact';
+import { withNavigation } from 'react-navigation';
 import firebase from 'firebase';
 
-export default class Contacts extends Component {
+class Contacts extends Component {
   constructor(props) {
     super(props);
     this.fetchedDataRef = firebase.database().ref('contacts');
@@ -17,6 +18,7 @@ export default class Contacts extends Component {
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
     });
     firebase.database().ref('contacts/').orderByChild('contactName').on('value', (snapshot) => {
+      this.fetchedDatas = [];
       snapshot.forEach((child)=>{
           this.fetchedDatas.push({
                     fetchedDataName: child.val().contactName,
@@ -112,3 +114,4 @@ export default class Contacts extends Component {
     
   }
 }
+export default withNavigation(Contacts);
