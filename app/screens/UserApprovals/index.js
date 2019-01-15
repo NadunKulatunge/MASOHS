@@ -116,7 +116,34 @@ class UserApprovals extends Component {
           <ActivityIndicator />
         </View>
       );
-    } else if (this.fire_items==""){
+    } else if (this.state.loading==false && this.state.fire_loaded==true && this.fire_items!=""){
+      return (
+        <Container>
+          <Content>
+            <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0, backgroundColor: 'white', marginTop: -1 }}>
+              <FlatList
+                data={this.state.data}
+                renderItem={({ item }) => (
+                  <TouchableOpacity onPress={()=>this.props.navigation.navigate('UserAcceptProfile',{item})}>
+                      <ListItem
+                      roundAvatar
+                      title={`${item.displayName}`}
+                      subtitle={item.email}
+                      //avatar={{ uri: item.picture.thumbnail }}
+                      containerStyle={{ borderBottomWidth: 0 }}
+                      />
+                  </TouchableOpacity>
+                )}
+                keyExtractor={item => item.email}
+                ItemSeparatorComponent={this.renderSeparator}
+              />
+            </List>
+            </Content>
+            </Container>
+      );
+
+    } else if (this.state.loading==false && this.state.fire_loaded==true && this.fire_items==""){
+            
       return (
         <Container>
         <Content>
@@ -141,7 +168,7 @@ class UserApprovals extends Component {
             <Left>
                 <Button transparent textStyle={{color: '#87838B'}}>
                 <Ionicons color='#87838B' name='ios-image-outline' size={responsiveFontSize(3)}/>
-                <Text style={{color:'#87838B'}}>Image from Pixabay.com</Text>
+                <Text style={{color:'#87838B'}}>Image by - Pixabay.com</Text>
                 </Button>
             </Left>
             </CardItem>
@@ -149,30 +176,11 @@ class UserApprovals extends Component {
         </Content>
     </Container>
       );
-    }else {
+    } else{
       return (
-        <Container>
-          <Content>
-            <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0, backgroundColor: 'white', marginTop: -1 }}>
-              <FlatList
-                data={this.state.data}
-                renderItem={({ item }) => (
-                  <TouchableOpacity onPress={()=>this.props.navigation.navigate('UserAcceptProfile',{item})}>
-                      <ListItem
-                      roundAvatar
-                      title={`${item.displayName}`}
-                      subtitle={item.email}
-                      //avatar={{ uri: item.picture.thumbnail }}
-                      containerStyle={{ borderBottomWidth: 0 }}
-                      />
-                  </TouchableOpacity>
-                )}
-                keyExtractor={item => item.email}
-                ItemSeparatorComponent={this.renderSeparator}
-              />
-            </List>
-            </Content>
-            </Container>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <ActivityIndicator />
+        </View>
       );
     }
   }

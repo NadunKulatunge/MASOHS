@@ -35,7 +35,9 @@ class PublicNotifications extends Component {
         console.log(item)
         if(this.userRole == "superadmin"){
           this.publicNotifications.push(item);
-        }else if(this.userRole != "superadmin" && this.department == item.val().department){
+        }else if(this.userRole == "admin" && this.department == item.val().department){
+          this.publicNotifications.push(item);
+        }else if(this.userRole == "user" && this.department == item.val().department && item.val().adminOnly!='True'){
           this.publicNotifications.push(item);
         }
          
@@ -57,6 +59,7 @@ class PublicNotifications extends Component {
     }
 
     return (
+
         <Container>
             {this.state.fire_loaded ?
             <Content>
@@ -64,13 +67,20 @@ class PublicNotifications extends Component {
               renderRow={(item) =>
               <ListItem thumbnail>
                 <Left>
+                  
                   {item.val().displayIcon=='Chat'? (
                   <Ionicons style={{color: 'rgba(0,0,0,0.5)'}} name='ios-chatbubbles' size={responsiveFontSize(4)}/>
                   ) : (
                     <View></View>
                   )}
+
+                  {item.val().displayIcon=='UserApprovals'? (
+                  <Ionicons style={{color: 'rgba(0,0,0,0.5)'}} name='ios-person-add' size={responsiveFontSize(4)}/>
+                  ) : (
+                    <View></View>
+                  )}
                 </Left>
-                <Body>
+                <Body>UserApprovals
                   <Text>{item.val().title}</Text>
                   <Text note numberOfLines={1}>{item.val().body}</Text>
                 </Body>

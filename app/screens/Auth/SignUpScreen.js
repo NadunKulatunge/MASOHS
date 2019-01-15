@@ -9,6 +9,7 @@ import {
 import { Container, Content, Header, Form, Input, Item, Button, Label, CheckBox, Body, Spinner, H1, Picker } from 'native-base';
 import { BlurView } from 'expo';
 import { responsiveFontSize, responsiveWidth } from 'react-native-responsive-dimensions';
+import * as FirebasePushNotifications from "../../utils/FirebasePushNotifications";
 
 //Initialize firebase
 import * as firebase from 'firebase';
@@ -96,6 +97,7 @@ class SignUp extends Component {
                         role: 'user'
                     });
                    
+                    FirebasePushNotifications.funcSendPushNotificationToAllAdminsWithDepartmentAndSuperAdmins(firebase.auth().currentUser , 'User Approvals' , 'New user ' + user.displayName + ' is waiting to be approved.', "UserApprovals", department, 'UserApprovals');
                     alert("Email verification sent. Please verify your email address.");
                     firebase.auth().signOut()
                 }.bind(this)).catch(function(error) { 
