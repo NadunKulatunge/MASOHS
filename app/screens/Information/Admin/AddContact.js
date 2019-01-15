@@ -23,10 +23,10 @@ class AddContact extends Component {
     });
     constructor(props) {
         super(props)
-        this.contactsRef = firebase.database().ref('contacts');
+        this.fetchedDatasRef = firebase.database().ref('contacts');
         this.state = ({
-            contactName: '',
-            contactNum: '',
+            fetchedDataName: '',
+            fetchedDataNum: '',
             loading: true
         })
 
@@ -44,7 +44,7 @@ class AddContact extends Component {
         var newText = ''; 
         var numbers = '0123456789'; 
         if(text.length < 1){ 
-            this.setState({ contactNum: '' });
+            this.setState({ fetchedDataNum: '' });
         } 
         for (var i=0; i < text.length; i++) { 
             if(numbers.indexOf(text[i]) > -1 ) { 
@@ -54,7 +54,7 @@ class AddContact extends Component {
                 // your call back function
                 alert("Please enter numbers only");
             }
-            this.setState({ contactNum: newText }); 
+            this.setState({ fetchedDataNum: newText }); 
         } 
     }
     
@@ -73,8 +73,8 @@ class AddContact extends Component {
                             placeholder="Contact Name"
                             autoCorrect={false}
                             autoCapitalize="words"
-                            onChangeText={ (contactName) => this.setState({contactName}) }
-                            value={this.state.contactName}
+                            onChangeText={ (fetchedDataName) => this.setState({fetchedDataName}) }
+                            value={this.state.fetchedDataName}
                         />
                     </Item>
                     <Item >
@@ -83,7 +83,7 @@ class AddContact extends Component {
                             autoCorrect={false}
                             keyboardType = 'numeric'
                             onChangeText={(text)=> this.onChanged(text)}
-                            value={this.state.contactNum}
+                            value={this.state.fetchedDataNum}
                             maxLength={10}
                             
                         />
@@ -93,7 +93,7 @@ class AddContact extends Component {
                             full
                             rounded
                             success
-                            onPress={() => this._addContact()}>
+                            onPress={() => this._addData()}>
                             <Text style={{ color:'white' }}>Add Contact</Text>
                     </Button>
                     <Button style={{ marginTop:10 }}
@@ -108,8 +108,8 @@ class AddContact extends Component {
             </Container>
         );
     }
-    _addContact() {
-        if(this.state.contactName == '' ){
+    _addData() {
+        if(this.state.fetchedDataName == '' ){
             alert("Contact name field cannot be empty!");
             return;
         }
@@ -117,9 +117,9 @@ class AddContact extends Component {
             alert("Contact number field cannot be empty!");
             return;
         }
-        this.contactsRef.push({ contactName: this.state.contactName, contactNum: this.state.contactNum});
-        this.setState({contactName: ""});
-        this.setState({contactNum: ""});
+        this.fetchedDatasRef.push({ contactName: this.state.fetchedDataName, contactNum: this.state.fetchedDataNum});
+        this.setState({fetchedDataName: ""});
+        this.setState({fetchedDataNum: ""});
         alert("Contact added successfully!");
     }
 

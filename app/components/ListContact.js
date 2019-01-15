@@ -17,16 +17,16 @@ import React, {
           </Left> */}
           <Body>
             
-            <Button transparent onPress={() => Communications.phonecall(this.props.contact.contactNum, true)}>
-                <Text><Ionicons name='ios-call' size={responsiveFontSize(4)} onPress={() => Communications.phonecall(this.props.contact.contactNum, true)}/></Text>
-                <Text>{this.props.contact.contactName}</Text>
+            <Button transparent onPress={() => Communications.phonecall(this.props.contact.fetchedDataNum, true)}>
+                <Text><Ionicons name='ios-call' size={responsiveFontSize(4)} onPress={() => Communications.phonecall(this.props.contact.fetchedDataNum, true)}/></Text>
+                <Text>{this.props.contact.fetchedDataName}</Text>
             </Button>
-            <Text note numberOfLines={1}>{this.props.contact.contactNum}</Text>
+            <Text note numberOfLines={1}>{this.props.contact.fetchedDataNum}</Text>
           </Body>
             
           {this.props.userRole == 'admin' ?
               <Right>
-              <Icon name='md-trash' onPress={() => this.props.onContactDeletion()}/>
+              <Icon name='md-trash' onPress={() => this.props.onDataDeletion()}/>
               </Right>
               :
               <Right></Right>

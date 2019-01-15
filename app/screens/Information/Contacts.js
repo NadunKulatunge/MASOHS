@@ -7,10 +7,10 @@ import firebase from 'firebase';
 export default class Contacts extends Component {
   constructor(props) {
     super(props);
-    this.contactRef = firebase.database().ref('contacts');
+    this.fetchedDataRef = firebase.database().ref('contacts');
     this.state = { loading: true,fire_loaded1: false, fire_loaded2: false };
   }
-  contacts= [];
+  fetchedDatas= [];
   async componentWillMount() {
     await Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
@@ -18,9 +18,9 @@ export default class Contacts extends Component {
     });
     firebase.database().ref('contacts/').orderByChild('contactName').on('value', (snapshot) => {
       snapshot.forEach((child)=>{
-          this.contacts.push({
-                    contactName: child.val().contactName,
-                    contactNum: child.val().contactNum,
+          this.fetchedDatas.push({
+                    fetchedDataName: child.val().contactName,
+                    fetchedDataNum: child.val().contactNum,
                     _key: child.key
                   });
          
@@ -64,10 +64,10 @@ export default class Contacts extends Component {
       <Container>
         {this.state.fire_loaded1 && this.state.fire_loaded2 ?
         <Content>
-          {console.log(this.userRole)} 
+          {console.log(this.fetchedDatas)} 
       
-          <List dataArray={this.contacts}
-            renderRow={(contact) => this._renderItem(contact)} >
+          <List dataArray={this.fetchedDatas}
+            renderRow={(fetchedData) => this._renderItem(fetchedData)} >
           </List>                
         </Content>
         :
@@ -90,24 +90,24 @@ export default class Contacts extends Component {
       
     );
   }
-  _renderItem(contact) {
-      const onContactDeletion= () => {
-        this.contacts = [];
-        this.contactRef.child(contact._key).remove().then(
+  _renderItem(fetchedData) {
+      const onDataDeletion= () => {
+        this.fetchedDatas = [];
+        this.fetchedDataRef.child(fetchedData._key).remove().then(
           function() {
             // fulfillment
-            alert("The contact '"+contact.contactName+"' has been removed successfully");
+            alert("The contact '"+fetchedData.fetchedDataName+"' has been removed successfully");
         },
         function() {
           // fulfillment
-          alert("The contact '"+contact.contactName+"' has not been removed successfully");
+          alert("The contact '"+fetchedData.fetchedDataName+"' has not been removed successfully");
       });
       }
     
     return (
+      // sending data to ListContact component
+      <ListContact contact={fetchedData} onDataDeletion={onDataDeletion} userRole={this.userRole} />
       
-      <ListContact contact={contact} onContactDeletion={onContactDeletion} userRole={this.userRole} />
-
     );
     
   }
