@@ -67,7 +67,7 @@ class PublicNotifications extends Component {
               renderRow={(item) =>
               <ListItem thumbnail>
                 <Left>
-                  
+
                   {item.val().displayIcon=='Chat'? (
                   <Ionicons style={{color: 'rgba(0,0,0,0.5)'}} name='ios-chatbubbles' size={responsiveFontSize(4)}/>
                   ) : (
@@ -80,7 +80,7 @@ class PublicNotifications extends Component {
                     <View></View>
                   )}
                 </Left>
-                <Body>UserApprovals
+                <Body>
                   <Text>{item.val().title}</Text>
                   <Text note numberOfLines={1}>{item.val().body}</Text>
                 </Body>
