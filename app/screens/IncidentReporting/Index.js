@@ -7,7 +7,7 @@ import RightHeaderButtons from '../../components/RightHeaderButtons.js';
 
 export default class IncidentReporting extends Component{
   static navigationOptions = ({navigation}) => ({
-    title: 'REPORT',
+    title: 'Reporting',
     headerRight: (
         <RightHeaderButtons navigation={navigation}/>
     ),

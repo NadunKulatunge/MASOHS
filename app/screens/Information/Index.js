@@ -9,7 +9,7 @@ import RightHeaderButtons from '../../components/RightHeaderButtons.js';
 
 export default class Announcements extends Component{
   static navigationOptions = ({navigation}) => ({
-    title: 'INFORMATION',
+    title: 'Information',
     headerRight: (
         <RightHeaderButtons navigation={navigation}/>
     ),

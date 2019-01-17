@@ -33,7 +33,7 @@ console.disableYellowBox = true;
 class ChatScreen extends Component {
 
     static navigationOptions = ({navigation}) => ({
-        title: 'CHAT',
+        title: 'Chat',
         headerRight: (
             <RightHeaderButtons navigation={navigation}/>
         ),

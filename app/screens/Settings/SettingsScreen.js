@@ -15,7 +15,7 @@ import RightHeaderButtons from '../../components/RightHeaderButtons.js';
 
 class Settings extends Component {
   static navigationOptions = ({navigation}) => ({
-    title: 'SETTINGS',
+    title: 'Settings',
     headerRight: (
         <RightHeaderButtons navigation={navigation}/>
     ),

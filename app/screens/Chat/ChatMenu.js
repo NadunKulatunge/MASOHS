@@ -10,7 +10,7 @@ import * as firebase from 'firebase';
 
 export default class ChatMenu extends Component {
     static navigationOptions = ({navigation}) => ({
-        title: 'CHAT MENU',
+        title: 'Chat Menu',
         headerRight: (
             <RightHeaderButtons navigation={navigation}/>
         ),

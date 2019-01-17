@@ -11,7 +11,7 @@ import RightHeaderButtons from '../../components/RightHeaderButtons.js';
 class HealthScreen extends Component{
 
   static navigationOptions = ({navigation}) => ({
-    title: 'Health Monitoring',
+    title: 'Monitoring',
     headerRight: (
         <RightHeaderButtons navigation={navigation}/>
     )
