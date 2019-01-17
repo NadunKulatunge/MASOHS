@@ -10,8 +10,7 @@ import {
     Linking
 
 } from "react-native";
-//import {Ionicons} from '@expo/vector-icons';
-//import { Icon, Button, Badge } from 'native-base';
+
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 //import AwesomeButtonRed from 'react-native-really-awesome-button/src/themes/red';
 //import AwesomeButtonC137 from 'react-native-really-awesome-button/src/themes/c137';

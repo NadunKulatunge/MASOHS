@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {StyleSheet, Dimensions}  from "react-native";
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 import RightHeaderButtons from '../../components/RightHeaderButtons.js';
-import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Root, View, Spinner,Header, Form, Input, Item, Button, Label, Icon } from 'native-base';
+import { Text, View } from 'native-base';
 import Leaderboard from 'react-native-leaderboard';
 //...
 import { Font, AppLoading } from "expo";
@@ -30,49 +30,64 @@ class ProWalker extends Component{
     });
     constructor(props) {
         super(props)
-        this.state = { loading: true, fire_loaded: false };
+        const end = new Date();
+        var a = String(end); 
+        var b = a.slice(0,15);
+        this.state = { endDate: b, loading: true, fire_loaded: false };
         
     }
     pdata=[]
-    
+    resultsToday=[]
     async componentWillMount() {
         await Font.loadAsync({
           Roboto: require("native-base/Fonts/Roboto.ttf"),
           Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
         });
         //this.setState({ loading: false });
-        firebase.database().ref('stepCount/').orderByChild("score").once('value', (snapshot) => {
+        firebase.database().ref('stepCount/').orderByChild('pastStepCount').once('value', (snapshot) => {
+            this.resultsToday=[];
+            
             snapshot.forEach((item)=>{
-               this.pdata.push(item.val());
+                var c = item.val().date;
+                var d = String(c);
+                var e = d.slice(0,15);
+                if(e==this.state.endDate){this.resultsToday.push(item.val());}
+               
                //this.forceUpdate();
             }) 
-            //this.forceUpdate();
-            this.setState({fire_loaded:true,});
             
+            this.resultsToday = this.resultsToday.reverse();
+            this.setState({fire_loaded:true,});
+            this.forceUpdate();
       
           });
+          
+        //   firebase.database().ref('stepCount/').on('value', (snapshot) => {
+        //     this.resultsToday = [];
+        //     snapshot.forEach((child)=>{
+        //         this.resultsToday.push({
+        //                   fetchedDataName: child.val().contactName,
+        //                   fetchedDataNum: child.val().contactNum,
+        //                   _key: child.key
+        //                 });
+               
+        //     }) 
+        //     this.setState({fire_loaded:true});
+        //     this.forceUpdate();
+        //   });
           //this.forceUpdate();
           this.setState({ loading: false });
           //this.forceUpdate();
     }
-    
-    /*state = {
-        data: [
-        { name: 'We Tu Lo', score: 300, iconUrl: 'https://st2.depositphotos.com/1006318/5909/v/950/depositphotos_59094043-stock-illustration-profile-icon-male-avatar.jpg' },
-        { name: 'Adam Savage', score: 12, iconUrl: 'https://www.shareicon.net/data/128x128/2016/09/15/829473_man_512x512.png' },
-        { name: 'Derek Black', score: 244, iconUrl: 'http://ttsbilisim.com/wp-content/uploads/2014/09/20120807.png' },
-        { name: 'Erika White', score: 0, iconUrl: 'http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-eskimo-girl.png' },
-        { name: 'Jimmy John', score: 20, iconUrl: 'https://static.witei.com/static/img/profile_pics/avatar4.png' },
-        { name: 'Joe Roddy', score: 69, iconUrl: 'http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-braindead-zombie.png' },
-        { name: 'Ericka Johannesburg', score: 101, iconUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShPis8NLdplTV1AJx40z-KS8zdgaSPaCfNINLtQ-ENdPvrtMWz' },
-        { name: 'Tim Thomas', score: 41, iconUrl: 'http://conserveindia.org/wp-content/uploads/2017/07/teamMember4.png' },
-        { name: 'John Davis', score: 80, iconUrl: 'http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-afro-guy.png' },
-        { name: 'Tina Turner', score: 22, iconUrl: 'https://cdn.dribbble.com/users/223408/screenshots/2134810/me-dribbble-size-001-001_1x.png' },
-        { name: 'Harry Reynolds', score: 80, iconUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsSlzi6GEickw2Ft62IdJTfXWsDFrOIbwXhzddXXt4FvsbNGhp' },
-        { name: 'Betty Davis', score: 25, iconUrl: 'https://landofblogging.files.wordpress.com/2014/01/bitstripavatarprofilepic.jpeg?w=300&h=300' },
-        { name: 'Lauren Leonard', score: 30, iconUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr27ZFBaclzKcxg2FgJh6xi3Z5-9vP_U1DPcB149bYXxlPKqv-' },
-    ]
-    }*/
+    // for i in resultToday:
+	// if i.used==false:
+	// 	user = []
+	// 	for j in resultToday:
+	// 		if i.userid==j.userid && i.used==false:
+	// 			set(j.used:true)
+	// 			add j to user array
+	// 	get max from user array
+	// 	add that element to pdata
 
    
     
@@ -83,6 +98,24 @@ class ProWalker extends Component{
                 <AppLoading />
             );
           }
+          for(var i =0; i<this.resultsToday.length; i++){
+            
+              if(this.resultsToday[i].used==false){
+                  var user=[];
+                  for(var j=0; j<this.resultsToday.length; j++){
+                      if(this.resultsToday[i].userid==this.resultsToday[j].userid){
+                          this.resultsToday[j].used=true;
+                          //console.log(this.resultsToday[j]);
+                          user.push(this.resultsToday[j]);
+                          
+                      }
+                    }
+                    
+                    
+                    this.pdata.push({name:user[0].username, score:user[0].pastStepCount});
+              }
+          }
+          console.log(this.pdata);
         const props = {
             labelBy: 'name',
             sortBy: 'score',
@@ -97,10 +130,11 @@ class ProWalker extends Component{
             return (
                 <View>
                 {/* Ghetto Header */}
-                <View style={{ paddingTop: 50, backgroundColor: '#FF0DDA', alignItems: 'center' }}>
+                <View style={{ paddingTop: 50, backgroundColor: '#50FA80', alignItems: 'center' }}>
                     <Text style={{ fontSize: 50, color: 'white', paddingBottom: 50 }}>
                         Leaderboard
-                        {console.log(props.data)}
+                        {/* {console.log(this.resultsToday)} */}
+                        
                     </Text>
                 </View>
                 
@@ -117,10 +151,10 @@ class ProWalker extends Component{
             return (
                 <View>
                 {/* Ghetto Header */}
-                <View style={{ paddingTop: 50, backgroundColor: '#FF0DDA', alignItems: 'center' }}>
+                <View style={{ paddingTop: 50, backgroundColor: '#50FA80', alignItems: 'center' }}>
                     <Text style={{ fontSize: 50, color: 'white', paddingBottom: 50 }}>
                         Leaderboard
-                        {console.log(props.data)}
+                        
                     </Text>
                 </View>
                 <Leaderboard {...props} />
