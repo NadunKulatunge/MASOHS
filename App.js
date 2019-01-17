@@ -47,6 +47,8 @@ import UserProfile from './app/screens/UserList/userProfile';
 import UserApprovals from './app/screens/UserApprovals/index';
 import UserAcceptProfile from './app/screens/UserApprovals/userAcceptProfile';
 
+import AddContact from './app/screens/Information/Admin/AddContact';
+
 export default class App extends React.Component {
   render() {
     return (
@@ -63,7 +65,7 @@ const AppStack = createStackNavigator(
     ChangePassword: ChangePassword, MyProfile: MyProfile, Competitions: Competitions, ProWalker: ProWalker,
     Notifications: NotificationsScreen, StepCount: StepCount, ChatMenu: ChatMenu, ChatMASFabrics: ChatScreenMASFabrics, ChatMASmatrix: ChatScreenMASmatrix,
     ChatNoyonLanka: ChatScreenNoyonLanka, ChatTextprintLanka: ChatScreenTextprintLanka, ChatTrischelFabric: ChatScreenTrischelFabric, UserList:UserList, UserProfile:UserProfile,
-    UserApprovals: UserApprovals, UserAcceptProfile: UserAcceptProfile
+    UserApprovals: UserApprovals, UserAcceptProfile: UserAcceptProfile, AddContact:AddContact
 
   },
 

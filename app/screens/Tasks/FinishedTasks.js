@@ -4,7 +4,7 @@ import { Font, AppLoading } from "expo";
 import Fire from '../Chat/Fire';
 import firebase from 'firebase';
 import { withNavigation } from 'react-navigation';
-
+import * as Functions from '../../utils/Functions.js';
 
 class FinishedTasks extends Component{
 
@@ -27,7 +27,7 @@ class FinishedTasks extends Component{
           Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
         });
 
-         firebase.database().ref('accidents/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+         firebase.database().ref('accidents/').orderByChild('reciever').equalTo(this.userid).once('value', (snapshot) => {
            this.pending=[];
            this.completed=[];
           snapshot.forEach((item)=>{
@@ -41,7 +41,7 @@ class FinishedTasks extends Component{
           this.forceUpdate();
         });
 
-         firebase.database().ref('complaints/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+         firebase.database().ref('complaints/').orderByChild('reciever').equalTo(this.userid).once('value', (snapshot) => {
            this.pending=[];
            this.completed=[];
           snapshot.forEach((item)=>{
@@ -77,8 +77,8 @@ class FinishedTasks extends Component{
                 <Thumbnail square source={require('../../assets/pending.png')} />
               </Left>
               <Body>
-                <Text>{item.val().date}</Text>
-                <Text note numberOfLines={1}>{item.val().username}</Text>
+                <Text>Approval Request</Text>
+                <Text note numberOfLines={1}>{item.val().msg}</Text>
               </Body>
               <Right>
                 <Button transparent onPress={()=>this.props.navigation.navigate('ApprovalPending',{item})}>
@@ -95,8 +95,8 @@ class FinishedTasks extends Component{
                 <Thumbnail square source={require('../../assets/check.png')} />
               </Left>
               <Body>
-                <Text>{item.val().date}</Text>
-                <Text note numberOfLines={1}>{item.val().username}</Text>
+                <Text>{Functions.Capitalize(item.val().type)}</Text>
+                <Text note numberOfLines={1}>{item.val().msg}</Text>
               </Body>
               <Right>
                 <Button transparent onPress={()=>this.props.navigation.navigate('ViewTask',{item})}>

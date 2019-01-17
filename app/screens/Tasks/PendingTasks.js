@@ -4,6 +4,7 @@ import { Font, AppLoading } from "expo";
 import Fire from '../Chat/Fire';
 import firebase from 'firebase';
 import { withNavigation } from 'react-navigation';
+import * as Functions from '../../utils/Functions.js';
 
 class PendingTaks extends Component{
 
@@ -26,7 +27,7 @@ class PendingTaks extends Component{
           Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
         });
 
-         firebase.database().ref('accidents/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+         firebase.database().ref('accidents/').orderByChild('reciever').equalTo(this.userid).once('value', (snapshot) => {
            this.accidents=[];
           snapshot.forEach((item)=>{
             if(item.val().status=="raised"){
@@ -37,7 +38,7 @@ class PendingTaks extends Component{
           this.forceUpdate();
         });
 
-         firebase.database().ref('complaints/').orderByChild('reciever').equalTo(this.userid).on('value', (snapshot) => {
+         firebase.database().ref('complaints/').orderByChild('reciever').equalTo(this.userid).once('value', (snapshot) => {
            this.complaints=[];
           snapshot.forEach((item)=>{
             if(item.val().status=="raised"){
@@ -69,8 +70,8 @@ class PendingTaks extends Component{
                 <Thumbnail square source={require('../../assets/accident.png')} />
               </Left>
               <Body>
-                <Text>{item.val().date}</Text>
-                <Text note numberOfLines={1}>{item.val().username}</Text>
+                <Text>{Functions.Capitalize(item.val().type)}</Text>
+                <Text note numberOfLines={1}>{item.val().msg}</Text>
               </Body>
               <Right>
                 <Button transparent onPress={()=>this.props.navigation.navigate('CompleteTask',{item,type:'Accident'})}>
@@ -87,8 +88,8 @@ class PendingTaks extends Component{
                 <Thumbnail square source={require('../../assets/risk.png')} />
               </Left>
               <Body>
-                <Text>{item.val().date}</Text>
-                <Text note numberOfLines={1}>{item.val().username}</Text>
+                <Text>{Functions.Capitalize(item.val().type)}</Text>
+                <Text note numberOfLines={1}>{item.val().msg}</Text>
               </Body>
               <Right>
               <Button transparent onPress={()=>this.props.navigation.navigate('CompleteTask',{item,type:'Risk'})}>
