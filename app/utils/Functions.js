@@ -1,7 +1,9 @@
+//Capitalize the first letter in a string
 export function Capitalize(str){
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+//Give task colour for the firebase status message 
 export function TaskStatusColor(str){
     if(str=='raised'){
         return '#00AEEF'

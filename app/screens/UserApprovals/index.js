@@ -158,7 +158,7 @@ class UserApprovals extends Component {
             </CardItem>
             <CardItem>
             <Body >
-                <Image source={{uri: 'https://cdn.pixabay.com/photo/2013/07/13/10/17/detective-156961_960_720.png'}} style={{width: '100%', height: 300, flex: 1}}/>
+                <Image source={{uri: 'https://cdn.pixabay.com/photo/2016/05/30/14/23/detective-1424831_1280.png'}} style={{width: '100%', height: 300, flex: 1}}/>
                 <Text style={{marginTop: 20,}}>
                   There aren't any accounts to be approved
                 </Text>
@@ -168,7 +168,6 @@ class UserApprovals extends Component {
             <Left>
                 <Button transparent textStyle={{color: '#87838B'}}>
                 <Ionicons color='#87838B' name='ios-image-outline' size={responsiveFontSize(3)}/>
-                <Text style={{color:'#87838B'}}>Image by - Pixabay.com</Text>
                 </Button>
             </Left>
             </CardItem>
