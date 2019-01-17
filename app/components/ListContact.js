@@ -1,7 +1,7 @@
 import React, {
     Component
   } from 'react';
-  import {CardItem,Icon, Text, ListItem,Left,Body,Right,Button} from 'native-base';
+  import {Icon, Text, ListItem,Left,Body,Right,Button, Thumbnail} from 'native-base';
   import {Ionicons} from '@expo/vector-icons';
   import Communications from 'react-native-communications';
 
@@ -12,17 +12,26 @@ import React, {
     render() {
       return (
         <ListItem thumbnail>
-          {/* <Left>
-            <Ionicons name='md-call' size={responsiveFontSize(5)}/>
-          </Left> */}
+          <Left>
+          <Thumbnail square source={{ uri: 'https://png.icons8.com/metro/50/000000/fire-element.png' }} />
+          </Left>
           <Body>
+          <Text>{this.props.contact.fetchedDataName}</Text>
+          <Text note numberOfLines={1}>{this.props.contact.fetchedDataNum}</Text>
+             </Body>
+              <Right>
+                <Button transparent onPress={() => Communications.phonecall(this.props.contact.fetchedDataNum, true)}>
+                  <Text><Ionicons name='ios-call' size={responsiveFontSize(3)}/></Text>
+                </Button>
+              </Right>
+          {/* <Body>
             
             <Button transparent onPress={() => Communications.phonecall(this.props.contact.fetchedDataNum, true)}>
                 <Text><Ionicons name='ios-call' size={responsiveFontSize(4)} onPress={() => Communications.phonecall(this.props.contact.fetchedDataNum, true)}/></Text>
                 <Text>{this.props.contact.fetchedDataName}</Text>
             </Button>
             <Text note numberOfLines={1}>{this.props.contact.fetchedDataNum}</Text>
-          </Body>
+          </Body> */}
             
           {this.props.userRole == 'admin' ?
               <Right>
