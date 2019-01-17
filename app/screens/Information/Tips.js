@@ -66,26 +66,23 @@ class Tips extends Component {
         <Content>
           {/* {console.log(this.fetchedDatas)}  */}
           <Card style={{flex: 0}}>
-          <CardItem>
-              <Body >
-                  <Image source={{uri: 'https://image.freepik.com/free-vector/happy-kids-back-to-school_53876-40283.jpg'}} style={{width: '100%', height: 200, flex: 1}}/>
-              </Body>
-          </CardItem>
-          <CardItem footer bordered>
-          <Left>
-              <Button transparent textStyle={{color: '#87838B'}}>
-              <Ionicons color='#87838B' name='ios-image-outline' size={responsiveFontSize(3)}/>
-              <Text style={{color:'#87838B'}}>Created by Rawpixel.com - Freepik.com</Text>
-              </Button>
-          </Left>
 
+            <CardItem>
+                <Body >
+                    <Image source={{uri: 'https://image.freepik.com/free-vector/happy-kids-back-to-school_53876-40283.jpg'}} style={{width: '100%', height: 200, flex: 1}}/>
+                </Body>
+            </CardItem>
 
+            <CardItem footer bordered>
+                <Left>
+                    <Button transparent textStyle={{color: '#87838B'}}>
+                    <Ionicons color='#87838B' name='ios-image-outline' size={responsiveFontSize(3)}/>
+                    <Text style={{color:'#87838B'}}>Created by Rawpixel.com - Freepik.com</Text>
+                    </Button>
+                </Left>
+            </CardItem>
+        </Card>
 
-          </CardItem>
-      
-          
-          
-      </Card>
           <Card dataArray={this.fetchedDatas}
             renderRow={(fetchedData) => this._renderItem(fetchedData)} >
           </Card>                
@@ -97,7 +94,7 @@ class Tips extends Component {
         </Content>
         }
         {this.userRole == 'admin' || this.userRole == 'superadmin' ?
-          <Button style={{ marginTop:40 }}
+          <Button style={{ margin: 10}}
                                 full
                                 rounded
                                 success

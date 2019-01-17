@@ -64,7 +64,7 @@ class FirstAid extends Component {
         </Content>
         }
         {this.userRole == 'admin' || this.userRole == 'superadmin' ?
-          <Button style={{ marginTop:40 }}
+          <Button style={{ margin: 10 }}
                                 full
                                 rounded
                                 success

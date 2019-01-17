@@ -6,6 +6,7 @@ import LoginScreen from './app/screens/Auth/LoginScreen.js';
 import HomeScreen from './app/screens/HomeScreen.js';
 import SignUpScreen from './app/screens/Auth/SignUpScreen.js';
 
+//Chat Screen
 import ChatScreen from './app/screens/Chat/ChatScreen.js';
 import ChatMenu from './app/screens/Chat/ChatMenu.js';
 import ChatScreenMASFabrics from './app/screens/Chat/MASFabrics/ChatScreen.js';
@@ -20,6 +21,7 @@ import ChangePassword from './app/screens/Settings/ChangePassword';
 import MyProfile from './app/screens/Settings/MyProfile';
 import StepCount from './app/screens/Settings/StepCount';
 
+//Reporting
 import IncidentReporting from './app/screens/IncidentReporting/Index.js';
 import TaskScreen from './app/screens/Tasks/TaskScreen.js';
 import HealthScreen from './app/screens/Monitoring/HealthScreen.js';
@@ -41,13 +43,17 @@ import Competitions from './app/screens/Competitions/Competitions';
 import ProWalker from './app/screens/Competitions/ProWalker'
 import * as appConst from './app/constants/Constants';
 
+//User Lists and Approvals
 import UserList from './app/screens/UserList/index';
 import UserProfile from './app/screens/UserList/userProfile';
-
 import UserApprovals from './app/screens/UserApprovals/index';
 import UserAcceptProfile from './app/screens/UserApprovals/userAcceptProfile';
 
+//Information
 import AddContact from './app/screens/Information/Admin/AddContact';
+import AddFirstAid from './app/screens/Information/Admin/AddFirstAid';
+import AddEmergency from './app/screens/Information/Admin/AddEmergency';
+import AddTip from './app/screens/Information/Admin/AddTip';
 
 export default class App extends React.Component {
   render() {
@@ -65,7 +71,7 @@ const AppStack = createStackNavigator(
     ChangePassword: ChangePassword, MyProfile: MyProfile, Competitions: Competitions, ProWalker: ProWalker,
     Notifications: NotificationsScreen, StepCount: StepCount, ChatMenu: ChatMenu, ChatMASFabrics: ChatScreenMASFabrics, ChatMASmatrix: ChatScreenMASmatrix,
     ChatNoyonLanka: ChatScreenNoyonLanka, ChatTextprintLanka: ChatScreenTextprintLanka, ChatTrischelFabric: ChatScreenTrischelFabric, UserList:UserList, UserProfile:UserProfile,
-    UserApprovals: UserApprovals, UserAcceptProfile: UserAcceptProfile, AddContact:AddContact
+    UserApprovals: UserApprovals, UserAcceptProfile: UserAcceptProfile, AddContact:AddContact, AddFirstAid: AddFirstAid, AddEmergency: AddEmergency, AddTip: AddTip
 
   },
 
