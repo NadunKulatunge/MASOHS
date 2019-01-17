@@ -33,6 +33,7 @@ class Contacts extends Component {
     this.setState({ loading: false });
     await firebase.database().ref('users/'+firebase.auth().currentUser.uid).once('value',(snapshot) => {
       this.userRole = snapshot.val().role;
+      this.userId = firebase.auth().currentUser.uid;
       this.setState({fire_loaded2:true});
       // this.forceUpdate();
     });
@@ -66,8 +67,8 @@ class Contacts extends Component {
       <Container>
         {this.state.fire_loaded1 && this.state.fire_loaded2 ?
         <Content>
-          {/* {console.log(this.fetchedDatas)}  */}
-      
+          {console.log(this.fetchedDatas)} 
+          {/* {console.log(this.userId)} */}
           <List dataArray={this.fetchedDatas}
             renderRow={(fetchedData) => this._renderItem(fetchedData)} >
           </List>                
@@ -77,7 +78,7 @@ class Contacts extends Component {
         <Text>Loading information. If this is taking too long please check your internet connection</Text>
         </Content>
         }
-        {this.userRole == 'admin' ?
+        {this.userRole == 'admin' || this.userRole == 'superadmin' ?
           <Button style={{ marginTop:40 }}
                                 full
                                 rounded
@@ -86,7 +87,7 @@ class Contacts extends Component {
                                 <Text style={{ color:'white' }}>Add Contact</Text>
                             </Button>
                             :
-                            <Content></Content>
+                            <Text></Text>
         }
       </Container>
       

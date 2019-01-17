@@ -1,22 +1,44 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button, Root } from 'native-base';
+
+import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button, Card, CardItem } from 'native-base';
 import { Font, AppLoading } from "expo";
-import Anchor from '../../components/Anchor';
+import ListFirstAid from '../../components/ListFirstAid';
+import { withNavigation } from 'react-navigation';
 import {Ionicons} from '@expo/vector-icons';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
-
-export default class FirstAid extends Component {
+import firebase from 'firebase';
+class FirstAid extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true };
+    this.fetchedDataRef = firebase.database().ref('firstAid');
+    this.state = { loading: true,fire_loaded1: false, fire_loaded2: false };
   }
-
+  fetchedDatas= [];
   async componentWillMount() {
     await Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
     });
+    firebase.database().ref('firstAid/').orderByChild('firstAidName').on('value', (snapshot) => {
+      this.fetchedDatas = [];
+      snapshot.forEach((child)=>{
+          this.fetchedDatas.push({
+                    fetchedDataName: child.val().firstAidName,
+                    fetchedDataDes: child.val().firstAidDes,
+                    fetchedDataLink: child.val().firstAidLink,
+                    _key: child.key
+                  });
+         
+      }) 
+      this.setState({fire_loaded1:true});
+      this.forceUpdate();
+    });
     this.setState({ loading: false });
+    await firebase.database().ref('users/'+firebase.auth().currentUser.uid).once('value',(snapshot) => {
+      this.userRole = snapshot.val().role;
+      this.setState({fire_loaded2:true});
+      // this.forceUpdate();
+    });
   }
 
   render() {
@@ -28,7 +50,31 @@ export default class FirstAid extends Component {
 
     return (
       <Container>
+        {this.state.fire_loaded1 && this.state.fire_loaded2 ?
         <Content>
+          {/* {console.log(this.fetchedDatas)}  */}
+          
+          <List dataArray={this.fetchedDatas}
+            renderRow={(fetchedData) => this._renderItem(fetchedData)} >
+          </List>                
+        </Content>
+        :
+        <Content>
+        <Text>Loading information. If this is taking too long please check your internet connection</Text>
+        </Content>
+        }
+        {this.userRole == 'admin' || this.userRole == 'superadmin' ?
+          <Button style={{ marginTop:40 }}
+                                full
+                                rounded
+                                success
+                                onPress = { () => this.props.navigation.navigate('AddFirstAid')}>
+                                <Text style={{ color:'white' }}>Add First Aid Data</Text>
+                            </Button>
+                            :
+                            <Text></Text>
+        }
+        {/* <Content>
           <List>
             <ListItem thumbnail>
               <Left>
@@ -99,9 +145,31 @@ export default class FirstAid extends Component {
               </Right>
             </ListItem>
           </List>
-        </Content>
+        </Content> */}
       </Container>
       
     );
   }
+  _renderItem(fetchedData) {
+    const onDataDeletion= () => {
+      this.fetchedDatas = [];
+      this.fetchedDataRef.child(fetchedData._key).remove().then(
+        function() {
+          // fulfillment
+          alert("The first aid data '"+fetchedData.fetchedDataName+"' has been removed successfully");
+      },
+      function() {
+        // fulfillment
+        alert("The first aid data '"+fetchedData.fetchedDataName+"' has not been removed successfully");
+    });
+    }
+  
+  return (
+    // sending data to ListFirstAid component
+    <ListFirstAid firstAid={fetchedData} onDataDeletion={onDataDeletion} userRole={this.userRole} />
+    
+  );
+  
 }
+}
+export default withNavigation(FirstAid);
