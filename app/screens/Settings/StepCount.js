@@ -71,9 +71,23 @@ export default class StepCount extends React.Component {
       }
     );
 
+    function formatDate(date) {
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      var strTime = hours + ':' + minutes + ' ' + ampm;
+      return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
+    }
+
     const end = new Date();
     const start = new Date();
-    start.setDate(end.getDate() - 1);
+    //start.setDate(end.getDate() - 1);
+    start.setHours(0,0,0,0);
+    //console.log(formatDate(end)); //Returns now time 1/18/2019  1:23 pm
+    //console.log(formatDate(start)); //Returns Todays Midnight 1/18/2019  12:00 am
     this.setState({endDate: String(end)});
     Pedometer.getStepCountAsync(start, end).then(
       result => {

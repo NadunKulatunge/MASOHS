@@ -34,6 +34,12 @@
         "com.sonyericsson.home.permission.BROADCAST_BADGE"
       ]
     },
+    "notification": {
+      "icon": "./app/assets/app-icon.png",
+      "color": "#009688",
+      "androidMode": "collapse",
+      "androidCollapsedTitle": "#{unread_notifications} new notifications" 
+    },
     "sdkVersion": "27.0.0"
   }
 }
