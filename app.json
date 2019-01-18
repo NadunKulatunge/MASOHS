@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "MASOHS",
+    "icon": "./app/assets/app-icon.png",
     "description": "Occupational Health And Safety Client Developed By Nadun, Chamin, Ushira.",
     "orientation": "portrait",
     "ios": {

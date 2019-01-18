@@ -127,9 +127,9 @@ class Fire {
       this.append(message);
       if(message.text!=""){
         console.log(message.text)
-        FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUserWithDepartment(firebase.auth().currentUser , message.user.name, 'Message: ' + message.text, 'ChatMASFabrics', "MAS Fabrics - MATRIX", "Chat")
+        FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUserWithDepartment(firebase.auth().currentUser , message.user.name, 'Message: ' + message.text, 'ChatMASmatrix', "MAS Fabrics - MATRIX", "Chat")
       }else{
-        FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUserWithDepartment(firebase.auth().currentUser , message.user.name, 'Message: Attachment', 'ChatMASFabrics', "MAS Fabrics - MATRIX", "Chat")
+        FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUserWithDepartment(firebase.auth().currentUser , message.user.name, 'Message: Attachment', 'ChatMASmatrix', "MAS Fabrics - MATRIX", "Chat")
       }
 
     }

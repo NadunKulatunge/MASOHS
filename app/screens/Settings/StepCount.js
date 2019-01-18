@@ -94,7 +94,6 @@ export default class StepCount extends React.Component {
   uploadStepsToFirebase() {
     username=Fire.shared.displayName;
     userid=Fire.shared.uid;
-    console.log(userid);
     this.setState({uploadingToFirebase:true});
     this.fetchedDataRef.push({date: this.state.endDate, userid, username, pastStepCount: this.state.pastStepCount, used:false});
     this.setState({uploadingToFirebase:false});

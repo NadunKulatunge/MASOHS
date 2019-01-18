@@ -127,9 +127,9 @@ class Fire {
       this.append(message);
       if(message.text!=""){
         console.log(message.text)
-        FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUserWithDepartment(firebase.auth().currentUser , message.user.name, 'Message: ' + message.text, 'ChatMASFabrics', "Noyon Lanka (Pvt) Ltd", "Chat")
+        FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUserWithDepartment(firebase.auth().currentUser , message.user.name, 'Message: ' + message.text, 'ChatNoyonLanka', "Noyon Lanka (Pvt) Ltd", "Chat")
       }else{
-        FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUserWithDepartment(firebase.auth().currentUser , message.user.name, 'Message: Attachment', 'ChatMASFabrics', "Noyon Lanka (Pvt) Ltd", "Chat")
+        FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUserWithDepartment(firebase.auth().currentUser , message.user.name, 'Message: Attachment', 'ChatNoyonLanka', "Noyon Lanka (Pvt) Ltd", "Chat")
       }
 
     }
