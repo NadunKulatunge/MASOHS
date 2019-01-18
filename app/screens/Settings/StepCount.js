@@ -1,17 +1,41 @@
 import Expo from "expo";
 import React from "react";
-import { Pedometer } from "expo";
+import { Pedometer, Font } from "expo";
 import { StyleSheet, Text, View } from "react-native";
-
+import {Button} from 'native-base';
+import { withNavigation } from 'react-navigation';
+import * as firebase from 'firebase';
+import Fire from '../Chat/Fire';
 export default class PedometerSensor extends React.Component {
-  state = {
-    isPedometerAvailable: "checking",
-    pastStepCount: 0,
-    currentStepCount: 0
-  };
+    constructor(props) {
+        super(props);
+        //table that keeps the step count records and need the new record to be uploaded to
+        this.fetchedDataRef = firebase.database().ref('stepCount');
+        // this.state = { loading: true,fire_loaded1: false, fire_loaded2: false };
+        this.state = ({
+            isPedometerAvailable: "checking",
+            pastStepCount: 0,
+            currentStepCount: 0,
+            loading: true,
+            fire_loaded: false,
+            uploadingToFirebase: false
+            
+          })
+      }
+    
+    async componentWillMount() {
+        await Font.loadAsync({
+        Roboto: require("native-base/Fonts/Roboto.ttf"),
+        Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
+        });
+    this.setState({ loading: false });
+    
+}
 
   componentDidMount() {
     this._subscribe();
+    
+    
   }
 
   componentWillUnmount() {
@@ -41,6 +65,7 @@ export default class PedometerSensor extends React.Component {
     const end = new Date();
     const start = new Date();
     start.setDate(end.getDate() - 1);
+    this.setState({endDate: String(end)});
     Pedometer.getStepCountAsync(start, end).then(
       result => {
         this.setState({ pastStepCount: result.steps });
@@ -57,17 +82,48 @@ export default class PedometerSensor extends React.Component {
     this._subscription && this._subscription.remove();
     this._subscription = null;
   };
+  uploadStepsToFirebase() {
+    username=Fire.shared.displayName;
+    userid=Fire.shared.uid;
+    console.log(userid);
+    this.setState({uploadingToFirebase:true});
+    this.fetchedDataRef.push({date: this.state.endDate, userid, username, pastStepCount: this.state.pastStepCount, used:false});
+    this.setState({uploadingToFirebase:false});
+    alert("Step count data added successfully!");
+  }
 
   render() {
+
     return (
+        
       <View style={styles.container}>
+
+
         <Text>
-          Pedometer.isAvailableAsync(): {this.state.isPedometerAvailable}
+          Pedometer Availability: {this.state.isPedometerAvailable}
         </Text>
         <Text>
           Steps taken in the last 24 hours: {this.state.pastStepCount}
         </Text>
         <Text>Walk! And watch this go up: {this.state.currentStepCount}</Text>
+        {this.state.currentStepCount==0 ?
+          <Button full rounded style={{ marginTop:40 }}
+                              full
+                              rounded
+                              success
+                              onPress = { () => this.uploadStepsToFirebase()}>
+                              <Text style={{ color:'white' }}>Submit to ProWalker</Text>
+                          </Button>
+                          :
+                          <Button style={{ marginTop:10 }}
+                            full
+                            rounded
+                            primary
+                            onPress = { () => this.props.navigation.navigate('Settings')}>
+                            <Text style={{ color:'white' }}>Reload</Text>
+                        </Button>
+        }
+                        
       </View>
     );
   }
