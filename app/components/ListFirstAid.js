@@ -22,7 +22,7 @@ import React, {
           <Right>
                 <Anchor href={this.props.firstAid.fetchedDataLink}><Ionicons name='md-globe' size={responsiveFontSize(3)}/></Anchor>
           </Right>
-          {this.props.userRole == 'admin' ?
+          {this.props.userRole == 'superadmin' ?
               <Right>
               <Icon name='md-trash' onPress={() => this.props.onDataDeletion()}/>
               </Right>

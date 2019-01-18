@@ -33,7 +33,7 @@ import React, {
             <Text note numberOfLines={1}>{this.props.contact.fetchedDataNum}</Text>
           </Body> */}
             
-          {this.props.userRole == 'admin' ?
+          {this.props.userRole == 'superadmin' ?
               <Right>
               <Icon name='md-trash' onPress={() => this.props.onDataDeletion()}/>
               </Right>

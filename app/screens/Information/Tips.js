@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { Container,  Content, List,  Text, Button, Card, CardItem, Footer, Left, Body } from 'native-base';
+import { Container,  Content, List,  Text, Button, Card, CardItem, Footer, Left, Body, View } from 'native-base';
 import { Font, AppLoading } from "expo";
 import ListTip from '../../components/ListTip';
 import { withNavigation } from 'react-navigation';
@@ -59,53 +59,35 @@ class Tips extends Component {
 
     return (
       <Container>
-      
-        {this.state.fire_loaded1 && this.state.fire_loaded2 ?
-        
-        
-        <Content>
-          {/* {console.log(this.fetchedDatas)}  */}
-          <Card style={{flex: 0}}>
-
-            <CardItem>
+            <Content>
+            <Card style={{flex: 0}}>
+                <CardItem header bordered>
+                <Left>
+                    <Ionicons name='md-bulb' size={responsiveFontSize(5)}/>
+                    <Body>
+                    <Text>Safety Tip #1</Text>
+                    </Body>
+                </Left>
+                </CardItem>
+                <CardItem>
                 <Body >
                     <Image source={{uri: 'https://image.freepik.com/free-vector/happy-kids-back-to-school_53876-40283.jpg'}} style={{width: '100%', height: 200, flex: 1}}/>
+                    <Text style={{marginTop: 20,}}>
+                        Educate everyone in the workplace about the safety requirements and consider posting a list of workplace safety tips. A workplace safety training will help them reduce or eliminate injuries and illnesses from occurring in the workplace.
+                    </Text>
                 </Body>
-            </CardItem>
-
-            <CardItem footer bordered>
+                </CardItem>
+                <CardItem footer bordered>
                 <Left>
                     <Button transparent textStyle={{color: '#87838B'}}>
                     <Ionicons color='#87838B' name='ios-image-outline' size={responsiveFontSize(3)}/>
                     <Text style={{color:'#87838B'}}>Created by Rawpixel.com - Freepik.com</Text>
                     </Button>
                 </Left>
-            </CardItem>
-        </Card>
-
-          <Card dataArray={this.fetchedDatas}
-            renderRow={(fetchedData) => this._renderItem(fetchedData)} >
-          </Card>                
-        </Content>
-        :
-        <Content>
-        
-        <Text>Loading information. If this is taking too long please check your internet connection</Text>
-        </Content>
-        }
-        {this.userRole == 'admin' || this.userRole == 'superadmin' ?
-          <Button style={{ margin: 10}}
-                                full
-                                rounded
-                                success
-                                onPress = { () => this.props.navigation.navigate('AddTip')}>
-                                <Text style={{ color:'white' }}>Add Tip Data</Text>
-                            </Button>
-                            :
-                            <Text></Text>
-        }
-    
-      </Container>
+                </CardItem>
+            </Card>
+            </Content>
+        </Container>
       
     );
   }

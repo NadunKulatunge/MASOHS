@@ -62,7 +62,7 @@ render() {
       <Text>Loading information. If this is taking too long please check your internet connection</Text>
       </Content>
       }
-      {this.userRole == 'admin' || this.userRole == 'superadmin' ?
+      {this.userRole == 'superadmin' ?
         <Button style={{ margin: 10 }}
                               full
                               rounded
