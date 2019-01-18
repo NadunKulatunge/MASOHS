@@ -24,7 +24,7 @@ import firebase from 'firebase';
 
 class ProWalker extends Component{
     static navigationOptions = ({navigation}) => ({
-        title: 'Walking Pro',
+        title: 'ProWalker',
         headerRight: (
             <RightHeaderButtons navigation={navigation}/>
         ),
@@ -116,7 +116,7 @@ class ProWalker extends Component{
                     this.pdata.push({name:user[0].username, score:user[0].pastStepCount});
               }
           }
-          console.log(this.pdata);
+          //console.log(this.pdata);
         const props = {
             labelBy: 'name',
             sortBy: 'score',

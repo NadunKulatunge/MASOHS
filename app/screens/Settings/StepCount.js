@@ -6,7 +6,17 @@ import {Button} from 'native-base';
 import { withNavigation } from 'react-navigation';
 import * as firebase from 'firebase';
 import Fire from '../Chat/Fire';
+import RightHeaderButtons from '../../components/RightHeaderButtons.js';
+
+
 export default class PedometerSensor extends React.Component {
+    static navigationOptions = ({navigation}) => ({
+      title: 'Step Count',
+      headerRight: (
+          <RightHeaderButtons navigation={navigation}/>
+      ),
+     });
+
     constructor(props) {
         super(props);
         //table that keeps the step count records and need the new record to be uploaded to

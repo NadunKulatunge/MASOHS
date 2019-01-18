@@ -58,7 +58,7 @@ class Competitions extends Component {
                 source={require('../../assets/kisspng-award-competition-quiz.png')}
                 />    
                 
-                <AwesomeButtonCartman style={{ marginTop:280 }} type="primary" size="large" onPress = { () => this.props.navigation.navigate('ProWalker')}>Walking Pro</AwesomeButtonCartman>
+                <AwesomeButtonCartman style={{ marginTop:280 }} type="primary" size="large" onPress = { () => this.props.navigation.navigate('ProWalker')}>ProWalker</AwesomeButtonCartman>
                 <AwesomeButtonCartman style={{ marginTop:40 }} type="secondary" size="large" onPress={ ()=> Linking.openURL("http://www.masholdings.com/") } >Upcoming Competitions</AwesomeButtonCartman>
                 
 
