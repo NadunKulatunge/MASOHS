@@ -2,11 +2,24 @@ import React, { Component } from "react";
 import {StyleSheet, Dimensions}  from "react-native";
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 import RightHeaderButtons from '../../components/RightHeaderButtons.js';
-import { Text, View } from 'native-base';
+import { Text, View, Card, CardItem, Container } from 'native-base';
+import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
 import Leaderboard from 'react-native-leaderboard';
 //...
 import { Font, AppLoading } from "expo";
 import firebase from 'firebase';
+/*function snapshotToArray(snapshot) {
+    var returnArr = [];
+
+    snapshot.forEach(function(childSnapshot) {
+        var item = childSnapshot.val();
+        item.key = childSnapshot.key;
+
+        returnArr.push(item);
+    });
+
+    return returnArr;
+};*/
 
 
 class ProWalker extends Component{
@@ -31,7 +44,7 @@ class ProWalker extends Component{
           Roboto: require("native-base/Fonts/Roboto.ttf"),
           Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
         });
-
+        //this.setState({ loading: false });
         firebase.database().ref('stepCount/').orderByChild('pastStepCount').once('value', (snapshot) => {
             this.resultsToday=[];
             
@@ -118,7 +131,7 @@ class ProWalker extends Component{
             return (
                 <View>
                 {/* Ghetto Header */}
-                <View style={{ paddingTop: 50, backgroundColor: '#50FA80', alignItems: 'center' }}>
+                <View style={{ paddingTop: 50, backgroundColor: '#E0C824', alignItems: 'center' }}>
                     <Text style={{ fontSize: 50, color: 'white', paddingBottom: 50 }}>
                         Leaderboard
                         {/* {console.log(this.resultsToday)} */}
@@ -139,19 +152,31 @@ class ProWalker extends Component{
             return (
                 <View>
                 {/* Ghetto Header */}
-                <View style={{ paddingTop: 50, backgroundColor: '#50FA80', alignItems: 'center' }}>
+                
+                <View style={{ paddingTop: 50, backgroundColor: '#E0C824', alignItems: 'center' }}>
                     <Text style={{ fontSize: 50, color: 'white', paddingBottom: 50 }}>
                         Leaderboard
                         
                     </Text>
                 </View>
                 <Leaderboard {...props} />
-           
+                <View style={styles.loginButtonSection}>
+                <AwesomeButtonCartman  type="primary" size="medium" onPress = { () => this.props.navigation.navigate('StepCount')}>My Step Count</AwesomeButtonCartman>
+                </View>
+                
                 
                 </View>
             );
         }
     }
 }
+const styles = StyleSheet.create({
 
+    loginButtonSection: {
+        width: '100%',
+        height: '30%',
+        alignItems: 'center'
+     }
+
+});
 export default ProWalker;
