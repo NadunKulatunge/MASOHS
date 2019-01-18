@@ -98,8 +98,6 @@ export default class Accident extends Component{
 
     _takePhoto = async () => {
         this.askPermissions();
-        //console.log(status1);
-        //console.log(status2);
             let pickerResult = await ImagePicker.launchCameraAsync({ //Expo launch camera
                 allowsEditing: true,
                 quality : appConst.IMAGE_UPLOAD_QUALITY,
@@ -126,8 +124,6 @@ export default class Accident extends Component{
     
           if (!pickerResult.cancelled) {
             uploadUrl = await uploadImageAsync(pickerResult.uri);
-            //this.setState({ imageURL: uploadUrl });    
-            //console.log(uploadURL)
           }
         } catch (e) {
           console.log(e);
@@ -229,8 +225,6 @@ export default class Accident extends Component{
                         <Picker.Item label="Select a Reciever" value="null" />
                         {pickerOptions}
                     </Picker>
-
-
                     </Item>
                   </CardItem>
 

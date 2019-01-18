@@ -44,7 +44,6 @@ class LoginScreen extends Component {
             if(user && user.emailVerified){ this.props.navigation.navigate('Home') };
 
         })
-        //this.signUpUser = this.signUpUser.bind(this);
         
     }
 
@@ -53,7 +52,7 @@ class LoginScreen extends Component {
         //Login Firebase
         this.setState({signinLoading: true});
         firebase.auth().signInWithEmailAndPassword(email, password).then(function(user) {
-            //console.log(user)
+
             if(user && user.emailVerified){ 
                 this.props.navigation.navigate('Home');
             }else if(!firebase.auth().currentUser.emailVerified){ 

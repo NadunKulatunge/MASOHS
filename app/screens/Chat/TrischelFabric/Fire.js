@@ -89,31 +89,6 @@ class Fire {
     this.state.documentURL = null;
   }
 
-  /*get uploadProgress(){
-    return(
-      <List>
-        <ListItem thumbnail>
-          <Left>
-            <Thumbnail square source={{ uri: this.imageURL }} />
-          </Left>
-          <Body>
-            <Text>{this.state.progressValue}</Text>
-            <Text note numberOfLines={1}>Its time to build a difference . .</Text>
-          </Body>
-          <Right>
-            <Button transparent>
-              <Text>View</Text>
-            </Button>
-          </Right>
-        </ListItem>
-      </List>
-    )
-  }*/
-
-  /*setUploadProgress(progress){
-    this.state.progressValue = progress;
-    console.log(progress)
-  }*/
   // send the message to the Backend
   send = messages => {
     for (let i = 0; i < messages.length; i++) {

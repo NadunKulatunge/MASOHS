@@ -180,7 +180,9 @@ class SignUp extends Component {
                             style={{ width: responsiveWidth(65) }}
                             selectedValue={this.state.departmentSelected}
                             onValueChange={this.onDepartmentValueChange.bind(this)}
+                            textStyle={{color: '#050505'}}
                             >
+                            <Picker.Item label="Select a Department" value="" />
                             <Picker.Item label="Noyon Lanka (Pvt) Ltd" value="Noyon Lanka (Pvt) Ltd" />
                             <Picker.Item label="MAS Fabrics - MATRIX" value="MAS Fabrics - MATRIX" />
                             <Picker.Item label="Trischel Fabric (Pvt) Ltd" value="Trischel Fabric (Pvt) Ltd" />

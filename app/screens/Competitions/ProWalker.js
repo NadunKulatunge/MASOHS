@@ -7,18 +7,6 @@ import Leaderboard from 'react-native-leaderboard';
 //...
 import { Font, AppLoading } from "expo";
 import firebase from 'firebase';
-/*function snapshotToArray(snapshot) {
-    var returnArr = [];
-
-    snapshot.forEach(function(childSnapshot) {
-        var item = childSnapshot.val();
-        item.key = childSnapshot.key;
-
-        returnArr.push(item);
-    });
-
-    return returnArr;
-};*/
 
 
 class ProWalker extends Component{
@@ -43,7 +31,7 @@ class ProWalker extends Component{
           Roboto: require("native-base/Fonts/Roboto.ttf"),
           Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
         });
-        //this.setState({ loading: false });
+
         firebase.database().ref('stepCount/').orderByChild('pastStepCount').once('value', (snapshot) => {
             this.resultsToday=[];
             

@@ -39,10 +39,10 @@ export default class ChatMenu extends Component {
              
               this.setState({fire_loaded:true});
               this.forceUpdate();
-              //console.log(snapshot);
+              //console.log(snapshot); Returns returned data of users
             });
         this.setState({ loading: false });
-        console.log(this.department);
+        //console.log(this.department); returns users department
         if(this.userRole != "superadmin"){ 
             this.props.navigation.navigate('Login');
         }

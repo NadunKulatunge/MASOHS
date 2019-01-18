@@ -53,10 +53,10 @@ class HomeScreen extends Component {
             }
               this.setState({fire_loaded:true});
               this.forceUpdate();
-              //console.log(snapshot);
+          
             });
         this.setState({ loading: false });
-        console.log(this.department);
+
         if(this.userRole == "superadmin"){
             this.chatNavigate = "ChatMenu";
         }else if(this.department == "Noyon Lanka (Pvt) Ltd"){
@@ -79,19 +79,13 @@ class HomeScreen extends Component {
             if(!user || !user.emailVerified){ 
                 this.props.navigation.navigate('Login') 
             } else {
-                /*Create user with unique key of 'uid'
-                var usersRef = firebase.database().ref("users");
-                usersRef.child(user.uid).set({ 
-                    displayName: user.displayName,
-                    email: user.email,
-                });*/
                 this.registerForPushNotificationsAsync(user);
-                //console.log(user);
+                //console.log(user); Returns the user info in Authentication Database
             }
+            //Example Notification messages
             //FirebasePushNotifications.funcSendPushNotification("ExponentPushToken[P2ENaNMqe10xjTSFTmgBtE]", 'Test', 'Test2')
             //FirebasePushNotifications.funcSendPushNotificationToAllUsersExceptCurrentUser(user, "Hey Everyone!!", "If you recieve this msg send me a Thumbs Up. Thank you. ~ Nadun")
-            //FirebasePushNotifications.funcSendPushNotificationToUserID(user,'E0pjWjaFSYScOFMcIUoDVyvu6fb2','A person has died','A person has been killed inside our department');
-              
+            
 
         })
     }
@@ -121,12 +115,10 @@ class HomeScreen extends Component {
           
           // Get the token that uniquely identifies this device
           let token = await Notifications.getExpoPushTokenAsync();
-          console.log(token)
+          //console.log(token) Returns the push notification token
 
           var updates = {}
           updates['/expoToken'] = token
-          
-              console.log(updates)
           
           firebase.database().ref('users').child(user.uid).update(updates)
           

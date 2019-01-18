@@ -6,7 +6,7 @@ import RightHeaderButtons from '../../components/RightHeaderButtons.js';
 import {Ionicons} from '@expo/vector-icons';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, H3 } from 'native-base';
 
 class UserApprovals extends Component {
     static navigationOptions = ({navigation}) => ({
@@ -149,27 +149,20 @@ class UserApprovals extends Component {
         <Content>
         <Card style={{flex: 0}}>
             <CardItem header bordered>
+
             <Left>
-                <Ionicons name='ios-search' size={responsiveFontSize(5)}/>
-                <Body>
-                <Text>Whoops!</Text>
-                </Body>
+              <Body style={{ flex: 1,  justifyContent: 'center', alignItems: 'center' }}>
+                <H3 note style={{ fontWeight: "bold" }}>Whoops!</H3>
+              </Body>
             </Left>
             </CardItem>
             <CardItem>
             <Body >
-                <Image source={{uri: 'https://cdn.pixabay.com/photo/2016/05/30/14/23/detective-1424831_1280.png'}} style={{width: '100%', height: 300, flex: 1}}/>
-                <Text style={{marginTop: 20,}}>
-                  There aren't any accounts to be approved
+                <Image source={require('../../assets/searchdetective.jpg')} style={{width: '100%', height: 300, flex: 1}}/>
+                <Text style={{marginTop: 30, marginBottom: 30}}>
+                  There aren't any accounts to be approved!
                 </Text>
             </Body>
-            </CardItem>
-            <CardItem footer bordered>
-            <Left>
-                <Button transparent textStyle={{color: '#87838B'}}>
-                <Ionicons color='#87838B' name='ios-image-outline' size={responsiveFontSize(3)}/>
-                </Button>
-            </Left>
             </CardItem>
         </Card>
         </Content>

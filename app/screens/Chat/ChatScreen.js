@@ -232,8 +232,6 @@ class ChatScreen extends Component {
 
     _takePhoto = async () => {
         this.askPermissions();
-        //console.log(status1);
-        //console.log(status2);
             let pickerResult = await ImagePicker.launchCameraAsync({ //Expo launch camera
                 allowsEditing: true,
                 quality : appConst.CHAT_IMAGE_QUALITY,
@@ -292,7 +290,6 @@ class ChatScreen extends Component {
             uploadUrl = await uploadImageAsync(pickerResult.uri);
           }
         } catch (e) {
-          console.log(e);
           if(!pickerResult.cancelled) {
             alert('Upload failed.');
           }
@@ -310,7 +307,6 @@ class ChatScreen extends Component {
             uploadUrl = await uploadDocumentAsync(pickerResult.uri);
           }
         } catch (e) {
-          console.log(e);
           if(!pickerResult.cancelled) {
             alert('Upload failed.');
           }

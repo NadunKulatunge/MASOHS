@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Content, View,  Text, Left, Body, Right, Button, Card,CardItem } from 'native-base';
+import { Container, Content, View,  Text, Left, Body, Right, Button, Card,CardItem, H3 } from 'native-base';
 import { Font, AppLoading } from "expo";
 import {Dimensions} from 'react-native';
 import Fire from '../Chat/Fire';
@@ -7,6 +7,7 @@ import firebase from 'firebase';
 import { withNavigation } from 'react-navigation';
 import {LineChart} from 'react-native-chart-kit';
 import RightHeaderButtons from '../../components/RightHeaderButtons.js';
+import * as appConst from '../../constants/Constants.js';
 
 class HealthScreen extends Component{
 
@@ -79,41 +80,15 @@ class HealthScreen extends Component{
           <Container>
           {this.state.fire1_loaded&&this.state.fire2_loaded?
           <Content>
+
+
           <Card>
-            <CardItem>
+
+          <CardItem>
             <View>
-              <Text>
-                Blood Pressure (mg/h)
-              </Text>
-              <LineChart
-                data={{
-                  labels: this.pressure_dates,
-                  datasets: [{data: this.pressure_low},{data:this.pressure_high}]
-                }}
-                  width={Dimensions.get('window').width} // from react-native
-                  height={220}
-                  chartConfig={{
-                    backgroundColor: '#aed581',
-                    backgroundGradientFrom: '#e1ffb8',
-                    backgroundGradientTo: '#e1ffb8',
-                    decimalPlaces: 2, // optional, defaults to 2dp
-                    color: (opacity = 1) => `rgba(0,0,0, ${opacity})`,
-                    style: {
-                      borderRadius: 16
-                    }
-                }}
-                bezier
-                 style={{
-                  marginVertical: 8,
-                  borderRadius: 16
-                }}
-              />
-            </View>
-            </CardItem>
-            </Card>
-            <Card>
-            <CardItem>
-            <View>
+              <Body style={{ flex: 1,  justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
+                  <H3 note style={{ fontWeight: "bold" }}>Weight Diagram</H3>
+              </Body>
               <Text>
                 Weight (kg)
               </Text>
@@ -143,9 +118,52 @@ class HealthScreen extends Component{
             </View>
             </CardItem>
             </Card>
-              <Button block info onPress={()=>this.props.navigation.navigate('AddHealth')}>
-                  <Text>Add New Data</Text>
-              </Button>
+            
+            <Card>
+            <CardItem>
+            <View>
+              <Body style={{ flex: 1,  justifyContent: 'center', alignItems: 'center', marginBottom: 20, }}>
+                  <H3 note style={{ fontWeight: "bold" }}>Blood Pressure Diagram</H3>
+              </Body>
+              <Text>
+                Blood Pressure (mmHg)
+              </Text>
+              <LineChart
+                data={{
+                  labels: this.pressure_dates,
+                  datasets: [{data: this.pressure_low},{data:this.pressure_high}]
+                }}
+                  width={Dimensions.get('window').width} // from react-native
+                  height={220}
+                  chartConfig={{
+                    backgroundColor: '#aed581',
+                    backgroundGradientFrom: '#e1ffb8',
+                    backgroundGradientTo: '#e1ffb8',
+                    decimalPlaces: 2, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(0,0,0, ${opacity})`,
+                    style: {
+                      borderRadius: 16
+                    }
+                }}
+                bezier
+                 style={{
+                  marginVertical: 8,
+                  borderRadius: 16
+                }}
+              />
+            </View>
+            </CardItem>
+            </Card>
+
+          <Card>
+            <CardItem>
+                <Body>
+                    <Button full rounded style = {{ backgroundColor: appConst.THEME_COLOUR }}  onPress={()=>this.props.navigation.navigate('AddHealth')}>
+                    <Text>Add New Data</Text>
+                    </Button>
+                </Body>
+            </CardItem>
+          </Card>
           </Content>
           :
           <Content>

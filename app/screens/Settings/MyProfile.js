@@ -21,6 +21,29 @@ class MyProfile extends Component {
     ),
   });
 
+  constructor(props) {
+    super(props);
+    this.state = {         
+        loading:true,
+        fire_loaded:false,
+    };
+}
+
+  userRole = "";
+  department = "";
+
+  async componentWillMount() {
+    await firebase.database().ref('users/'+firebase.auth().currentUser.uid).once('value', (snapshot) => {
+        this.userRole = snapshot.val().role;
+        this.department = snapshot.val().department;
+         
+          this.setState({fire_loaded:true});
+          this.forceUpdate();
+          //console.log(snapshot);
+        });
+    this.setState({ loading: false });
+    console.log(this.department);
+  }
 
   render() {
     return (
@@ -41,6 +64,28 @@ class MyProfile extends Component {
                             <Label>Name</Label>
                             <Input 
                                 value={firebase.auth().currentUser.displayName}
+                                disabled
+                            />
+                        </Item>
+                    </Body>
+                </CardItem>
+                <CardItem>
+                    <Body>
+                        <Item >
+                            <Label>Department</Label>
+                            <Input 
+                                value={this.department}
+                                disabled
+                            />
+                        </Item>
+                    </Body>
+                </CardItem>
+                <CardItem>
+                    <Body>
+                        <Item >
+                            <Label>Role</Label>
+                            <Input 
+                                value={this.userRole}
                                 disabled
                             />
                         </Item>

@@ -46,7 +46,6 @@ class ChatScreen extends Component {
         uploading: false, //
         imageUploaded: false,
         documentUploaded: false,
-        //imageUrl: "https://static.thenounproject.com/png/212328-200.png",
     };
 
     async componentDidMount() {
@@ -117,19 +116,6 @@ class ChatScreen extends Component {
         );
     }
 
-    /*renderFooter(props) {
-        if (this.state.typingText) {
-          return (
-            <View style={styles.footerContainer}>
-              <Text style={styles.footerText}>
-                {this.state.typingText}
-              </Text>
-            </View>
-          );
-        }
-        return null;
-      }*/
-
     renderBubble = (props) => {
         const text = props.currentMessage.text;
         let url = "";
@@ -191,7 +177,6 @@ class ChatScreen extends Component {
                 onSend={Fire.shared.send}
                 user={this.user}
                 renderActions={this.renderCustomActions}
-                //renderCustomView={this.renderCustomView}
                 onLoadEarlier={this.loadMore}
                 loadEarlier={this.state.loadEarlier}
                 isLoadingEarlier={this.state.isLoadingEarlier}
@@ -232,8 +217,6 @@ class ChatScreen extends Component {
 
     _takePhoto = async () => {
         this.askPermissions();
-        //console.log(status1);
-        //console.log(status2);
             let pickerResult = await ImagePicker.launchCameraAsync({ //Expo launch camera
                 allowsEditing: true,
                 quality : appConst.CHAT_IMAGE_QUALITY,

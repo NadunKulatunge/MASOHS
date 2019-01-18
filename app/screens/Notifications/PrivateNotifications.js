@@ -26,7 +26,6 @@ class PrivateNotifications extends Component {
          this.privateNotifications.push(item);
         
       }) 
-      //console.log(this.publicNotifications)
       this.setState({fire_loaded:true});
 
     });

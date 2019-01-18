@@ -6,7 +6,16 @@ import {Button} from 'native-base';
 import { withNavigation } from 'react-navigation';
 import * as firebase from 'firebase';
 import Fire from '../Chat/Fire';
-export default class PedometerSensor extends React.Component {
+import RightHeaderButtons from '../../components/RightHeaderButtons.js';
+
+export default class StepCount extends React.Component {
+
+  static navigationOptions = ({navigation}) => ({
+    title: 'StepCount',
+    headerRight: (
+        <RightHeaderButtons navigation={navigation}/>
+    ),
+  });
     constructor(props) {
         super(props);
         //table that keeps the step count records and need the new record to be uploaded to
@@ -106,23 +115,15 @@ export default class PedometerSensor extends React.Component {
           Steps taken in the last 24 hours: {this.state.pastStepCount}
         </Text>
         <Text>Walk! And watch this go up: {this.state.currentStepCount}</Text>
-        {this.state.currentStepCount==0 ?
-          <Button full rounded style={{ marginTop:40 }}
+
+          <Button full rounded style={{ margin:10 }}
                               full
                               rounded
-                              success
+                              primary
                               onPress = { () => this.uploadStepsToFirebase()}>
                               <Text style={{ color:'white' }}>Submit to ProWalker</Text>
                           </Button>
-                          :
-                          <Button style={{ marginTop:10 }}
-                            full
-                            rounded
-                            primary
-                            onPress = { () => this.props.navigation.navigate('Settings')}>
-                            <Text style={{ color:'white' }}>Reload</Text>
-                        </Button>
-        }
+                         
                         
       </View>
     );
@@ -138,4 +139,4 @@ const styles = StyleSheet.create({
   }
 });
 
-Expo.registerRootComponent(PedometerSensor);
+Expo.registerRootComponent(StepCount);

@@ -44,16 +44,6 @@ class Tips extends Component {
     if (this.state.loading) {
       return (
         <AppLoading />
-      //  <Container>
-      //    <Card>
-      //      <CardItem>
-      //        <Body>
-      //        <Image source={{uri: 'https://image.freepik.com/free-vector/happy-kids-back-to-school_53876-40283.jpg'}} style={{width: '100%', height: 200, flex: 1}}/>
-      //        </Body>
-      //      </CardItem>
-      //    </Card>
-         
-      //  </Container>
       );
     }
 

@@ -50,7 +50,7 @@ class UserList extends Component {
             snapshot.forEach((item)=>{
                 this.fire_items.push(item.val());
               }) 
-              //console.log(this.fire_items)
+              //console.log(this.fire_items)  Returns the users from database
               this.setState({
                 data: this.fire_items,
               });
@@ -68,7 +68,7 @@ class UserList extends Component {
             this.fire_items.push(item.val());
           }
       }) 
-        //console.log(this.fire_items)
+        //console.log(this.fire_items) Returns the users from database from the specified department
         this.setState({
           data: this.fire_items,
         });

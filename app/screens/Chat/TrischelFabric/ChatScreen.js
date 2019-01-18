@@ -232,8 +232,6 @@ class ChatScreen extends Component {
 
     _takePhoto = async () => {
         this.askPermissions();
-        //console.log(status1);
-        //console.log(status2);
             let pickerResult = await ImagePicker.launchCameraAsync({ //Expo launch camera
                 allowsEditing: true,
                 quality : appConst.CHAT_IMAGE_QUALITY,
@@ -321,7 +319,7 @@ class ChatScreen extends Component {
     
     
 }
-//ChatScreen.shared = new ChatScreen();
+
 export default ChatScreen;
 
 //Handle Firebase image upload

@@ -3,7 +3,7 @@ import {Container,Header,Tabs,Tab} from 'native-base';
 import Tab1 from './Complaints';
 import Tab2 from './Accidents';
 import RightHeaderButtons from '../../components/RightHeaderButtons.js';
-
+import OfflineNotice from '../../components/OfflineNotice'
 
 export default class IncidentReporting extends Component{
   static navigationOptions = ({navigation}) => ({

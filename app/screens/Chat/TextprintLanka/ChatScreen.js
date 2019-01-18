@@ -46,7 +46,6 @@ class ChatScreen extends Component {
         uploading: false, //
         imageUploaded: false,
         documentUploaded: false,
-        //imageUrl: "https://static.thenounproject.com/png/212328-200.png",
     };
 
     async componentDidMount() {
@@ -116,19 +115,6 @@ class ChatScreen extends Component {
             </View>
         );
     }
-
-    /*renderFooter(props) {
-        if (this.state.typingText) {
-          return (
-            <View style={styles.footerContainer}>
-              <Text style={styles.footerText}>
-                {this.state.typingText}
-              </Text>
-            </View>
-          );
-        }
-        return null;
-      }*/
 
     renderBubble = (props) => {
         const text = props.currentMessage.text;
@@ -232,8 +218,6 @@ class ChatScreen extends Component {
 
     _takePhoto = async () => {
         this.askPermissions();
-        //console.log(status1);
-        //console.log(status2);
             let pickerResult = await ImagePicker.launchCameraAsync({ //Expo launch camera
                 allowsEditing: true,
                 quality : appConst.CHAT_IMAGE_QUALITY,
@@ -292,7 +276,7 @@ class ChatScreen extends Component {
             uploadUrl = await uploadImageAsync(pickerResult.uri);
           }
         } catch (e) {
-          console.log(e);
+
           if(!pickerResult.cancelled) {
             alert('Upload failed.');
           }
@@ -310,7 +294,7 @@ class ChatScreen extends Component {
             uploadUrl = await uploadDocumentAsync(pickerResult.uri);
           }
         } catch (e) {
-          console.log(e);
+
           if(!pickerResult.cancelled) {
             alert('Upload failed.');
           }
@@ -321,7 +305,7 @@ class ChatScreen extends Component {
     
     
 }
-//ChatScreen.shared = new ChatScreen();
+
 export default ChatScreen;
 
 //Handle Firebase image upload

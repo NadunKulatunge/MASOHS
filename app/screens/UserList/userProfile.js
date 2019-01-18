@@ -71,7 +71,7 @@ class MyProfile extends Component {
             if(this.item.role != this.state.roleSelected) {
                 firebase.database().ref('users').orderByChild('email').equalTo(this.item.email).once('value', function (snapshot) {
                     snapshot.forEach(function(child) {
-                       console.log(child.key)
+                       //console.log(child.key) returns the firebase data node key
                         child.ref.update({role: this.state.roleSelected});
                         FirebasePushNotifications.funcSendPushNotificationToUserID(firebase.auth().currentUser , child.key , 'Administration' , 'Your Account has been updated. Please Re-Login to use the new features', navigateTo="Settings");
                     }.bind(this));

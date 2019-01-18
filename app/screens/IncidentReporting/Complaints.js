@@ -286,7 +286,7 @@ async function uploadImageAsync(uri) {
 
     const snapshot = await ref.put(blob);
     snapshot.ref.getDownloadURL().then(function(downloadURL) {
-        console.log(downloadURL);
+        //console.log(downloadURL); Uploaded Image URL
         Fire.shared.setImageURL(downloadURL);
     });
 

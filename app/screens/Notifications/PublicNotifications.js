@@ -27,23 +27,23 @@ class PublicNotifications extends Component {
     await firebase.database().ref('users/'+firebase.auth().currentUser.uid).once('value', (snapshot) => {
         this.userRole = snapshot.val().role;
         this.department = snapshot.val().department;
-        //console.log(snapshot);
+        //console.log(snapshot); Returns user data
     });
 
+    //Get All the public notifications from the Database
     firebase.database().ref('publicNotifications/').orderByKey().limitToLast(20).once('value', (snapshot) => {
       snapshot.forEach((item)=>{
-        console.log(item)
-        if(this.userRole == "superadmin"){
+        //console.log(item) //Returns all PublicNotifications 
+        if(this.userRole == "superadmin"){ //Public Notifcations for the super admins
           this.publicNotifications.push(item);
-        }else if(this.userRole == "admin" && this.department == item.val().department){
+        }else if(this.userRole == "admin" && this.department == item.val().department){ //Public notifications for the Admin in respective department
           this.publicNotifications.push(item);
-        }else if(this.userRole == "user" && this.department == item.val().department && item.val().adminOnly!='True'){
+        }else if(this.userRole == "user" && this.department == item.val().department && item.val().adminOnly!='True'){ //Public notifications for normal users
           this.publicNotifications.push(item);
         }
          
         
-      }) 
-      //console.log(this.publicNotifications)
+      })
       this.setState({fire_loaded:true});
 
     });

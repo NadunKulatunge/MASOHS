@@ -6,7 +6,7 @@ import Fire from '../Chat/Fire';
 import firebase from 'firebase';
 import {FormStyle} from '../../styles/styles.js';
 import RightHeaderButtons from '../../components/RightHeaderButtons.js';
-
+import * as appConst from '../../constants/Constants.js';
 
 export default class Complain extends Component{
 
@@ -152,26 +152,24 @@ export default class Complain extends Component{
               :
               <Card style={FormStyle.postCard} >
               <KeyboardAvoidingView behavior="padding">
-                  <CardItem>
-                     <Item stackedLabel>
+                    <CardItem>
                         <Label>Enter Weight (kg)</Label>
+                    </CardItem>
+                    <CardItem>
+                     <Item>
                         <Input onChangeText={(weight) => this.setState({weight})} />
                       </Item>
                   </CardItem>
-                  <CardItem bordered>
-                      <Left>
-                      </Left>
-                      <Body>
-                          <Button full rounded success onPress={() => this.addWeight( this.state.weight)}>
-                          <Text>Submit</Text>
-                          </Button>
-                      </Body>
-                      <Right>
-                      </Right>
-                  </CardItem>
+                <CardItem>
+                    <Body>
+                        <Button full rounded style = {{ backgroundColor: appConst.THEME_COLOUR }} onPress={() => this.addWeight( this.state.weight)}>
+                        <Text>Upload Weight</Text>
+                        </Button>
+                    </Body>
+                </CardItem>
 
-                  <CardItem>
-                        <Label>Enter Blood pressure (mm/Hg) </Label>
+                  <CardItem style={{marginTop: 30}}>
+                        <Label>Enter Blood Pressure (mmHg) </Label>
                   </CardItem>
                   <CardItem>
                      <Item inlineLabel>
@@ -186,16 +184,12 @@ export default class Complain extends Component{
                       </Item>
                   </CardItem>
                   <CardItem>
-                      <Left>
-                      </Left>
-                      <Body>
-                          <Button full rounded success onPress={() => this.addPressure( this.state.bPresLow,this.state.bPresHigh)}>
-                          <Text>Submit</Text>
-                          </Button>
-                      </Body>
-                      <Right>
-                      </Right>
-                  </CardItem>
+                    <Body>
+                        <Button full rounded style = {{ backgroundColor: appConst.THEME_COLOUR }} onPress={() => this.addPressure( this.state.bPresLow,this.state.bPresHigh)}>
+                        <Text>Upload Blood Pressure</Text>
+                        </Button>
+                    </Body>
+                </CardItem>
               </KeyboardAvoidingView>
               </Card>
               }
