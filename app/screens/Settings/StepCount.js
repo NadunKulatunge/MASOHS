@@ -6,16 +6,7 @@ import {Button} from 'native-base';
 import { withNavigation } from 'react-navigation';
 import * as firebase from 'firebase';
 import Fire from '../Chat/Fire';
-import RightHeaderButtons from '../../components/RightHeaderButtons.js';
-
-export default class StepCount extends React.Component {
-
-  static navigationOptions = ({navigation}) => ({
-    title: 'StepCount',
-    headerRight: (
-        <RightHeaderButtons navigation={navigation}/>
-    ),
-  });
+export default class PedometerSensor extends React.Component {
     constructor(props) {
         super(props);
         //table that keeps the step count records and need the new record to be uploaded to
@@ -71,23 +62,9 @@ export default class StepCount extends React.Component {
       }
     );
 
-    function formatDate(date) {
-      var hours = date.getHours();
-      var minutes = date.getMinutes();
-      var ampm = hours >= 12 ? 'pm' : 'am';
-      hours = hours % 12;
-      hours = hours ? hours : 12; // the hour '0' should be '12'
-      minutes = minutes < 10 ? '0'+minutes : minutes;
-      var strTime = hours + ':' + minutes + ' ' + ampm;
-      return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
-    }
-
     const end = new Date();
     const start = new Date();
-    //start.setDate(end.getDate() - 1);
-    start.setHours(0,0,0,0);
-    //console.log(formatDate(end)); //Returns now time 1/18/2019  1:23 pm
-    //console.log(formatDate(start)); //Returns Todays Midnight 1/18/2019  12:00 am
+    start.setDate(end.getDate() - 1);
     this.setState({endDate: String(end)});
     Pedometer.getStepCountAsync(start, end).then(
       result => {
@@ -108,6 +85,7 @@ export default class StepCount extends React.Component {
   uploadStepsToFirebase() {
     username=Fire.shared.displayName;
     userid=Fire.shared.uid;
+    console.log(userid);
     this.setState({uploadingToFirebase:true});
     this.fetchedDataRef.push({date: this.state.endDate, userid, username, pastStepCount: this.state.pastStepCount, used:false});
     this.setState({uploadingToFirebase:false});
@@ -128,16 +106,23 @@ export default class StepCount extends React.Component {
           Steps taken in the last 24 hours: {this.state.pastStepCount}
         </Text>
         <Text>Walk! And watch this go up: {this.state.currentStepCount}</Text>
-
-          <Button full rounded style={{ margin:10 }}
-                              full
-                              rounded
-                              primary
-                              onPress = { () => this.uploadStepsToFirebase()}>
-                              <Text style={{ color:'white' }}>Submit to ProWalker</Text>
-                          </Button>
-                         
-                        
+        
+          <Button full rounded style={{ margin:10, marginTop:40 }}
+              full
+              rounded
+              success
+              onPress = { () => this.uploadStepsToFirebase()}>
+              <Text style={{ color:'white' }}>Submit to Leaderboard</Text>
+          </Button>
+          <Button style={{ margin:10 }}
+                full
+                rounded
+                info
+                onPress = { () => this.props.navigation.navigate('ProWalker')}>
+                <Text style={{ color:'white' }}>Check Daily Leaderboard</Text>
+            </Button>
+                      
+               
       </View>
     );
   }
@@ -152,4 +137,4 @@ const styles = StyleSheet.create({
   }
 });
 
-Expo.registerRootComponent(StepCount);
+Expo.registerRootComponent(PedometerSensor);
